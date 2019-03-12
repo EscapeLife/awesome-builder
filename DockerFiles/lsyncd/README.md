@@ -42,6 +42,6 @@ docker run -d --name=rsyncd_slave \
 | 2 | `--port` | master rsync domain service port, default is `873`. |
 | 3 | `--limit` | limit socket I/O bandwidth. |
 | 4 | `--exclude` | rsync exclude path. |
-| 5 | `--dest` | the prefix of destination path in master side, default is `/` |
+| 5 | `--dest` | the prefix of destination path in master side, default is `/`. |
 | 6 | `--password` | set the password for rsync, default is `Zorx0jbMzgXD`. |
 | 7 | `--delete` | if you delete files in slave, the deleted files in master is not delete, set `--delete` could delete this files on master, default is false. |
