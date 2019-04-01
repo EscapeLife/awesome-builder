@@ -2,6 +2,8 @@
 
 > This image allow sync files between servers.
 
+![lsyncd](../../images/linux-lsyncd-tools.png)
+
 ### 1. run as master (receive files from slave)
 
 ```bash
