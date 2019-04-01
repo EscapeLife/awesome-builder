@@ -1,4 +1,6 @@
 #!/bin/bash
+# ps x -o  "%p %r %y %x %c "
+# kill -TERM -- -5112
 
 pids_array[0]="$1"
 
@@ -23,9 +25,8 @@ pid_number="${#pids_array[@]}"
 echo "${pid_number}"
 for pid in $(seq 0 ${pid_number}); do
     if [ "${pids_array[$pid]}" ]; then
-            echo "[$pid] kill => ${pids_array[$pid]}"
-            kill ${pids_array[$pid]} &> /dev/null
-        fi
+        echo "[$pid] kill => ${pids_array[$pid]}"
+        kill ${pids_array[$pid]} &> /dev/null
     fi
 done
 
