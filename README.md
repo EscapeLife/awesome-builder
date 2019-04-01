@@ -16,6 +16,6 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | ----- |
-| 1 | `kill_all_process.sh` | 完整删除Linux系统的进程树 |
-| 2 | `wait_for_ready.sh` | Compose文件中解决服务启动依赖关系 |
-| 3 | `/etc/ufw/after.rules` | 解决UFW无法管理Docker发布出来的端口 |
+| 1 | `/etc/ufw/after.rules` | 解决UFW无法管理Docker发布出来的端口 |
+| 2 | `kill_all_process.sh` | 完整删除Linux系统的进程树 |
+| 3 | `wait_for_ready.sh` | Compose文件中解决服务启动依赖关系 |
