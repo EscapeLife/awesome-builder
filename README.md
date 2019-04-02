@@ -18,5 +18,5 @@
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | ----- |
 | 1 | [**`/etc/ufw/after.rules`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/after.rules) | 解决UFW无法管理Docker发布出来的端口问题 |
-| 2 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/kill_all_process.sh) | 完美的删除Linux系统进程树，防止孤儿进程的出现 |
+| 2 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/kill_all_process.sh) | 解决在Linux系统中运行程序删除进程树，防止孤儿进程的出现 |
 | 3 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/wait_for_ready.sh) | 解决运行Compose文件，服务启动依赖关系问题 |
