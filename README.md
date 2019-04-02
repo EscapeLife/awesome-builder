@@ -1,6 +1,6 @@
-# docker-builder
+# Awesome Docker Builder
 
-🐚 Escape's awesome docker builder and relate scripts.
+> 🐚 Escape's awesome docker builder and relate scripts.
 
 ![docker](./images/awesome-docker.jpg)
 
