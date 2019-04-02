@@ -8,9 +8,10 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | ----- |
-| 1 | [**`goaccess`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/goaccess) | 可视化Web日志分析工具 |
-| 2 | [**`lsyncd`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/lsyncd) | 海量文件实时同步解决方案 |
-| 3 | [**`openzaly`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/openzaly) | 搭建私有化聊天服务器 |
+| 1 | [**`celery`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/celery) | 编写Dockerfile借鉴模板 |
+| 2 | [**`goaccess`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/goaccess) | 可视化Web日志分析工具 |
+| 3 | [**`lsyncd`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/lsyncd) | 海量文件实时同步解决方案 |
+| 4 | [**`openzaly`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/openzaly) | 搭建私有化聊天服务器 |
 
 ## Scripts
 
