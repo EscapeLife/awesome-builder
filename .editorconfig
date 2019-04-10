@@ -17,6 +17,11 @@ trim_trailing_whitespace = false
 indent_style = space
 indent_size = 4
 
+# shell
+[*.sh]
+indent_style = space
+indent_size = 4
+
 # javascript
 [*.js]
 indent_style = space
