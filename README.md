@@ -5,7 +5,7 @@
 </p>
 
 <p align=center>
-  <b>awesome-builder🐚强大的docker构建器和相关脚本</b>
+  <b>awesome-builder 🐚 强大的docker构建器和相关脚本</b>
 </p>
 
 <p align="center">
