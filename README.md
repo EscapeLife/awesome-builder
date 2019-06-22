@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/EscapeLife/awesome-builder.git"><img src="https://img.shields.io/badge/Project-love_girlfriend-green.svg?style=for-the-badge&logo=ubuntu" alt="love_girlfriend"></a>
+  <a href="https://github.com/EscapeLife/awesome-builder.git"><img src="https://img.shields.io/badge/Project-awesome-builder-green.svg?style=for-the-badge&logo=ubuntu" alt="love_girlfriend"></a>
   <a href="https://github.com/EscapeLife/awesome-builder.git"><img src="https://img.shields.io/badge/Author-Escape-orange.svg?style=for-the-badge&logo=vim" alt="love_girlfriend"></a>
   <a href="https://github.com/EscapeLife/awesome-builder.git"><img src="https://img.shields.io/badge/Languages-Dockerfile-yellow.svg?style=for-the-badge&logo=docker" alt="love_girlfriend"></a>
   <a href="https://github.com/EscapeLife/awesome-builder.git"><img src="https://img.shields.io/badge/Contributions-Weclone-blue.svg?style=for-the-badge&logo=coffeescript" alt="love_girlfriend"></a>
