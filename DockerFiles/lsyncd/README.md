@@ -10,7 +10,7 @@
 docker run -d --name=rsyncd_master \
     -v /data:/data \
     -p 873:873 \
-    bohr.cheftin.com:5000/rsyncd [--password xxxxx]
+    rsyncd [--password xxxxx]
 ```
 
 ### 2. run as slave (send files to master)
@@ -26,7 +26,7 @@ Run
 ```bash
 docker run -d --name=rsyncd_slave \
     -v /data:/data \
-    bohr.cheftin.com:5000/rsyncd --slave \
+    rsyncd --slave \
     --ip master_ip \
     [--port 873] \
     [--limit 1000] \
@@ -47,3 +47,24 @@ docker run -d --name=rsyncd_slave \
 | 5 | `--dest` | the prefix of destination path in master side, default is `/`. |
 | 6 | `--password` | set the password for rsync, default is `Zorx0jbMzgXD`. |
 | 7 | `--delete` | if you delete files in slave, the deleted files in master is not delete, set `--delete` could delete this files on master, default is false. |
+
+### 4. usage example
+
+```bash
+# master
+docker run -d --name=rsyncd_master \
+    -v /data:/data \
+    -p 873:873 \
+    rsyncd:latest --password 123456
+
+# slave
+docker run -d --name=rsyncd_slave \
+    -v /data_app:/data \
+    rsyncd:latest --slave \
+    --ip 192.168.1.100 \
+    --port 873 \
+	--password 123456 \
+    --dest /app_one_data/ \
+	--exclude /docker \
+	--delete
+```
