@@ -42,6 +42,7 @@
 | 2 | [**`image2run.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/image2run.sh) | 将docker镜像导出的tar包转换成为压缩小/自解压/自导入的run包 |
 | 3 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/kill_all_process.sh) | 解决在Linux系统中程序意外退出删除进程树，防止孤儿进程的出现 |
 | 4 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/wait_for_ready.sh) | 解决运行Compose文件，服务启动依赖关系问题 |
+| 5 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/docker_patch.py) | 一个快速迭代的Docker补丁包部署的小程序 |
 
 
 ## Contact
