@@ -12,16 +12,14 @@ Requirements:
     pip3 install sh click gitpython
 """
 
+
 import os
 import sys
-import string
 import shutil
 import tarfile
 import time
-from random import choice
 from pprint import pprint
 from pathlib import Path
-from collections import deque
 
 import sh
 import click
@@ -47,6 +45,12 @@ class Check(BaseClass):
     """参数环境状态检查"""
     def __init__(self, code_path, code_branch, start_commit, end_commit, images_name):
         super().__init__(code_path, code_branch, start_commit, end_commit, images_name)
+
+    def _is_root(self):
+        """检查当前用户是否为root用户"""
+        if os.geteuid() != 0:
+            print(f'[P_ERROR] Please use root to execute the script.')
+            sys.exit(1)
 
     def _is_tool(self, commands):
         """检查必须命令是否存在"""
@@ -108,13 +112,14 @@ class Check(BaseClass):
     def run(self):
         """执行check内容"""
         try:
+            self._is_root()
             self._is_tool(['git', 'docker'])
             self._is_git_repo()
             self._repo_is_dirty()
             self._commit_is_right()
             self._image_is_right()
         except SystemExit:
-            print('[E_INFOS] === 打包需谨慎 使得万年船 ===')
+            click.echo(click.style('[E_INFOS] === 打包需谨慎 使得万年船 ===', fg='red'))
             sys.exit(1)
 
 
@@ -143,7 +148,7 @@ class Diff(BaseClass):
         try:
             self._diff_file()
         except SystemExit:
-            print('[E_INFOS] === 打包需谨慎 使得万年船 ===')
+            click.echo(click.style('[E_INFOS] === 打包需谨慎 使得万年船 ===', fg='red'))
             sys.exit(2)
 
 
@@ -227,6 +232,7 @@ class PATCH(BaseClass):
             sys.exit(3)
 
     def _get_tar_packages(self):
+        click.echo(click.style('>>> To being generated tar ...', fg='green'))
         local_time = time.strftime("%Y%m%d", time.localtime())
         archive_dir = os.path.join(DEFAULT_CODE_PATH, 'dist')
         archive_name = '_'.join([local_time, 'docker_patch.tar.gz'])
@@ -241,7 +247,7 @@ class PATCH(BaseClass):
             self._copy_file()
             self._get_tar_packages()
         except SystemExit:
-            print('[E_INFOS] === 打包需谨慎 使得万年船 ===')
+            click.echo(click.style('[E_INFOS] === 打包需谨慎 使得万年船 ===', fg='red'))
             sys.exit(3)
 
 
@@ -269,4 +275,3 @@ def main(code_path, code_branch, start_commit, end_commit, images_name):
 
 if __name__ == '__main__':
     main()
-
