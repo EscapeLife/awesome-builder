@@ -1,0 +1,79 @@
+[tool.poetry]
+name = "mypackage"
+version = "0.1.0"
+description = "My short description for my project."
+license = "MIT"
+authors = ["escapelife <escapelife@gmail.com>"]
+readme = 'README.md'
+homepage = "https://www.escapelife.org/"
+repository = "https://github.com/escapelife/mypackage"
+documentation = "https://github.com/escapelife/README.md"
+keywords = [
+    "my",
+    "package",
+    "mypackage"
+]
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+packages = [
+    { include = "mypackage" },
+    { include = "mypackage", from = "lib" },
+    { include = "extra_package/**/*.py" },
+]
+
+[tool.poetry.dependencies]
+python = "~2.7 || ^3.7"
+six = "*"
+scipy = "*"
+apache-airflow = { version = "1.10.4rc3", extras = [ "crypto", "postgres", "kubernetes", "google_auth" ] }
+setuptools = "^40.0"
+wheel = "^0.33.4"
+pytz = "=2018.4"
+pyOpenSSL = "^19.0"
+ndg-httpsclient = "^0.5.1"
+pyasn1 = "^0.4.5"
+funcy = "^1.12"
+arrow = "^0.14.3"
+singer-python = "=5.5.1"
+numpy = { version = "*", optional = true }
+pandas = { version = "*", optional = true }
+
+[tool.poetry.dev-dependencies]
+pylama = "^7.7"
+isort = "^4.3"
+black = "19.3b0"
+yapf = "0.23"
+coverage = "*"
+flake8 = "*"
+invoke = "*"
+mock = "*"
+
+[tool.poetry.extras]
+development = [
+    "biblib-simple",
+    "coverage",
+    "flake8",
+    "invoke",
+    "mock",
+    "nose",
+    "restructuredtext-lint",
+    "sphinx"
+]
+graphviz = [ "pygraphviz" ]
+optional = [ "networkx", "pandas" ]
+plotting = [ "backports.functools_lru_cache", "matplotlib" ]
+read-the-docs = [ "mock", "numpy", "sphinxcontrib-bibtex"]
+
+[tool.black]
+line-length = 88
+py36 = true
+exclude = '.vscode|.eggs|.venv|.git|.tox|.env'
+
+[tool.poetry.scripts]
+poetry = 'poetry:console.run'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
