@@ -44,6 +44,7 @@
 | 4 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/wait_for_ready.sh) | 解决运行Compose文件，服务启动依赖关系问题 |
 | 5 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/docker_patch.py) | 一个快速迭代的Docker补丁包部署的小程序 |
 | 6 | [**`setup.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/setup.py) | 一个Python程序打包的示例setup.py配置脚本文件 |
+| 7 | [**`pyproject.toml`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/pyproject.toml) | 一个Python程序打包的示例pyproject.toml配置脚本文件 |
 
 
 ## Contact
