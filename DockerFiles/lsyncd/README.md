@@ -50,6 +50,13 @@ docker run -d --name=rsyncd_slave \
 
 ### 4. usage example
 
+- **在master节点负责收集数据**
+  - 将/data目录共享出去，收集slave节点发送的数据，进行存储
+  - 设置密码为123456，主机地址为本机地址，端口号为默认的873端口
+- **在slave节点负责向master节点发送数据**
+  - 将本机的/data_app目录的内容发送到master节点的/data/app_one_data进行存储
+  - 参数中的--dest是以共享的/data_app目录为根目录，参数中的--delete表示主从节点文件一致
+
 ```bash
 # master
 docker run -d --name=rsyncd_master \
@@ -66,5 +73,37 @@ docker run -d --name=rsyncd_slave \
     --password 123456 \
     --dest /app_one_data/ \
     --exclude /docker \
+    --delete
+```
+
+- **在master节点负责收集数据**
+  - 将/data目录共享出去，收集slave节点发送的数据，进行存储
+  - 密码为默认密码，主机地址为本机地址，端口号为默认的873端口
+- **在slave节点负责向master节点发送数据**
+  - 将本机的/app目录的内容发送到master节点的/data目录下进行存储，但是排除/app/pg_database/data目录
+  - 将本机的/app/pg_database/data目录的内容发送到master节点的/data/pg_database/data目录下进行存储
+
+```bash
+# master
+docker run -d --name=rsyncd_master \
+    -v /data:/data \
+    -p 873:873 \
+    rsyncd:latest
+
+# slave files data
+docker run -d --name=rsyncd_slave \
+    -v /app:/data \
+    rsyncd:latest --slave \
+    --ip 10.10.10.100 \
+    --port 873 \
+    --exclude=/app/pg_database/data \
+
+# slave pg db
+docker run -d --name=rsyncd_slave \
+    -v /app/pg_database/data:/data \
+    rsyncd:latest --slave \
+    --ip 10.10.10.100 \
+    --port 873 \
+    --dest /pg_database/data
     --delete
 ```
