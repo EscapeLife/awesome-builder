@@ -63,8 +63,8 @@ docker run -d --name=rsyncd_slave \
     rsyncd:latest --slave \
     --ip 192.168.1.100 \
     --port 873 \
-	--password 123456 \
+    --password 123456 \
     --dest /app_one_data/ \
-	--exclude /docker \
-	--delete
+    --exclude /docker \
+    --delete
 ```
