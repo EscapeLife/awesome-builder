@@ -96,7 +96,7 @@ docker run -d --name=rsyncd_slave \
     rsyncd:latest --slave \
     --ip 10.10.10.100 \
     --port 873 \
-    --exclude=/app/pg_database/data \
+    --exclude=/pg_database/data \
 
 # slave pg db
 docker run -d --name=rsyncd_slave \
