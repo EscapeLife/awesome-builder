@@ -1,10 +1,12 @@
 ## Rsyncd Service Image
 
-> This image allow sync files between servers.
+> **This image allow sync files between servers.**
 
 ![lsyncd](../../images/linux-lsyncd-tools.png)
 
-### 1. run as master (receive files from slave)
+### 1. run as master
+
+> **Receive files from slave**
 
 ```bash
 docker run -d --name=rsyncd_master \
@@ -13,7 +15,9 @@ docker run -d --name=rsyncd_master \
     rsyncd [--password xxxxx]
 ```
 
-### 2. run as slave (send files to master)
+### 2. run as slave
+
+> **Send files to master**
 
 Adjust inotify args
 
@@ -38,6 +42,8 @@ docker run -d --name=rsyncd_slave \
 
 ### 3. parameter interpretation
 
+> **The available parameters**
+
 | number | parameter(=.=) | annotation |
 | :----- | :----- | :----- |
 | 1 | **`--ip`** | set master sync server ip or domain name.  |
@@ -46,9 +52,13 @@ docker run -d --name=rsyncd_slave \
 | 4 | **`--exclude`** | rsync exclude path. |
 | 5 | **`--dest`** | the prefix of destination path in master side, default is `/`. |
 | 6 | **`--password`** | set the password for rsync, default is `Zorx0jbMzgXD`. |
-| 7 | **`--delete`** | if you delete files in slave, the deleted files in master is not delete, set `--delete` could delete this files on master, default is false. |
+| 7 | **`--delay`** | rsync execute delay time, default is 15. |
+| 8 | **`--delete`** | if you delete files in slave, the deleted files in master is not delete, set `--delete` could delete this files on master, default is false. |
+| 9 | **`--debug`** | show debug message in container stdout |
 
 ### 4. usage example
+
+> **Example is given to illustrate**
 
 - **在master节点负责收集数据**
   - 将/data目录共享出去，收集slave节点发送的数据，然后进行本地存储
