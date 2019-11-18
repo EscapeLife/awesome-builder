@@ -16,6 +16,7 @@ docker run -d --name=rsyncd_master \
     -v /data:/data \
     -p 873:873 \
     rsyncd [--password xxxxx]
+	[--debug]
 ```
 
 ---
@@ -29,8 +30,6 @@ docker run -d --name=rsyncd_master \
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
 
-Run
-
 ```bash
 # Run as slave
 docker run -d --name=rsyncd_slave \
@@ -42,7 +41,8 @@ docker run -d --name=rsyncd_slave \
     [--password xxxxx ] \
     [--dest /some_path ] \
     [--exclude /some/path/exclude] \
-    [--delete]
+    [--delete] \
+	[--debug]
 ```
 
 ---
