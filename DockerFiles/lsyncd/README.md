@@ -4,6 +4,8 @@
 
 ![lsyncd](../../images/linux-lsyncd-tools.png)
 
+---
+
 ### 1. run as master
 
 > **Receive files from slave**
@@ -14,6 +16,8 @@ docker run -d --name=rsyncd_master \
     -p 873:873 \
     rsyncd [--password xxxxx]
 ```
+
+---
 
 ### 2. run as slave
 
@@ -40,6 +44,8 @@ docker run -d --name=rsyncd_slave \
     [--delete]
 ```
 
+---
+
 ### 3. parameter interpretation
 
 > **The available parameters**
@@ -55,6 +61,8 @@ docker run -d --name=rsyncd_slave \
 | 7 | **`--delay`** | rsync execute delay time, default is 15. |
 | 8 | **`--delete`** | if you delete files in slave, the deleted files in master is not delete, set `--delete` could delete this files on master, default is false. |
 | 9 | **`--debug`** | show debug message in container stdout |
+
+---
 
 ### 4. usage example
 
