@@ -32,6 +32,9 @@ _arg_password="password"
 _arg_dest="/"
 _extra_rsync_args=""
 _extra_exclude_args=""
+_arg_delay=15
+_rsyncd_log_path="/dev/null"
+_lsyncd_log_level="scarce"
 
 parse_commandline ()
 {
@@ -62,6 +65,9 @@ parse_commandline ()
             --delete)
                 _arg_delete="true"
                 ;;
+            --debug)
+                _rsyncd_log_path="/dev/stdout"
+                _lsyncd_log_level="Exec"
             --password)
                 test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
                 _arg_password="$2"
@@ -69,6 +75,14 @@ parse_commandline ()
                 ;;
             --password=*)
                 _arg_password="${_key##--password=}"
+                ;;
+            --delay)
+                test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+                _arg_delay="$2"
+                shift
+                ;;
+            --delay=*)
+                _arg_delay="${_key##--delay=}"
                 ;;
             --dest)
                 test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
@@ -115,10 +129,10 @@ uid = root
 gid = root
 use chroot = yes
 max connections = 32
-log file = /dev/stdout
+log file = ${_rsyncd_log_path}
 strict modes = yes
 syslog facility = local5
-port = ${_arg_port}
+port = 873
 [data]
 path = /data/
 comment = paoding rsyncd service
@@ -148,18 +162,18 @@ settings {
     logfile = "/dev/stdout",
     nodaemon = true,
     statusFile = "/run/lsyncd.status",
-    inotifyMode = "CloseWrite or Modify",
+    inotifyMode = "CloseWrite",
     maxProcesses = 16,
-}
+    }
 
 sync {
     default.rsync,
-    source = "/data",
-    target = "rsync@${_arg_ip}::data${_arg_dest}",
+    source    = "/data",
+    target    = "rsync@${_arg_ip}::data${_arg_dest}",
     delete = ${_arg_delete},
     ${_extra_exclude_args}
-    delay = 1,
-    rsync = {
+    delay = ${_arg_delay},
+    rsync     = {
         binary = "/usr/bin/rsync",
         archive = true,
         compress = true,
@@ -167,9 +181,10 @@ sync {
         owner = true,
         perms = true,
         xattrs = true,
-    _extra = {"--port=${_arg_port}" ${_extra_rsync_args}},
+        _extra    = {"--port=${_arg_port}" ${_extra_rsync_args}
+                    }
+        }
     }
-}
 EOL
 
     cat > /etc/lsyncd/rsync.pwd <<EOL
