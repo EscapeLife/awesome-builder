@@ -11,6 +11,7 @@
 > **Receive files from slave**
 
 ```bash
+# Run as master
 docker run -d --name=rsyncd_master \
     -v /data:/data \
     -p 873:873 \
@@ -23,15 +24,15 @@ docker run -d --name=rsyncd_master \
 
 > **Send files to master**
 
-Adjust inotify args
-
 ```bash
+# Adjust inotify args
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
 
 Run
 
 ```bash
+# Run as slave
 docker run -d --name=rsyncd_slave \
     -v /data:/data \
     rsyncd --slave \
