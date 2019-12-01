@@ -12,6 +12,7 @@
 
 ```bash
 # Run as master
+# Master can only set password and log level
 docker run -d --name=rsyncd_master \
     -v /data:/data \
     -p 873:873 \
