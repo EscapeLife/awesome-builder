@@ -68,6 +68,7 @@ parse_commandline ()
             --debug)
                 _rsyncd_log_path="/dev/stdout"
                 _lsyncd_log_level="Exec"
+                ;;
             --password)
                 test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
                 _arg_password="$2"
@@ -142,12 +143,20 @@ list = yes
 auth users = rsync
 secrets file = /etc/rsyncd/rsyncd.pwd
 EOL
+}
 
-    cat > /etc/rsyncd/rsyncd.pwd << EOL
-rsync:${_arg_password}
-EOL
-
+gen_rsyncd_passwd() {
+    mkdir -p /etc/lsyncd/
+    touch /etc/lsyncd/rsyncd.pwd
     chmod 600 /etc/rsyncd/rsyncd.pwd
+    cat "rsync:${_arg_password}" > /etc/rsyncd/rsyncd.pwd
+}
+
+gen_lsyncd_passwd() {
+    mkdir -p /etc/lsyncd/
+    touch /etc/lsyncd/rsync.pwd
+    chmod 600 /etc/lsyncd/rsync.pwd
+    cat "${_arg_password}" > /etc/lsyncd/rsync.pwd
 }
 
 gen_lsyncd_config() {
@@ -168,12 +177,12 @@ settings {
 
 sync {
     default.rsync,
-    source    = "/data",
-    target    = "rsync@${_arg_ip}::data${_arg_dest}",
+    source = "/data",
+    target = "rsync@${_arg_ip}::data${_arg_dest}",
     delete = ${_arg_delete},
     ${_extra_exclude_args}
     delay = ${_arg_delay},
-    rsync     = {
+    rsync = {
         binary = "/usr/bin/rsync",
         archive = true,
         compress = true,
@@ -181,17 +190,28 @@ sync {
         owner = true,
         perms = true,
         xattrs = true,
-        _extra    = {"--port=${_arg_port}" ${_extra_rsync_args}
-                    }
+        _extra = {"--port=${_arg_port}" ${_extra_rsync_args}}
         }
     }
 EOL
+}
 
-    cat > /etc/lsyncd/rsync.pwd <<EOL
-${_arg_password}
+gen_health_check() {
+    touch /healthcheck.sh
+    chmod +x /healthcheck.sh
+    if [[ "${_arg_slave}" == "off" ]]; then
+        cat > /healthcheck.sh <<EOL
+#!/usr/bin/env bash
+set -e
+rsync -a --timeout=10 --dry-run --exclude="/*" --password-file=/etc/lsyncd/rsync.pwd "--port=873" "/data" "rsync@127.0.0.1::data/"
 EOL
-
-    chmod 600 etc/lsyncd/rsync.pwd
+    else
+        cat > /healthcheck.sh <<EOL
+#!/usr/bin/env bash
+set -e
+rsync -a --timeout=10 --dry-run --exclude="/*" --password-file=/etc/lsyncd/rsync.pwd "--port=${_arg_port}" "/data" "rsync@${_arg_ip}::data${_arg_dest}"
+EOL
+    fi
 }
 
 run_rsyncd() {
@@ -206,7 +226,10 @@ run_lsyncd() {
 
 main() {
     mkdir -p /data
+    gen_lsyncd_passwd
+    gen_health_check
     if [[ "${_arg_slave}" == "off" ]]; then
+        gen_rsyncd_passwd
         run_rsyncd
     else
         run_lsyncd

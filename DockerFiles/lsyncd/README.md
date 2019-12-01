@@ -1,4 +1,4 @@
-## Rsyncd Service Image
+# Rsyncd Service Image
 
 > **This image allow sync files between servers.**
 
@@ -6,7 +6,7 @@
 
 ---
 
-### 1. run as master
+## 1. run as master
 
 > **Receive files from slave**
 
@@ -15,13 +15,12 @@
 docker run -d --name=rsyncd_master \
     -v /data:/data \
     -p 873:873 \
-    rsyncd [--password xxxxx]
-	[--debug]
+    rsyncd [--password xxxxx] [--debug]
 ```
 
 ---
 
-### 2. run as slave
+## 2. run as slave
 
 > **Send files to master**
 
@@ -41,13 +40,12 @@ docker run -d --name=rsyncd_slave \
     [--password xxxxx ] \
     [--dest /some_path ] \
     [--exclude /some/path/exclude] \
-    [--delete] \
-	[--debug]
+    [--delete] [--debug]
 ```
 
 ---
 
-### 3. parameter interpretation
+## 3. parameter interpretation
 
 > **The available parameters**
 
@@ -65,7 +63,7 @@ docker run -d --name=rsyncd_slave \
 
 ---
 
-### 4. usage example
+## 4. usage example
 
 > **Example is given to illustrate**
 
