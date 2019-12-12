@@ -68,6 +68,18 @@ docker run -d --name=rsyncd_slave \
 
 > **Example is given to illustrate**
 
+```bash
+# 需要特别注意的是，在启动Docker容器的时候如果遇到日志里面提示超时等信息
+rsync: failed to connect to rsync.escape.com (221.xxx.xxx.xxx): Connection timed out (110)
+rsync error: error in socket IO (code 10) at clientserver.c(125) [sender=3.1.2]
+
+# 首先需要考虑到是否是因为开启防火墙导致访问被拒绝或是访问timeout的情况
+$ sudo ufw route allow log-all 873 comment "open rsync 873 port"
+     To                         Action      From
+     --                         ------      ----
+[ 6] 873/tcp                    ALLOW FWD   Anywhere
+```
+
 - **在master节点负责收集数据**
   - 将/data目录共享出去，收集slave节点发送的数据，然后进行本地存储
   - 设置密码为123456，主机地址为本机地址，使用端口号为默认的873端口
