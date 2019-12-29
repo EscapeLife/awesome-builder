@@ -32,10 +32,9 @@
 | 3 | [**`lsyncd`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/lsyncd) | 海量文件实时同步解决方案，支持主备切换使用 |
 | 4 | [**`postgresql`**]() | 优秀的PostgreSQL数据库备份策略(热备) |
 
-
 ## Scripts
 
-> **Best practices for writing Shell scripts.**
+> **Best practices for writing shell scripts.**
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
@@ -47,6 +46,14 @@
 | 6 | [**`setup.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/setup.py) | 一个Python程序打包的示例setup.py配置脚本文件 |
 | 7 | [**`pyproject.toml`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/pyproject.toml) | 一个Python程序打包的示例pyproject.toml配置脚本文件 |
 
+## Compose
+
+> **Best practices for writing compose files.**
+
+| 编号 | 文件名称 | 功能说明 |
+| :-----: | :-----: | :----- |
+| 1 | [**`watchtower`**](https://github.com/EscapeLife/awesome-builder/blob/master/Compose/watchtower/docker-compose.yml) | 容器的自动更新解决方案  |
+| 2 | [**`portainer`**](https://github.com/EscapeLife/awesome-builder/blob/master/Compose/portainer/docker-compose.yml) | 简化的自有化Docker容器管理工具(单机或多机)  |
 
 ## Contact
 
