@@ -1,0 +1,21 @@
+# portainer
+# https://portainer.readthedocs.io/en/stable/index.html
+
+# --admin-password: 设置管理用户的登录密码
+# -H/--host: Docker守护进程的endpoint
+# --logo: 设置前端UI中显示的徽标图片URL地址
+
+version: '3'
+services:
+  portainer:
+    restart: always
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    command: -H unix:///var/run/docker.sock --admin-password=123456
+volumes:
+  portainer_data:
