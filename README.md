@@ -38,13 +38,13 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`/etc/ufw/after.rules`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/after.rules) | 解决UFW无法管理Docker发布出来的端口问题 |
-| 2 | [**`image2run.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/image2run.sh) | 将docker镜像导出的tar包转换成为压缩小/自解压/自导入的run包 |
-| 3 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/kill_all_process.sh) | 解决在Linux系统中程序意外退出删除进程树，防止孤儿进程的出现 |
-| 4 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/wait_for_ready.sh) | 解决运行Compose文件，服务启动依赖关系问题 |
-| 5 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/docker_patch.py) | 一个快速迭代的Docker补丁包部署的小程序 |
-| 6 | [**`setup.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/setup.py) | 一个Python程序打包的示例setup.py配置脚本文件 |
-| 7 | [**`pyproject.toml`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/pyproject.toml) | 一个Python程序打包的示例pyproject.toml配置脚本文件 |
+| 1 | [**`/etc/ufw/after.rules`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/after_rules/after.rules) | 解决UFW无法管理Docker发布出来的端口问题 |
+| 2 | [**`image2run.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/image2run/image2run.sh) | 将docker镜像导出的tar包转换成为压缩小/自解压/自导入的run包 |
+| 3 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/kill_process/kill_all_process.sh) | 解决在Linux系统中程序意外退出删除进程树，防止孤儿进程的出现 |
+| 4 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/wait_for_ready/wait_for_ready.sh) | 解决运行Compose文件，服务启动依赖关系问题 |
+| 5 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/docker_patch/docker_patch.py) | 一个快速迭代的Docker补丁包部署的小程序 |
+| 6 | [**`setup.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/setup/setup.py) | 一个Python程序打包的示例setup.py配置脚本文件 |
+| 7 | [**`pyproject.toml`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/pyproject/pyproject.toml) | 一个Python程序打包的示例pyproject.toml配置脚本文件 |
 
 ## Compose
 
