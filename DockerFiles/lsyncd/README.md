@@ -2,7 +2,7 @@
 
 > **This image allow sync files between servers.**
 
-![lsyncd](../../images/linux-lsyncd-tools.png)
+![lsyncd](../../images/dockerfiles/linux-lsyncd-tools.png)
 
 ---
 
