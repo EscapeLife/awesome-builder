@@ -1,6 +1,13 @@
 #!/bin/bash
 
 # -----------------------------------------------------------------------
+# The sample example
+# -----------------------------------------------------------------------
+# The default packaging path is /tmp and can be specified if space is no free
+# image2run.sh --src /data/app_postgres_0.0.1.tar --image app_postgres:0.0.1
+
+
+# -----------------------------------------------------------------------
 # Init Text Print Colors
 # -----------------------------------------------------------------------
 # reset color
@@ -35,6 +42,10 @@ begins_with_short_option() {
     test "$all_short_options" = "${all_short_options/$first_option/}" && return 1 || return 0
 }
 
+is_command() {
+    command -v "$1" > /dev/null 2>&1
+}
+
 
 # -----------------------------------------------------------------------
 # The Defaults Initialization Optionals
@@ -45,8 +56,8 @@ _arg_image=
 print_help() {
     printf '%s\n' "A plugless docker mirroring installation package generator"
     printf 'Usage: %s [--src <arg>] [--image <arg>] [-h|--help]\n' "$0"
-    printf '\t%s\n' "--src: ready to be packed archive tar file (no default)"
-    printf '\t%s\n' "--image: show image name and version (no default)"
+    printf '\t%s\n' "--src: ready to be packed archive tar file (request)"
+    printf '\t%s\n' "--image: show image name and version (request )"
     printf '\t%s\n' "-h,--help: Prints help"
 }
 
@@ -98,22 +109,17 @@ fi
 # -----------------------------------------------------------------------
 # Create Self-Extractable Tar Package
 # -----------------------------------------------------------------------
-# image2run.sh --src xxx --image xxx
-# image2run.sh --src=xxx --image=xxx
 if [ -z  ${_arg_src} ] || [ -z ${_arg_image} ]; then
     print_help
     exit 0
-fi
-
-if [ ! -f ${_arg_src} ]; then
+elif [ ! -f ${_arg_src} ]; then
     echo "[ERROR]: The ${_arg_src} is not file, please check!"
     exit 0
 fi
 
-which makeself > /dev/null 2>&1
-if [ $? -ne 0 ]; then
+if ! is_command makeself; then
     echo "[ERROR]: The makeself command dose not exist, please check!"
-    exit 0
+    exit 1
 fi
 
 tar_name="$(basename ${_arg_src})"
@@ -148,36 +154,36 @@ cat > /tmp/${archive_dir}/${install_name} << EOF
 which docker > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "[ERROR]: The docker command dose not exist."
+    exit 1
 fi
 
 echo "[INFO]: Load docker images now..."
-ls -1 | grep "tar" | xargs docker load -i
-if [ $? -eq 0 ]; then
-    echo "[INFO]: The docker images load successful."
-    docker tag ${_arg_image} ${input_product}:latest
-    if [ $? -ne 0 ]; then
-        echo "[ERROR]: Docker image tag rename failed."
+for image in ./*.tar; do
+    if docker load -i \${image}; then
+        echo "[INFO]: The docker images load successful."
+    else
+        echo "[ERROR]: The docker images load failure."
+        exit 1
     fi
-else
-    echo "[ERROR]: The docker images load failure."
-fi
+done
 EOF
 
 # create makeself file
 # makeself --gzip --notemp --follow ./packages ./packages.run "SFX installer for program" ./install.sh
 chmod 755 /tmp/${archive_dir}/${install_name}
-makeself --gzip --follow /tmp/${archive_dir} ${dir_name}/${makeself_name} "${commit_message}" ./${install_name}
+makeself --gzip --follow --nooverwrite /tmp/${archive_dir} ${dir_name}/${makeself_name} "${commit_message}" ./${install_name}
 
 
 # -----------------------------------------------------------------------
 # Generation Download Links And Package Information
 # -----------------------------------------------------------------------
-which md5sum > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo "[ERROR]: The md5sum command dose not exist."
-    exit 0
+if ! is_command md5_sum; then
+    md5_sum=$(md5sum ${dir_name}/${makeself_name} 2>/dev/null)
+elif ! is_command md5; then
+    md5_sum=$(md5 -q ${dir_name}/${makeself_name} 2>/dev/null)
 else
-    md5_sum=$(md5sum ${dir_name}/${makeself_name})
+    echo "[ERROR]: The md5sum and md5 command dose not exist."
+    exit 1
 fi
 
 printf '\n%s\n' "============================================"
