@@ -43,15 +43,15 @@ ENV PATH="$HOME/.pyenv/bin:$PATH"
 ENV PROVISIONING /provisioning
 
 # copy and run setup scripts
-workdir $provisioning
+WORKDIR $provisioning
 
 # install libcouchbase tool
-copy docker/scripts/install-couchbase.sh .
-run sh install-couchbase.sh
+COPY DOcker/scripts/install-couchbase.sh .
+RUN SH install-couchbase.sh
 
 # create linux user is developer
-copy docker/scripts/create-linux-user.sh .
-run sh create-linux-user.sh
+COPY DOcker/scripts/create-linux-user.sh .
+RUN SH create-linux-user.sh
 
 # install pyenv tool
 # swap to the celery user so packages and celery are not installed as root
