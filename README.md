@@ -45,7 +45,7 @@
 
 ## Scripts
 
-> **Best practices for writing shell scripts.**
+> **Best practices for writing shell and python scripts and so on.**
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
@@ -57,6 +57,22 @@
 | 6 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/wait_for_ready/wait_for_ready.sh) | 解决运行Compose文件，服务启动依赖关系问题 |
 | 7 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/docker_patch/docker_patch.py) | 一个快速迭代的Docker补丁包部署的小程序 |
 | 8 | [**`gooey`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/gooey) | 将任何Python命令行程序转换为完整的GUI应用程序 |
+
+## Common
+
+> **Universal shell and python scripts**
+
+| 编号 | 文件名称 | 功能说明 |
+| :-----: | :-----: | :----- |
+| 1 | [**`find_big_file.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/bash/find_big_file.sh) | 查找当前操作系统中的大文件 |
+
+| 编号 | 文件名称 | 功能说明 |
+| :-----: | :-----: | :----- |
+| 1 | [**`walk_dir.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/) | 遍历文件目录 |
+| 2 | [**`random_passwd.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/random_passwd.py) | 自动生成随机密码 |
+| 3 | [**`collect_server_info.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/collect_server_info.py) | 收集服务器信息(包含CPU/内存/磁盘) |
+| 4 | [**`linux_tail_f.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/linux_tail_f.py) | 实现Linux中的`tail -f`命令的效果 |
+| 5 | [**`calculator.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/calculator.py) | 实现一个简单的计算器 |
 
 ## Contact
 
