@@ -20,35 +20,32 @@
   </a>
 </p>
 
-
-# Awesome Builder
-
-## DockerFiles
+## 1. DockerFiles
 
 > **Best practices for writing Dockerfiles.**
 
 | 编号 | 文件名称 | 功能说明 |
-| :-----: | :-----: | :----- |
+| :-----: | :-----: | :-----: |
 | 1 | [**`celery`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/celery) | 引用自Celery项目，用于编写Dockerfile借鉴模板 |
 | 2 | [**`goaccess`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/goaccess) | 这是一款开源、实时、强大、具有交互视图界面的命令行Web日志分析工具 |
 | 3 | [**`lsyncd`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/lsyncd) | 海量文件实时同步解决方案，支持主备切换使用 |
 | 4 | [**`postgresql`**](https://github.com/EscapeLife/awesome-builder/tree/master/DockerFiles/postgresql) | 优秀的PostgreSQL数据库备份策略(热备) |
 
-## Compose
+## 2. Compose
 
 > **Best practices for writing compose files.**
 
 | 编号 | 文件名称 | 功能说明 |
-| :-----: | :-----: | :----- |
+| :-----: | :-----: | :-----: |
 | 1 | [**`watchtower`**](https://github.com/EscapeLife/awesome-builder/blob/master/Compose/watchtower/docker-compose.yml) | 容器的自动更新解决方案  |
 | 2 | [**`portainer`**](https://github.com/EscapeLife/awesome-builder/blob/master/Compose/portainer/docker-compose.yml) | 简化的自有化Docker容器管理工具(单机或多机)  |
 
-## Scripts
+## 3. Scripts
 
 > **Best practices for writing shell and python scripts and so on.**
 
 | 编号 | 文件名称 | 功能说明 |
-| :-----: | :-----: | :----- |
+| :-----: | :-----: | :-----: |
 | 1 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/kill_process/kill_all_process.sh) | 解决在Linux系统中程序意外退出删除进程树，防止孤儿进程的出现 |
 | 2 | [**`/etc/ufw/after.rules`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/after_rules/after.rules) | 解决UFW无法管理Docker发布出来的端口问题 |
 | 3 | [**`setup.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/setup/setup.py) | 一个Python程序打包的示例setup.py配置脚本文件 |
@@ -58,21 +55,21 @@
 | 7 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/docker_patch/docker_patch.py) | 一个快速迭代的Docker补丁包部署的小程序 |
 | 8 | [**`gooey`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/gooey) | 将任何Python命令行程序转换为完整的GUI应用程序 |
 
-## Common
+## 4. Common
 
 > **Universal shell and python scripts**
 
 | 编号 | 文件名称 | 功能说明 |
-| :-----: | :-----: | :----- |
-| 1 | [**`find_big_file.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/bash/find_big_file.sh) | 查找当前操作系统中的大文件 |
+| :-----: | :-----: | :-----: |
+| BASH | [**`find_big_file.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/bash/find_big_file.sh) | 查找当前操作系统中的大文件 |
 
 | 编号 | 文件名称 | 功能说明 |
-| :-----: | :-----: | :----- |
-| 1 | [**`walk_dir.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/) | 遍历文件目录 |
-| 2 | [**`random_passwd.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/random_passwd.py) | 自动生成随机密码 |
-| 3 | [**`collect_server_info.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/collect_server_info.py) | 收集服务器信息(包含CPU/内存/磁盘) |
-| 4 | [**`linux_tail_f.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/linux_tail_f.py) | 实现Linux中的`tail -f`命令的效果 |
-| 5 | [**`calculator.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/calculator.py) | 实现一个简单的计算器 |
+| :-----: | :-----: | :-----: |
+| PYTHON | [**`walk_dir.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/) | 遍历文件目录 |
+| PYTHON | [**`random_passwd.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/random_passwd.py) | 自动生成随机密码 |
+| PYTHON | [**`collect_server_info.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/collect_server_info.py) | 收集服务器信息(包含CPU/内存/磁盘) |
+| PYTHON | [**`linux_tail_f.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/linux_tail_f.py) | 实现Linux中的`tail -f`命令的效果 |
+| PYTHON | [**`calculator.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/calculator.py) | 实现一个简单的计算器 |
 
 ## Contact
 
