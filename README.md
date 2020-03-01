@@ -57,18 +57,18 @@
 
 ## 4. Common
 
-> **Universal shell and python scripts**
+> **Best universal shell and python scripts.**
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`find_big_file.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/bash/find_big_file.sh) | 查找当前操作系统中的大文件 |
+| 1 | [**`find_big_file.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/bash/find_big_file.sh) | 查找当前Linux操作系统中的大文件(可以指定文件大小范围) |
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`walk_dir.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/) | 遍历文件目录 |
-| 2 | [**`random_passwd.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/random_passwd.py) | 自动生成随机密码 |
-| 3 | [**`collect_server_info.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/collect_server_info.py) | 收集服务器信息(包含CPU/内存/磁盘) |
-| 4 | [**`linux_tail_f.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/linux_tail_f.py) | 实现Linux中的`tail -f`命令的效果 |
+| 1 | [**`walk_dir.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/) | 实现Linux下tree命令遍历文件目录夹的功能 |
+| 2 | [**`random_passwd.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/random_passwd.py) | 自动生成随机密码(可以指定随即密码长度范围) |
+| 3 | [**`collect_server_info.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/collect_server_info.py) | 收集Linux操作系统服务器相关信息(包含CPU/内存/磁盘) |
+| 4 | [**`linux_tail_f.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/linux_tail_f.py) | 实现Linux下tail命令动态查看日志的功能 |
 | 5 | [**`calculator.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Common/python/calculator.py) | 实现一个简单的计算器 |
 
 ## 5. Contact
