@@ -1,0 +1,301 @@
+.\" Man page for prsync.  See "man 7 man" and "man man-pages" for formatting info.
+.TH prsync 1 "January 24, 2012"
+
+.SH NAME
+prsync \(em parallel file sync program
+
+
+.SH SYNOPSIS
+.B prsync
+.RB [ \-vAraz ]
+.RB [ \-h
+.IR hosts_file ]
+.RB [ \-H
+.RI [ user @] host [: port ]]
+.RB [ \-l
+.IR user ]
+.RB [ \-p
+.IR par ]
+.RB [ \-o
+.IR outdir ]
+.RB [ \-e
+.IR errdir ]
+.RB [ \-t
+.IR timeout ]
+.RB [ \-O
+.IR options ]
+.RB [ \-x
+.IR args ]
+.RB [ \-X
+.IR arg ]
+.RB [ \-S
+.IR args ]
+.I local ...
+.I remote
+
+
+.SH DESCRIPTION
+.PP
+.B prsync
+is a program for copying files in parallel to a number of hosts using the
+popular
+.B rsync
+program.  It provides features such as passing a password to ssh,
+saving output to files, and timing out.
+
+
+.SH OPTIONS
+
+.TP
+.BI \-h " host_file"
+.PD 0
+.TP
+.BI \-\-hosts " host_file"
+Read hosts from the given
+.IR host_file .
+Lines in the host file are of the form
+.RI [ user @] host [: port ]
+and can include blank lines and comments (lines beginning with "#").
+If multiple host files are given (the
+.B \-h
+option is used more than once), then prsync behaves as though these files
+were concatenated together.
+If a host is specified multiple times, then prsync will connect the
+given number of times.
+
+.TP
+.B \-H
+.RI [ user @] host [: port ]
+.PD 0
+.TP
+.B \-\-host
+.RI [ user @] host [: port ]
+.PD 0
+.TP
+.B \-H
+.RI \(dq[ user @] host [: port ]
+[
+.RI [ user @] host [: port
+] ... ]\(dq
+.PD 0
+.TP
+.B \-\-host
+.RI \(dq[ user @] host [: port ]
+[
+.RI [ user @] host [: port
+] ... ]\(dq
+.PD 0
+.IP
+Add the given host strings to the list of hosts.  This option may be given
+multiple times, and may be used in conjunction with the
+.B \-h
+option.
+
+.TP
+.BI \-l " user"
+.PD 0
+.TP
+.BI \-\-user " user"
+Use the given username as the default for any host entries that don't
+specifically specify a user.
+
+.TP
+.BI \-p " parallelism"
+.PD 0
+.TP
+.BI \-\-par " parallelism"
+Use the given number as the maximum number of concurrent connections.
+
+.TP
+.BI \-t " timeout"
+.PD 0
+.TP
+.BI \-\-timeout " timeout"
+Make connections time out after the given number of seconds.  With a value
+of 0, prsync will not timeout any connections.
+
+.TP
+.BI \-o " outdir"
+.PD 0
+.TP
+.BI \-\-outdir " outdir"
+Save standard output to files in the given directory.  Filenames are of the
+form
+.RI [ user @] host [: port ][. num ]
+where the user and port are only included for hosts that explicitly
+specify them.  The number is a counter that is incremented each time for hosts
+that are specified more than once.
+
+.TP
+.BI \-e " errdir"
+.PD 0
+.TP
+.BI \-\-errdir " errdir"
+Save standard error to files in the given directory.  Filenames are of the
+same form as with the
+.B \-o
+option.
+
+.TP
+.BI \-x " args"
+.PD 0
+.TP
+.BI \-\-extra-args " args"
+Passes extra rsync command-line arguments (see the
+.BR rsync (1)
+man page for more information about rsync arguments).
+This option may be specified multiple times.
+The arguments are processed to split on whitespace, protect text within
+quotes, and escape with backslashes.
+To pass arguments without such processing, use the
+.B \-X
+option instead.
+
+.TP
+.BI \-X " arg"
+.PD 0
+.TP
+.BI \-\-extra-arg " arg"
+Passes a single rsync command-line argument (see the
+.BR rsync (1)
+man page for more information about rsync arguments).  Unlike the
+.B \-x
+option, no processing is performed on the argument, including word splitting.
+To pass multiple command-line arguments, use the option once for each
+argument.
+
+.TP
+.BI \-O " options"
+.PD 0
+.TP
+.BI \-\-options " options"
+SSH options in the format used in the SSH configuration file (see the
+.BR ssh_config (5)
+man page for more information).  This option may be specified multiple
+times.
+
+.TP
+.B \-A
+.PD 0
+.TP
+.B \-\-askpass
+Prompt for a password and pass it to ssh.  The password may be used for
+either to unlock a key or for password authentication.
+The password is transferred in a fairly secure manner (e.g., it will not show
+up in argument lists).  However, be aware that a root user on your system
+could potentially intercept the password.
+
+.TP
+.B \-v
+.PD 0
+.TP
+.B \-\-verbose
+Include error messages from rsync with the
+.B \-i
+and
+.B \e
+options.
+
+.TP
+.B \-r
+.PD 0
+.TP
+.B \-\-recursive
+Recursively copy directories.
+
+.TP
+.B \-a
+.PD 0
+.TP
+.B \-\-archive
+Use rsync archive mode (rsync's \-a option).
+
+.TP
+.B \-z
+.PD 0
+.TP
+.B \-\-compress
+Use rsync compression.
+
+.TP
+.BI \-S " args"
+.PD 0
+.TP
+.BI \-\-ssh-args " args"
+Passes extra SSH command-line arguments (see the
+.BR ssh (1)
+man page for more information about SSH arguments).
+The given value is appended to the ssh command (rsync's \-e option) without
+any processing.
+
+
+.\" .SH EXAMPLES
+
+.\" .PP
+.\" Connect to host1 and host2, and print "hello, world" from each:
+.\" .RS
+.\" pssh -i -H "host1 host2" echo "hello, world"
+.\" .RE
+
+
+.SH TIPS
+
+.\" .PP
+.\" If you have a set of hosts that you connect to frequently with specific
+.\" options, it may be helpful to create an alias such as:
+.\" .RS
+.\" alias pssh_servers="pssh -h /path/to/server_list.txt -l root -A"
+.\" .RE
+
+.PP
+The ssh_config file can include an arbitrary number of Host sections.  Each
+host entry specifies ssh options which apply only to the given host.  Host
+definitions can even behave like aliases if the HostName option is included.
+This ssh feature, in combination with pssh host files, provides a tremendous
+amount of flexibility.
+
+
+.SH EXIT STATUS
+
+.PP
+The exit status codes from prsync are as follows:
+
+.TP
+.B 0
+Success
+
+.TP
+.B 1
+Miscellaneous error
+
+.TP
+.B 2
+Syntax or usage error
+
+.TP
+.B 3
+At least one process was killed by a signal or timed out.
+
+.TP
+.B 4
+All processes completed, but at least one rsync process reported an error
+(exit status other than 0).
+
+
+.SH AUTHORS
+.PP
+Written by
+Brent N. Chun <bnc@theether.org> and
+Andrew McNabb <amcnabb@mcnabbs.org>.
+
+http://code.google.com/p/parallel-ssh/
+
+
+.SH SEE ALSO
+.BR rsync (1),
+.BR ssh (1),
+.BR ssh_config(5),
+.BR pssh (1),
+.BR prsync (1),
+.BR pslurp (1),
+.BR pnuke (1),
