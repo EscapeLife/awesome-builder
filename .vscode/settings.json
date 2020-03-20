@@ -1,5 +1,0 @@
-{
-  "python.pythonPath": "/Users/escape/.pyenv/versions/Github/bin/python",
-  "editor.rulers": [99],
-  "python.formatting.autopep8Args": ["--max-line-length=99"],
-}
