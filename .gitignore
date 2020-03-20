@@ -136,6 +136,6 @@ crashlytics-build.properties
 fabric.properties
 
 # Mac env
+.vscode/
 .DS_Store
 .python-version
-.vscode
