@@ -87,12 +87,10 @@ class Check(BaseClass):
     def _repo_is_dirty(self):
         """检查仓库是否存在未提交文件"""
         if len(self.repo.untracked_files) != 0:
-            logger.error(
-                f'The repo is dirty about {self.repo.untracked_files}.')
+            logger.error(f'The repo is dirty about {self.repo.untracked_files}.')
             sys.exit(1)
         elif self.repo.is_dirty():
-            logger.error(
-                f'The repo has some file not push to remote repo.')
+            logger.error(f'The repo has some file not push to remote repo.')
             sys.exit(1)
         else:
             logger.info(f'The `{self.repo.git_dir}` is a clean git repo.')
@@ -100,35 +98,27 @@ class Check(BaseClass):
     def _commit_is_right(self):
         """检查分支和对应commit是否存在"""
         branchs = []
-        [branchs.append(str(self.repo.refs[num]))
-         for num in range(len(self.repo.refs))]
+        [branchs.append(str(self.repo.refs[num])) for num in range(len(self.repo.refs))]
         try:
             if self.code_branch in branchs:
                 if self.repo.commit(self.start_commit) and self.repo.commit(self.end_commit):
-                    logger.info(
-                        f"The `{self.code_branch}` is exist in the git repo.")
-                    logger.info(
-                        f"The `{self.start_commit}` and `{self.end_commit}` is exist git.")
+                    logger.info(f"The `{self.code_branch}` is exist in the git repo.")
+                    logger.info(f"The `{self.start_commit}` and `{self.end_commit}` is exist git.")
             else:
-                logger.error(
-                    f"The `{self.code_branch}` is not found in the git repo.")
+                logger.error(f"The `{self.code_branch}` is not found in the git repo.")
                 sys.exit(1)
         except gitdb.exc.BadName:
-            logger.error(
-                f"The `{self.start_commit}` or `{self.end_commit}` is not found in the git repo.")
+            logger.error(f"The `{self.start_commit}` or `{self.end_commit}` is not found in git.")
             sys.exit(1)
 
     def _image_is_right(self):
         """检查镜像是否可以拉取到"""
         try:
-            logger.warning(
-                f"The `{self.images_name}` image is ready to download...")
+            logger.warning(f"The `{self.images_name}` image is ready to download...")
             sh.docker('pull', self.images_name)
-            logger.info(
-                f"The `{self.images_name}` image is exist in docker repo.")
+            logger.info(f"The `{self.images_name}` image is exist in docker repo.")
         except sh.ErrorReturnCode_1:
-            logger.error(
-                f"The `{self.images_name}` image is not found in docker repo.")
+            logger.error(f"The `{self.images_name}` image is not found in docker repo.")
             sys.exit(1)
 
     def run(self):
@@ -157,13 +147,11 @@ class Diff(BaseClass):
         new_branch = self.repo.create_head(self.code_branch)
         if self.repo.active_branch != new_branch:
             new_branch.checkout()
-            logger.warning(
-                f"The `{self.repo.active_branch}` doesn't match `{self.code_branch}`.")
+            logger.warning(f"The `{self.repo.active_branch}` doesn't match `{self.code_branch}`.")
             logger.warning(f"Then auto change to `{self.code_branch}` branch.")
         git = self.repo.git
         try:
-            diff_files = git.diff(
-                '--name-only', self.start_commit, self.end_commit).split()
+            diff_files = git.diff('--name-only', self.start_commit, self.end_commit).split()
             GLOBAL_DIFF_FILES.append(diff_files)
             logger.info(f'List diff files:')
             pprint(diff_files, indent=4)
@@ -211,8 +199,7 @@ class PATCH(BaseClass):
                                 "'{{.ContainerConfig.WorkingDir}}'", self.images_name)
         if images_info.exit_code == 0 and working_dir.exit_code == 0:
             images_path = images_info.stdout.decode('utf-8').strip().strip("'")
-            working_path = working_dir.stdout.decode(
-                'utf-8').strip().strip("'")
+            working_path = working_dir.stdout.decode('utf-8').strip().strip("'")
             copy_file_path = ''.join([images_path, working_path])
             if not self._check_is_dir(archive_dir):
                 os.makedirs(archive_dir)
@@ -231,63 +218,51 @@ class PATCH(BaseClass):
 
                 if source_file_basename.endswith('.py'):
                     source_file_is_so = source_file_path.replace('.py', '.so')
-                    source_file_is_pyc = source_file_path.replace(
-                        '.py', '.pyc')
+                    source_file_is_pyc = source_file_path.replace('.py', '.pyc')
                     if self._check_is_file(source_file_is_so):
                         if not self._check_is_dir(target_file_dirname):
                             os.makedirs(target_file_dirname)
-                        logger.info(
-                            f"To {source_file_basename} file to {target_file_dirname} ...")
+                        logger.info(f"To {source_file_basename} file to {target_file_dirname} ...")
                         shutil.copy2(source_file_is_so, target_file_dirname)
                     elif self._check_is_file(source_file_is_pyc):
                         if not self._check_is_dir(target_file_dirname):
                             os.makedirs(target_file_dirname)
-                        logger.info(
-                            f"To {source_file_basename} file to {target_file_dirname} ...")
+                        logger.info(f"To {source_file_basename} file to {target_file_dirname} ...")
                         shutil.copy2(source_file_is_pyc, target_file_dirname)
                     else:
-                        logger.info(
-                            f"The file <{source_file_basename}> is not in image, pass ...")
+                        logger.info(f"The file <{source_file_basename}> is not in image, pass ...")
                 elif source_file_basename.endswith('.yml'):
-                    source_file_is_yml = source_file_path.replace(
-                        '.yml', '.ctc')
+                    source_file_is_yml = source_file_path.replace('.yml', '.ctc')
                     if self._check_is_file(source_file_is_yml):
                         if not self._check_is_dir(target_file_dirname):
                             os.makedirs(target_file_dirname)
-                        logger.info(
-                            f"To {source_file_basename} file to {target_file_dirname} ...")
+                        logger.info(f"To {source_file_basename} file to {target_file_dirname} ...")
                         shutil.copy2(source_file_is_yml, target_file_dirname)
                     else:
-                        logger.info(
-                            f"The file <{source_file_basename}> is not in image, pass ...")
+                        logger.info(f"The file <{source_file_basename}> is not in image, pass ...")
                 else:
                     if self._check_is_file(source_file_path):
                         if not self._check_is_dir(target_file_dirname):
                             os.makedirs(target_file_dirname)
-                        logger.info(
-                            f"To {source_file_basename} file to {target_file_dirname} ...")
+                        logger.info(f"To {source_file_basename} file to {target_file_dirname} ...")
                         shutil.copy2(source_file_path, target_file_dirname)
                     else:
-                        logger.info(
-                            f"The file <{source_file_basename}> is not in image, pass ...")
+                        logger.info(f"The file <{source_file_basename}> is not in image, pass ...")
         else:
-            logger.error(
-                f"The `{images_info}` or `{working_dir}` is not found.")
+            logger.error(f"The `{images_info}` or `{working_dir}` is not found.")
             sys.exit(3)
 
     def _get_tar_packages(self):
         click.echo(click.style('>>> To being generated tar ...', fg='green'))
         archive_dir = os.path.join(DEFAULT_CODE_PATH, 'dist')
         version_number = self.images_name.split(':')[2]
-        archive_name = '_'.join(
-            ['patch', self.config_name, version_number]) + ".tar.gz"
+        archive_name = '_'.join(['patch', self.config_name, version_number]) + ".tar.gz"
         if self._check_is_dir(archive_dir):
             with tarfile.open(archive_name, 'w:gz') as tar_packages:
                 tar_packages.add(archive_dir, arcname='.')
                 logger.info(f'List tar package file:')
                 pprint(tar_packages.getnames(), indent=4)
-        logger.info(
-            f"The `{archive_name}` tar package has been generated successfully.")
+        logger.info(f"The `{archive_name}` tar package has been generated successfully.")
 
     def run(self):
         """执行copy内容"""
@@ -311,18 +286,15 @@ def main(code_path, config_name, code_branch, start_commit, end_commit, images_n
     """A rapidly iterating Docker deployment applet"""
     # 健康检查
     click.echo(click.style('>>> Start check info ...', fg='green'))
-    check = Check(code_path, code_branch, start_commit,
-                  end_commit, images_name)
+    check = Check(code_path, code_branch, start_commit, end_commit, images_name)
     check.run()
     # 差异文件
-    click.echo(click.style(
-        '>>> Get between the commits diff file ...', fg='green'))
+    click.echo(click.style('>>> Get between the commits diff file ...', fg='green'))
     diff = Diff(code_path, code_branch, start_commit, end_commit, images_name)
     diff.run()
     # 打补丁包
     click.echo(click.style('>>> Get docker images fix packs ...', fg='green'))
-    patch = PATCH(code_path, config_name, code_branch,
-                  start_commit, end_commit, images_name)
+    patch = PATCH(code_path, config_name, code_branch, start_commit, end_commit, images_name)
     patch.run()
 
 
