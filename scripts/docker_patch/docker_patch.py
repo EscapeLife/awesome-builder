@@ -4,15 +4,16 @@ A rapidly iterating Docker deployment applet
 
 Usage:
     python3 docker_patch.py --help
-    python3 docker_patch.py
-        --code_path='/data/app' \
-        --code_branch='master' \
-        --config_name='docker' \
-        --start_commit='aaaaaa' --end_commit='bbbbbb' \
-        --images_name='xxxxx/xxxxx:0.0.1'
+    (1) python3 ./docker_patch.py
+    (2) python3 docker_patch.py
+            --code_path='/data/app' \
+            --code_branch='master' \
+            --config_name='docker' \
+            --start_commit='aaaaaa' --end_commit='bbbbbb' \
+            --images_name='xxxxx/xxxxx:0.0.1'
 
 Requirements:
-    pip3 install sh click gitpython
+    pip3 install sh click gitpython prompt_toolkit
 """
 
 import logging
@@ -29,8 +30,13 @@ import gitdb
 import sh
 from git import Repo
 
+from prompt_toolkit import prompt
+from prompt_toolkit.completion import WordCompleter
+
 GLOBAL_DIFF_FILES = []
 DEFAULT_CODE_PATH = os.path.abspath(os.path.dirname(__file__))
+KEYWORDS_DICT = {'code_path': None, 'config_name': None, 'code_branch': None,
+                 'start_commit': None, 'end_commit': None, 'images_name': None}
 
 
 logger = logging.getLogger('docker_patch')
@@ -275,14 +281,14 @@ class PATCH(BaseClass):
             sys.exit(3)
 
 
-@click.command()
-@click.option("--code_path", default=DEFAULT_CODE_PATH, type=click.Path(exists=True), help="Set code dir path.")
-@click.option("--config_name", default="docker", help="Service config yml file name.")
-@click.option("--code_branch", default="master", help="Set code branch name.")
-@click.option("--start_commit", help="Set code repo checkout start commit.")
-@click.option("--end_commit", help="Set code repo checkout end commit.")
-@click.option("--images_name", help="Set images download remote registry name.")
-def main(code_path, config_name, code_branch, start_commit, end_commit, images_name):
+# @click.command()
+# @click.option("--code_path", default=DEFAULT_CODE_PATH, type=click.Path(exists=True), help="Set code dir path.")
+# @click.option("--config_name", default="docker", help="Service config yml file name.")
+# @click.option("--code_branch", default="master", help="Set code branch name.")
+# @click.option("--start_commit", help="Set code repo checkout start commit.")
+# @click.option("--end_commit", help="Set code repo checkout end commit.")
+# @click.option("--images_name", help="Set images download remote registry name.")
+def tools(code_path, config_name, code_branch, start_commit, end_commit, images_name):
     """A rapidly iterating Docker deployment applet"""
     # 健康检查
     click.echo(click.style('>>> Start check info ...', fg='green'))
@@ -296,6 +302,31 @@ def main(code_path, config_name, code_branch, start_commit, end_commit, images_n
     click.echo(click.style('>>> Get docker images fix packs ...', fg='green'))
     patch = PATCH(code_path, config_name, code_branch, start_commit, end_commit, images_name)
     patch.run()
+
+
+def main():
+    len_args = len(sys.argv)
+    if len_args > 1:
+        tools()
+
+    tools_keywords = list(KEYWORDS_DICT.keys())
+    try:
+        while True:
+            user_input = prompt('TOOLS> ', completer=WordCompleter(tools_keywords))
+            user_input_key = user_input.split('=')[0]
+            user_input_value = user_input.split('=')[1]
+            tmp_dict = {user_input_key: user_input_value}
+            if user_input_key in tools_keywords:
+                KEYWORDS_DICT.update(tmp_dict)
+                tools_keywords.remove(user_input_key)
+                if len(tools_keywords) == 0:
+                    logger.info(f'All the required parameters have been entered.\n')
+                    tools(**KEYWORDS_DICT)
+                    break
+        else:
+            logger.warning(f'The {user_input_key} not in support args, please input again.')
+    except Exception:
+        logger.warning(f'There is something wrong with your output, please enter again.')
 
 
 if __name__ == '__main__':
