@@ -4,7 +4,7 @@ A rapidly iterating Docker deployment applet
 
 Usage:
     python3 docker_patch.py --help
-    (1) python3 ./docker_patch.py
+    (1) python3 docker_patch.py
     (2) python3 docker_patch.py
             --code_path='/data/app' \
             --code_branch='master' \
@@ -29,7 +29,6 @@ import click
 import gitdb
 import sh
 from git import Repo
-
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
 
@@ -93,10 +92,12 @@ class Check(BaseClass):
     def _repo_is_dirty(self):
         """检查仓库是否存在未提交文件"""
         if len(self.repo.untracked_files) != 0:
-            logger.error(f'The repo is dirty about {self.repo.untracked_files}.')
+            logger.error(
+                f'The repo is dirty about {self.repo.untracked_files}.')
             sys.exit(1)
         elif self.repo.is_dirty():
-            logger.error(f'The repo has some file not push to remote repo.')
+            logger.error(
+                f'The repo has some file not push to remote repo.')
             sys.exit(1)
         else:
             logger.info(f'The `{self.repo.git_dir}` is a clean git repo.')
@@ -114,7 +115,8 @@ class Check(BaseClass):
                 logger.error(f"The `{self.code_branch}` is not found in the git repo.")
                 sys.exit(1)
         except gitdb.exc.BadName:
-            logger.error(f"The `{self.start_commit}` or `{self.end_commit}` is not found in git.")
+            logger.error(
+                f"The `{self.start_commit}` or `{self.end_commit}` is not found in the git repo.")
             sys.exit(1)
 
     def _image_is_right(self):
@@ -281,13 +283,13 @@ class PATCH(BaseClass):
             sys.exit(3)
 
 
-# @click.command()
-# @click.option("--code_path", default=DEFAULT_CODE_PATH, type=click.Path(exists=True), help="Set code dir path.")
-# @click.option("--config_name", default="docker", help="Service config yml file name.")
-# @click.option("--code_branch", default="master", help="Set code branch name.")
-# @click.option("--start_commit", help="Set code repo checkout start commit.")
-# @click.option("--end_commit", help="Set code repo checkout end commit.")
-# @click.option("--images_name", help="Set images download remote registry name.")
+@click.command()
+@click.argument('code_path')
+@click.argument('config_name')
+@click.argument('code_branch')
+@click.argument('start_commit')
+@click.argument('end_commit')
+@click.argument('images_name')
 def tools(code_path, config_name, code_branch, start_commit, end_commit, images_name):
     """A rapidly iterating Docker deployment applet"""
     # 健康检查
@@ -307,11 +309,20 @@ def tools(code_path, config_name, code_branch, start_commit, end_commit, images_
 def main():
     len_args = len(sys.argv)
     if len_args > 1:
-        tools()
+        user_input_list = []
+        try:
+            for user_input in sys.argv[1:]:
+                user_input_value = user_input.split('=')[1]
+                user_input_list.append(user_input_value)
+            logger.info(f'All the required parameters have been entered.\n')
+            tools(user_input_list)
+        except Exception:
+            logger.warning(f'The {user_input} not in support args, please input again.')
+        sys.exit(0)
 
     tools_keywords = list(KEYWORDS_DICT.keys())
-    try:
-        while True:
+    while True:
+        try:
             user_input = prompt('TOOLS> ', completer=WordCompleter(tools_keywords))
             user_input_key = user_input.split('=')[0]
             user_input_value = user_input.split('=')[1]
@@ -321,12 +332,12 @@ def main():
                 tools_keywords.remove(user_input_key)
                 if len(tools_keywords) == 0:
                     logger.info(f'All the required parameters have been entered.\n')
-                    tools(**KEYWORDS_DICT)
+                    tools(KEYWORDS_DICT.values())
                     break
-        else:
-            logger.warning(f'The {user_input_key} not in support args, please input again.')
-    except Exception:
-        logger.warning(f'There is something wrong with your output, please enter again.')
+            else:
+                logger.warning(f'The {user_input_key} not in support args, please input again.')
+        except Exception:
+            logger.warning(f'There is something wrong with your output, please enter again.')
 
 
 if __name__ == '__main__':
