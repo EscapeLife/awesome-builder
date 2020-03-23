@@ -331,9 +331,14 @@ def main():
                 KEYWORDS_DICT.update(tmp_dict)
                 tools_keywords.remove(user_input_key)
                 if len(tools_keywords) == 0:
-                    logger.info(f'All the required parameters have been entered.\n')
-                    tools(KEYWORDS_DICT.values())
-                    break
+                    click.echo(click.style('\n>>> Input keywords show ...', fg='green'))
+                    pprint(KEYWORDS_DICT, indent=4)
+                    if click.confirm('Do you want to continue?'):
+                        logger.info(f'All the required parameters have been entered.\n')
+                        tools(KEYWORDS_DICT.values())
+                        break
+                    else:
+                        break
             else:
                 logger.warning(f'The {user_input_key} not in support args, please input again.')
         except Exception:
