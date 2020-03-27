@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-A rapidly iterating Docker deployment applet
+A rapidly iterating Docker deployment applet tool
 
 Usage:
     python3 docker_patch.py --help
