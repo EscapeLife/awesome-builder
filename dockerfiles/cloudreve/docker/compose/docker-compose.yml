@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  redis:
+    restart: on-failure
+    container_name: cloudreve_redis
+    image: redis:latest
+    command: ["redis-server", "--requirepass", "cloudreve"]
+    networks:
+      - cloudreve_network
+
+  mysql:
+    restart: on-failure
+    container_name: cloudreve_pg
+    image: mysql:latest
+    volumes:
+      - "./cloudreve/cloudreve_pg:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=cloudreve
+    networks:
+      - cloudreve_network
+
+  cloudreve:
+    restart: on-failure
+    container_name: cloudreve_web
+    image: cloudreve:0.0.1
+    ports:
+      - "80:80"
+    volumes:
+      - "./cloudreve/cloudreve_web:/data"
+    environment:
+      - type_mold=standard
+    networks:
+      - cloudreve_network
+    depends_on:
+      - redis
+      - mysql
+
+networks:
+  cloudreve_network:
