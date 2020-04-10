@@ -1,6 +1,6 @@
 # Cloudreve使用说明
 
-![Cloudreve使用说明](../../images/linux-cloudreve-tool.png)
+![Cloudreve使用说明](../../images/dockerfiles/linux-cloudreve-tool.png)
 
 ## 1. 快速开始
 
