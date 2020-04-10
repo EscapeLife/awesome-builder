@@ -1,0 +1,9 @@
+*
+.*
+!docker/letsencrypt
+!docker/nginx
+!docker/supervisor
+!docker/docker-entrypoint.sh
+!src/cloudreve
+!src/minimize-conf.ini
+!src/standard-conf.ini
