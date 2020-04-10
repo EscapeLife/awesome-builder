@@ -29,7 +29,7 @@ services:
     volumes:
       - "./cloudreve/cloudreve_web:/data"
     environment:
-      - type_mold=standard
+      - TYPE_MOLD=standard
     networks:
       - cloudreve_network
     depends_on:
