@@ -36,5 +36,5 @@ $ docker-compose -f ./docker/compose/docker-compose.yml up -d
 
 ## 4. 参考地址
 
-- [官方Github参考](https://github.com/cloudreve/Cloudreve)
+- [官方Github仓库](https://github.com/cloudreve/Cloudreve)
 - [官方使用文档地址](https://docs.cloudreve.org/)
