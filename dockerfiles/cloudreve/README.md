@@ -17,7 +17,12 @@ $ docker build --squash --no-cache --tag=cloudreve:0.0.1 .
 
 ```bash
 # 单独启动启动(数据库使用SQLite)
-$ docker run -d -p 80:80 --name cloudreve cloudreve:0.0.1
+$ docker run -d -p 80:80 --name cloudreve \
+    -e TZ="Asia/Shanghai" \
+    -v ./cloudreve/logs:/data/logs \
+    -v ./cloudreve/uploads:/data/uploads \
+    -v ./cloudreve/db:/data/cloudreve.db \
+    cloudreve:0.0.1
 
 # 使用docker-compose启动服务(数据库使用MySQL)
 $ docker-compose -f ./docker/compose/docker-compose.yml up -d
