@@ -6,7 +6,7 @@
 
 ## 1. 快速构建
 
-- 根据系统架构的不同，在 [`GitHub Release`](https://github.com/cloudreve/Cloudreve/releases) 页面获取已经构建打包完成的主程序压缩包，对其进行解压替换 `src` 目录中的主程序压缩包(该版本为3.0.0 RC-1，可能比较旧了)，然后通过本项目的 `Dockerfile` 文件进行本地打包，构建 `docker` 镜像包。
+- 根据系统架构的不同，在 [`GitHub Release`](https://github.com/cloudreve/Cloudreve/releases) 页面获取已经构建打包完成的主程序压缩包，对其进行解压替换 `source` 目录中的主程序压缩包(该版本为3.0.0 RC-1，可能比较旧了)，然后通过本项目的 `Dockerfile` 文件进行本地打包，构建 `docker` 镜像包。
 
 ```bash
 # 本地打包镜像

@@ -5,7 +5,7 @@ ENV LANG=en_US.UTF-8
 WORKDIR /opt/cloudreve
 
 COPY docker /docker
-COPY src /opt/cloudreve/
+COPY source /opt/cloudreve/
 
 RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
     apt update -y && \
