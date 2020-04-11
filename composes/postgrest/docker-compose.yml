@@ -8,7 +8,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "./postgrest_pg:/var/lib/postgresql/data"
+      - "postgrest_data:/var/lib/postgresql/data"
     environment:
       - POSTGRES_DB: app_db
       - POSTGRES_USER: app_user
@@ -30,6 +30,9 @@ services:
       - scriber_network
     depends_on:
       - postgres
+
+volumes:
+  postgrest_data:
 
 networks:
   postgrest_network:

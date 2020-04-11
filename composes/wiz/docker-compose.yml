@@ -3,17 +3,20 @@ version: "3"
 services:
   watchtower:
     restart: on-failure
-    image: wiznote/wizserver
     container_name: wizserver
+    image: wiznote/wizserver
     ports:
       - "80:80"
       - "9269:9269/udp"
     volumes:
-      - /data//wiz/wizdata:/wiz/storage
+      - "wizserver_data:/wiz/storage"
     environment:
       - TZ='Asia/Shanghai'
     networks:
       - wizserver_network
+
+volumes:
+  wizserver_data:
 
 networks:
   wizserver_network:
