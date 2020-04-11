@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  postgres:
+    restart: on-failure
+    container_name: postgrest_pg
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./postgrest_pg:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_DB: app_db
+      - POSTGRES_USER: app_user
+      - POSTGRES_PASSWORD: postgrest
+    networks:
+      - scriber_network
+
+  postgrest:
+    restart: on-failure
+    container_name: postgrest_web
+    image: postgrest/postgrest
+    ports:
+      - "3000:3000"
+    environment:
+      - PGRST_DB_URI: postgres://app_user:postgrest@postgres:5432/app_db
+      - PGRST_DB_SCHEMA: app_db
+      - PGRST_DB_ANON_ROLE: app_user
+    networks:
+      - scriber_network
+    depends_on:
+      - postgres
+
+networks:
+  postgrest_network:
