@@ -38,9 +38,10 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`watchtower`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/watchtower/docker-compose.yml) | 容器的自动更新解决方案  |
-| 2 | [**`portainer`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/portainer/docker-compose.yml) | 简化的自有化Docker容器管理工具(单机或多机)  |
-| 3 | [**`wiz`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiz/docker-compose.yml) | 为知笔记服务端私有化镜像部署  |
+| 1 | [**`watchtower`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/watchtower/README.md) | 容器的自动更新解决方案  |
+| 2 | [**`portainer`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/portainer/README.md) | 简化的自有化Docker容器管理工具(单机或多机)  |
+| 3 | [**`wiz`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiz/README.md) | 为知笔记服务端私有化镜像部署  |
+| 4 | [**`postgrest`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/postgrest/README.md) | 灵活的Postgres数据库REST风格的API接口服务  |
 
 ## 3. Projects
 
