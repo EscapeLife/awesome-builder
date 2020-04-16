@@ -11,7 +11,7 @@ while [ ${pquit} -eq 0 ]; do
     let index++
 
     # get all child processes to array
-    get_pid=$(ps -o pid --ppid ${pids_array[$index-1]} | pcregrep '\d+' | tr \\n ' ')
+    get_pid=$(ps -o pid --ppid ${pids_array[$index - 1]} | pcregrep '\d+' | tr \\n ' ')
     if [[ ! -z ${get_pid} ]]; then
         pids_array[$index]=${get_pid}
     else
@@ -26,7 +26,7 @@ echo "${pid_number}"
 for pid in $(seq 0 ${pid_number}); do
     if [ "${pids_array[$pid]}" ]; then
         echo "[$pid] kill => ${pids_array[$pid]}"
-        kill ${pids_array[$pid]} &> /dev/null
+        kill ${pids_array[$pid]} &>/dev/null
     fi
 done
 
