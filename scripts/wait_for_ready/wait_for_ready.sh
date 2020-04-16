@@ -4,18 +4,17 @@
 # Init Text Print Colors
 # -----------------------------------------------------------------------
 # reset color
-ColorReset='\033[0m'  # reset
+ColorReset='\033[0m' # reset
 
 # regular colors
-Black='\033[0;30m'   # black
-Red='\033[0;31m'     # red
-Green='\033[0;32m'   # green
-Yellow='\033[0;33m'  # yellow
-Blue='\033[0;34m'    # blue
-Purple='\033[0;35m'  # purple
-Cyan='\033[0;36m'    # cyan
-White='\033[0;37m'   # white
-
+Black='\033[0;30m'  # black
+Red='\033[0;31m'    # red
+Green='\033[0;32m'  # green
+Yellow='\033[0;33m' # yellow
+Blue='\033[0;34m'   # blue
+Purple='\033[0;35m' # purple
+Cyan='\033[0;36m'   # cyan
+White='\033[0;37m'  # white
 
 # -----------------------------------------------------------------------
 # Parse Commandline Function
@@ -30,7 +29,7 @@ die() {
 
 echo_info() {
     if [ ${_arg_quiet} == "on" ]; then
-        echo -e "$@" &> /dev/null
+        echo -e "$@" &>/dev/null
     else
         echo -e "$@"
     fi
@@ -42,7 +41,6 @@ begins_with_short_option() {
     first_option="${1:0:1}"
     test "$all_short_options" = "${all_short_options/$first_option/}" && return 1 || return 0
 }
-
 
 # -----------------------------------------------------------------------
 # The Defaults Initialization Optionals
@@ -73,37 +71,37 @@ parse_commandline() {
     while test $# -gt 0; do
         _key="$1"
         case "$_key" in
-            *:* )
-                _arg_host_and_port=(${_key//:/ })
-                _arg_host=${_arg_host_and_port[0]}
-                _arg_port=${_arg_host_and_port[1]}
-                ;;
-            -t)
-                test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
-                _arg_timeout="$2"
-                shift
-                ;;
-            --)
-                shift
-                _arg_cmd_signal="on"
-                _arg_wait_for_ready_cmd=("$@")
-                break
-                ;;
-            --strict|--no-strict)
-                _arg_strict="on"
-                test "${1:0:5}" = "--no-" && _arg_strict="off"
-                ;;
-            --quiet|--no-quiet)
-                _arg_quiet="on"
-                test "${1:0:5}" = "--no-" && _arg_quiet="off"
-                ;;
-            -h|--help)
-                print_help
-                exit 0
-                ;;
-            *)
-                _PRINT_HELP=yes die "FATAL ERROR: Got an unexpected argument '$1'" 1
-                ;;
+        *:*)
+            _arg_host_and_port=(${_key//:/ })
+            _arg_host=${_arg_host_and_port[0]}
+            _arg_port=${_arg_host_and_port[1]}
+            ;;
+        -t)
+            test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+            _arg_timeout="$2"
+            shift
+            ;;
+        --)
+            shift
+            _arg_cmd_signal="on"
+            _arg_wait_for_ready_cmd=("$@")
+            break
+            ;;
+        --strict | --no-strict)
+            _arg_strict="on"
+            test "${1:0:5}" = "--no-" && _arg_strict="off"
+            ;;
+        --quiet | --no-quiet)
+            _arg_quiet="on"
+            test "${1:0:5}" = "--no-" && _arg_quiet="off"
+            ;;
+        -h | --help)
+            print_help
+            exit 0
+            ;;
+        *)
+            _PRINT_HELP=yes die "FATAL ERROR: Got an unexpected argument '$1'" 1
+            ;;
         esac
         shift
     done
@@ -114,7 +112,6 @@ if [ $# -eq 0 ]; then
 else
     parse_commandline "$@"
 fi
-
 
 # -----------------------------------------------------------------------
 # Test The Parameters Are In Compliance
@@ -156,14 +153,13 @@ check_timeout_arg() {
     fi
 }
 
-
 # -----------------------------------------------------------------------
 # Run Waiting For Connect Server
 # -----------------------------------------------------------------------
 wait_for_connect() {
     connect_start_time=$(date +%s)
     while true; do
-        ${nc_path} -w 1 -z ${_arg_host} ${_arg_port} &> /dev/null
+        ${nc_path} -w 1 -z ${_arg_host} ${_arg_port} &>/dev/null
         connet_result="$?"
         if [[ ${connet_result} -eq 0 ]]; then
             connect_end_time=$(date +%s)
@@ -180,7 +176,6 @@ wait_for_connect() {
     done
     return ${connet_result}
 }
-
 
 # -----------------------------------------------------------------------
 # The Main Logic
