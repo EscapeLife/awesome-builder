@@ -6,23 +6,21 @@
 # The default packaging path is /tmp and can be specified if space is no free
 # image2run.sh --src /data/app_postgres_0.0.1.tar --image app_postgres:0.0.1
 
-
 # -----------------------------------------------------------------------
 # Init Text Print Colors
 # -----------------------------------------------------------------------
 # reset color
-ColorReset='\033[0m'  # reset
+ColorReset='\033[0m' # reset
 
 # regular colors
-Black='\033[0;30m'   # black
-Red='\033[0;31m'     # red
-Green='\033[0;32m'   # green
-Yellow='\033[0;33m'  # yellow
-Blue='\033[0;34m'    # blue
-Purple='\033[0;35m'  # purple
-Cyan='\033[0;36m'    # cyan
-White='\033[0;37m'   # white
-
+Black='\033[0;30m'  # black
+Red='\033[0;31m'    # red
+Green='\033[0;32m'  # green
+Yellow='\033[0;33m' # yellow
+Blue='\033[0;34m'   # blue
+Purple='\033[0;35m' # purple
+Cyan='\033[0;36m'   # cyan
+White='\033[0;37m'  # white
 
 # -----------------------------------------------------------------------
 # Parse Commandline Function
@@ -43,9 +41,8 @@ begins_with_short_option() {
 }
 
 is_command() {
-    command -v "$1" > /dev/null 2>&1
+    command -v "$1" >/dev/null 2>&1
 }
-
 
 # -----------------------------------------------------------------------
 # The Defaults Initialization Optionals
@@ -62,37 +59,36 @@ print_help() {
 }
 
 parse_commandline() {
-    while test $# -gt 0
-    do
+    while test $# -gt 0; do
         _key="$1"
         case "$_key" in
-            --src)
-                test $# -lt 2 && die "[ERROR]: Missing value for the optional argument '$_key'." 1
-                _arg_src="$2"
-                shift
-                ;;
-            --src=*)
-                _arg_src="${_key##--src=}"
-                ;;
-            --image)
-                test $# -lt 2 && die "[ERROR]: Missing value for the optional argument '$_key'." 1
-                _arg_image="$2"
-                shift
-                ;;
-            --image=*)
-                _arg_image="${_key##--image=}"
-                ;;
-            -h|--help)
-                print_help
-                exit 0
-                ;;
-            -h*)
-                print_help
-                exit 0
-                ;;
-            *)
-                _PRINT_HELP=yes die "FATAL ERROR: Got an unexpected argument '$1'" 1
-                ;;
+        --src)
+            test $# -lt 2 && die "[ERROR]: Missing value for the optional argument '$_key'." 1
+            _arg_src="$2"
+            shift
+            ;;
+        --src=*)
+            _arg_src="${_key##--src=}"
+            ;;
+        --image)
+            test $# -lt 2 && die "[ERROR]: Missing value for the optional argument '$_key'." 1
+            _arg_image="$2"
+            shift
+            ;;
+        --image=*)
+            _arg_image="${_key##--image=}"
+            ;;
+        -h | --help)
+            print_help
+            exit 0
+            ;;
+        -h*)
+            print_help
+            exit 0
+            ;;
+        *)
+            _PRINT_HELP=yes die "FATAL ERROR: Got an unexpected argument '$1'" 1
+            ;;
         esac
         shift
     done
@@ -105,11 +101,10 @@ else
     parse_commandline "$@"
 fi
 
-
 # -----------------------------------------------------------------------
 # Create Self-Extractable Tar Package
 # -----------------------------------------------------------------------
-if [ -z  ${_arg_src} ] || [ -z ${_arg_image} ]; then
+if [ -z ${_arg_src} ] || [ -z ${_arg_image} ]; then
     print_help
     exit 0
 elif [ ! -f ${_arg_src} ]; then
@@ -130,7 +125,7 @@ archive_dir="${file_name}_packages"
 install_name="install.sh"
 commit_message="${file_name} installer for program"
 
-rmdir /tmp/${archive_dir} > /dev/null 2>&1
+rmdir /tmp/${archive_dir} >/dev/null 2>&1
 mkdir -vp /tmp/${archive_dir}
 trap "rm -rf /tmp/${archive_dir}" EXIT
 cp ${_arg_src} /tmp/${archive_dir}
@@ -148,7 +143,7 @@ if [ ${file_product} != ${input_product} ] || [ ${file_version} != ${input_versi
 fi
 
 # create install.sh for self-extractable
-cat > /tmp/${archive_dir}/${install_name} << EOF
+cat >/tmp/${archive_dir}/${install_name} <<EOF
 #!/bin/bash
 
 which docker > /dev/null 2>&1
@@ -173,7 +168,6 @@ EOF
 chmod 755 /tmp/${archive_dir}/${install_name}
 makeself --gzip --follow --nooverwrite /tmp/${archive_dir} ${dir_name}/${makeself_name} "${commit_message}" ./${install_name}
 
-
 # -----------------------------------------------------------------------
 # Generation Download Links And Package Information
 # -----------------------------------------------------------------------
@@ -188,5 +182,5 @@ fi
 
 printf '\n%s\n' "============================================"
 printf '%3s\t%s\t%s\n' "1" "MD5" "${md5_sum}"
-printf '%3s\t%s\t%s'   "2" "EXP" "${expiration_time}"
+printf '%3s\t%s\t%s' "2" "EXP" "${expiration_time}"
 printf '\n%s\n' "============================================"
