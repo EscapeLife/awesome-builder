@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  portainer:
+    restart: unless-stopped
+    container_name: rancher
+    image: rancher/rancher
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "rancher_data:/data"
+    networks:
+      - rancher_network
+
+volumes:
+  rancher_data:
+
+networks:
+  rancher_network:
