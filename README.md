@@ -42,6 +42,7 @@
 | 2 | [**`portainer`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/portainer/README.md) | 简化的自有化Docker容器管理工具(单机或多机)  |
 | 3 | [**`wiz`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiz/README.md) | 为知笔记服务端私有化镜像部署  |
 | 4 | [**`postgrest`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/postgrest/README.md) | 灵活的Postgres数据库REST风格的API接口服务  |
+| 5 | [**`rancher`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/rancher/README.md) | 一个开源的企业级容器管理平台 |
 
 ## 3. Projects
 
@@ -49,7 +50,8 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`parallel-ssh`**](https://github.com/EscapeLife/awesome-builder/blob/master/porjects/parallel-ssh/README.md) | 为小规模自动化而设计的异步并行的SSH库 |
+| 1 | [**`parallel-ssh`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/parallel-ssh/README.md) | 为小规模自动化而设计的异步并行的SSH库 |
+| 2 | [**`simple_ocr`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/simple_ocr/README.md) | 用户可以上传指定图片进行OCR识别返回结果 |
 
 ## 4. Scripts
 
