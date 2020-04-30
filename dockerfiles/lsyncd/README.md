@@ -75,9 +75,11 @@ $ sudo ufw route allow log-all 873 comment "open rsync 873 port"
 - **在master节点负责收集数据**
   - 将/data目录共享出去，收集slave节点发送的数据，然后进行本地存储
   - 设置密码为123456，主机地址为本机地址，使用端口号为默认的873端口
+  - 默认没有日志输出，需要查看日志的话需要执行--debug参数
 - **在slave节点负责向master节点发送数据**
   - 将本机的/data_app目录下的内容发送到master节点的/data/app_one_data目录进行存储
   - 参数中的--exclude是以共享的/data_app目录为根目录，参数中的--delete表示主从节点文件一致
+  - 默认没有日志输出，需要查看日志的话需要执行--debug参数
 
 ```bash
 # master
