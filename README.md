@@ -96,6 +96,6 @@
 - **💭 [Email] 💭**
   - 📫 **[`wenpanhappy@gmail.com`](https://www.escapelife.site)** 🤔
 - **💭 [Myblog] 💭**
-  - 🍺 **[`https://escapelife.github.io`](https://www.escapelife.site)** 😚
+  - 🍺 **[`https://www.escapelife.site`](https://www.escapelife.site)** 😚
 - **💭 [License] 💭**
   - 🚧 [**`Apache License, Version 2.0`**](http://www.apache.org/licenses/LICENSE-2.0.html)😝
