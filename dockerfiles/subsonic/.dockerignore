@@ -1,0 +1,5 @@
+*
+.*
+!docker
+!subsonic-6.1.6.deb
+**/*.md
