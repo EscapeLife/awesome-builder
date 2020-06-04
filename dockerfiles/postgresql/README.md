@@ -145,7 +145,7 @@ $ docker run -d --name postgres_es_slave -p 5432:5432 \
     postgres_es:latest
 ```
 
-- 鉴于启动方式中可能传入环境变量较多，建议将多个环境变量定义在 `env` 文件中，在容器启动的时候传入，以便信息保存。
+- 启动方式中可能传入环境变量较多，建议将多个环境变量定义在 `env` 文件中，在容器启动的时候传入，以便信息保存。
 
 ```bash
 # use env file
@@ -169,8 +169,8 @@ $ docker run -d -p 5432:5432 --name postgres_es_master \
 
 | 参数编号 | 参数名称               | 含义说明                                                                                         |
 | ------ | ---------------------- | -------------------------------------------------------------------------------------------- |
-| 1      | `RECOVERY_TARGET_TIME` | recovery.conf文件的recovery_target_time配置，格式如`2020-02-07 17:27:08 UTC` ，注意容器内时区为UTC |
-| 2      | `SKIP_BACKUP`          | 设定时跳过自动备份，备份数据在 `/data/backup_xxxxxxxx` 目录内                                      |
+| 1      | `RECOVERY_TARGET_TIME` | 修改recovery.conf文件的recovery_target_time字段，配置格式如`2020-02-07 17:27:08 UTC`所示即可，需要注意的是容器内时区为UTC |
+| 2      | `SKIP_BACKUP`          | 当该字段被设定时，会自动跳过备份，备份数据存放在 `/data/backup_xxxxxxxx` 目录内                                      |
 
 ### 3.1 增量 WAL 恢复数据
 
