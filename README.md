@@ -80,6 +80,7 @@
 | 4 | [**`collect_server_info.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/collect_server_info.py) | 收集Linux操作系统服务器相关信息(包含CPU/内存/磁盘) |
 | 5 | [**`linux_tail_f.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/linux_tail_f.py) | 实现Linux下tail命令动态查看日志的功能 |
 | 6 | [**`calculator.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/calculator.py) | 使用Python语言实现一个简单的计算器工具 |
+| 7 | [**`daily_record.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/daily_record.py) | 实现每日自动发送日报的功能(针对Gitlab平台) |
 
 ## 6. Contact
 
