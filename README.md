@@ -59,7 +59,7 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/kill_process/kill_all_process.sh) | 解决在Linux系统中程序意外退出删除进程树，防止孤儿进程的出现 |
+| 1 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/kill_process/kill_all_process.sh) | 解决Linux程序意外退出时删除进程树(防止孤儿进程的出现) |
 | 2 | [**`/etc/ufw/after.rules`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/after_rules/after.rules) | 解决UFW无法管理Docker发布出来的端口问题 |
 | 3 | [**`setup.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/setup/setup.py) | 一个Python程序打包的示例setup.py配置脚本文件 |
 | 4 | [**`pyproject.toml`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/pyproject/pyproject.toml) | 一个Python程序打包的示例pyproject.toml配置脚本文件 |
@@ -79,7 +79,7 @@
 | 3 | [**`random_passwd.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/random_passwd.py) | 自动生成随机密码(可以指定随即密码长度范围) |
 | 4 | [**`collect_server_info.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/collect_server_info.py) | 收集Linux操作系统服务器相关信息(包含CPU/内存/磁盘) |
 | 5 | [**`linux_tail_f.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/linux_tail_f.py) | 实现Linux下tail命令动态查看日志的功能 |
-| 6 | [**`calculator.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/calculator.py) | 实现一个简单的计算器 |
+| 6 | [**`calculator.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/calculator.py) | 使用Python语言实现一个简单的计算器工具 |
 
 ## 6. Contact
 
