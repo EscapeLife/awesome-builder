@@ -20,7 +20,6 @@ begins_with_short_option() {
     test "$all_short_options" = "${all_short_options/$first_option/}" && return 1 || return 0
 }
 
-
 # -----------------------------------------------------------------------
 # The Defaults Initialization Optionals
 # -----------------------------------------------------------------------
@@ -36,82 +35,80 @@ _arg_delay=15
 _rsyncd_log_path="/dev/null"
 _lsyncd_log_level="scarce"
 
-parse_commandline ()
-{
-    while test $# -gt 0
-    do
+parse_commandline() {
+    while test $# -gt 0; do
         _key="$1"
         case "$_key" in
-            --no-slave|--slave)
-                _arg_slave="on"
-                test "${1:0:5}" = "--no-" && _arg_slave="off"
-                ;;
-            --ip)
-                test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
-                _arg_ip="$2"
-                shift
-                ;;
-            --ip=*)
-                _arg_ip="${_key##--ip=}"
-                ;;
-            --port)
-                test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
-                _arg_port="$2"
-                shift
-                ;;
-            --port=*)
-                _arg_port="${_key##--port=}"
-                ;;
-            --delete)
-                _arg_delete="true"
-                ;;
-            --debug)
-                _rsyncd_log_path="/dev/stdout"
-                _lsyncd_log_level="Exec"
-                ;;
-            --password)
-                test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
-                _arg_password="$2"
-                shift
-                ;;
-            --password=*)
-                _arg_password="${_key##--password=}"
-                ;;
-            --delay)
-                test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
-                _arg_delay="$2"
-                shift
-                ;;
-            --delay=*)
-                _arg_delay="${_key##--delay=}"
-                ;;
-            --dest)
-                test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
-                _arg_dest="$2"
-                shift
-                ;;
-            --dest=*)
-                _arg_dest="${_key##--dest=}"
-                ;;
-            --exclude)
-                test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
-                _extra_exclude_args=${_extra_exclude_args}"\"$2\", "
-                shift
-                ;;
-            --exclude=*)
-                _extra_exclude_args=${_extra_exclude_args}"\"${_key##--exclude=}\", "
-                ;;
-            --limit)
-                test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
-                _extra_rsync_args=${_extra_rsync_args}", \"--bwlimit=$2\""
-                shift
-                ;;
-            --limit=*)
-                _extra_rsync_args=${_extra_rsync_args}", \"--bwlimit=${_key##--limit=}\""
-                ;;
-            *)
-                _PRINT_HELP=yes die "FATAL ERROR: Got an unexpected argument '$1'" 1
-                ;;
+        --no-slave | --slave)
+            _arg_slave="on"
+            test "${1:0:5}" = "--no-" && _arg_slave="off"
+            ;;
+        --ip)
+            test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+            _arg_ip="$2"
+            shift
+            ;;
+        --ip=*)
+            _arg_ip="${_key##--ip=}"
+            ;;
+        --port)
+            test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+            _arg_port="$2"
+            shift
+            ;;
+        --port=*)
+            _arg_port="${_key##--port=}"
+            ;;
+        --delete)
+            _arg_delete="true"
+            ;;
+        --debug)
+            _rsyncd_log_path="/dev/stdout"
+            _lsyncd_log_level="Exec"
+            ;;
+        --password)
+            test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+            _arg_password="$2"
+            shift
+            ;;
+        --password=*)
+            _arg_password="${_key##--password=}"
+            ;;
+        --delay)
+            test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+            _arg_delay="$2"
+            shift
+            ;;
+        --delay=*)
+            _arg_delay="${_key##--delay=}"
+            ;;
+        --dest)
+            test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+            _arg_dest="$2"
+            shift
+            ;;
+        --dest=*)
+            _arg_dest="${_key##--dest=}"
+            ;;
+        --exclude)
+            test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+            _extra_exclude_args=${_extra_exclude_args}"\"$2\", "
+            shift
+            ;;
+        --exclude=*)
+            _extra_exclude_args=${_extra_exclude_args}"\"${_key##--exclude=}\", "
+            ;;
+        --limit)
+            test $# -lt 2 && die "Missing value for the optional argument '$_key'." 1
+            _extra_rsync_args=${_extra_rsync_args}", \"--bwlimit=$2\""
+            shift
+            ;;
+        --limit=*)
+            _extra_rsync_args=${_extra_rsync_args}", \"--bwlimit=${_key##--limit=}\""
+            ;;
+        *)
+            _PRINT_HELP=yes die "FATAL ERROR: Got an unexpected argument '$1'" 1
+            ;;
         esac
         shift
     done
@@ -119,13 +116,12 @@ parse_commandline ()
 
 parse_commandline "$@"
 
-
 # -----------------------------------------------------------------------
 # Run Build Rsyncd or Lsyncd Server
 # -----------------------------------------------------------------------
 gen_rsyncd_config() {
     mkdir -p /etc/rsyncd/
-    cat > /etc/rsyncd/rsyncd.conf << EOL
+    cat >/etc/rsyncd/rsyncd.conf <<EOL
 uid = root
 gid = root
 use chroot = yes
@@ -136,7 +132,7 @@ syslog facility = local5
 port = 873
 [data]
 path = /data/
-comment = paoding rsyncd service
+comment = escapelife rsyncd service
 ignore errors
 read only = no
 list = yes
@@ -149,14 +145,14 @@ gen_rsyncd_passwd() {
     mkdir -p /etc/lsyncd/
     touch /etc/lsyncd/rsyncd.pwd
     chmod 600 /etc/rsyncd/rsyncd.pwd
-    cat "rsync:${_arg_password}" > /etc/rsyncd/rsyncd.pwd
+    cat "rsync:${_arg_password}" >/etc/rsyncd/rsyncd.pwd
 }
 
 gen_lsyncd_passwd() {
     mkdir -p /etc/lsyncd/
     touch /etc/lsyncd/rsync.pwd
     chmod 600 /etc/lsyncd/rsync.pwd
-    cat "${_arg_password}" > /etc/lsyncd/rsync.pwd
+    cat "${_arg_password}" >/etc/lsyncd/rsync.pwd
 }
 
 gen_lsyncd_config() {
@@ -200,13 +196,13 @@ gen_health_check() {
     touch /healthcheck.sh
     chmod +x /healthcheck.sh
     if [[ "${_arg_slave}" == "off" ]]; then
-        cat > /healthcheck.sh <<EOL
+        cat >/healthcheck.sh <<EOL
 #!/usr/bin/env bash
 set -e
 rsync -a --timeout=10 --dry-run --exclude="/*" --password-file=/etc/lsyncd/rsync.pwd "--port=873" "/data" "rsync@127.0.0.1::data/"
 EOL
     else
-        cat > /healthcheck.sh <<EOL
+        cat >/healthcheck.sh <<EOL
 #!/usr/bin/env bash
 set -e
 rsync -a --timeout=10 --dry-run --exclude="/*" --password-file=/etc/lsyncd/rsync.pwd "--port=${_arg_port}" "/data" "rsync@${_arg_ip}::data${_arg_dest}"
@@ -216,7 +212,7 @@ EOL
 
 run_rsyncd() {
     gen_rsyncd_config
-    /usr/bin/rsync --daemon  --no-detach --config=/etc/rsyncd/rsyncd.conf
+    /usr/bin/rsync --daemon --no-detach --config=/etc/rsyncd/rsyncd.conf
 }
 
 run_lsyncd() {
@@ -235,7 +231,6 @@ main() {
         run_lsyncd
     fi
 }
-
 
 # -----------------------------------------------------------------------
 # The Main Function

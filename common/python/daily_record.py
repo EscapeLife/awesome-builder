@@ -42,7 +42,7 @@ class GITES:
         [print(re.sub('\n', '', daily_work, 1), end='\n\n') for daily_work in self.daily_work_list]
 
     def _push_daily_record(self):
-        logger.info('Start pushing work tasks to gitpd ...')
+        logger.info('Start pushing work tasks to gites ...')
         wenpan_journal = self._get_project(self.daily_record_project_id)
         journal_issue = wenpan_journal.issues.get(self.daily_record_issue_id)
         journal_note = journal_issue.notes.create({'body': '\n'.join(self.daily_work_list)})
