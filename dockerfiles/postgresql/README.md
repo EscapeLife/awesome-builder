@@ -1,173 +1,201 @@
-# Postgresql高可用配置
+# PostgreSQL DB
 
-> **主要使用的是Postgresql主备流复制的技术来配置高可用的**
-> - `https://github.com/pgpool/pgpool2`
-> - `https://my.oschina.net/u/3308173/blog/900093`
+> **完美的PG数据库，从这里开始！**
 
----
+- [1.容器的基本使用](https://github.com/EscapeLife)
+- [2.主从的同步步骤](https://github.com/EscapeLife)
+- [3.增量恢复和重建](https://github.com/EscapeLife)
+- [4.现存的问题记录](https://github.com/EscapeLife)
 
-## 1. PGPool2工具介绍
+## 1. 容器的基本使用
 
-> **可在master和slave上都进行配置，以便实现pgpool2高可用**
+> **主要介绍postgres_es容器的基本使用方式和方法**
 
-- **工具简介**
-
-`pgpool-II` 是一个位于 `PostgreSQL` 服务器和 `PostgreSQL` 数据库客户端之间的中间件，它提供以下主要功能：链接池、负载均衡、节点`failover`(配置主备切换) 更多介绍请点击这里
-
-- **功能特点**
-
-xxx
-
----
-
-## 2. PGPool2安装方式
-
-> ****
+- **build**
 
 ```bash
-# 从该网站获取源码安装
-# https://launchpad.net/ubuntu/+source/pgpool2/4.0.2-1
-$ wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/pgpool2/4.0.2-1/pgpool2_4.0.2.orig.tar.gz
+# build postgres_es image
+$ cd dockerfiles/postgresql
+$ docker build --squash --no-cache --tag=postgres_es:latest .
 ```
+
+- **docker**
 
 ```bash
-# 解压并进入对应目录
-$ mkdir /opt/pgpool
-$ tar -zxvf pgpool2_4.0.2.orig.tar.gz
-$ cd pgpool-II-4.0.2
-
-# 安装工具依赖包
-$ sudo apt update && apt install -y build-essential libpq-dev
-
-# 源代码安装方式
-$ sudo ./configure --prefix=/opt/pgpool
-$ sudo make
-$ sudo make install
+# docker run postgres_es
+docker run -d --name=postgres_es \
+    -v ./postgres:/data \
+    -e POSTGRES_DB=app \
+    -e POSTGRES_PASSWORD=123456 \
+    --network=postgres_es_network \
+    postgres_es:latest
 ```
 
----
+- **compose**
 
-## 3. PGPool2配置操作
+```yaml
+# postgres_es compose yml
+version: "3.7"
 
-> ****
+services:
+  postgres:
+    restart: on-failure
+    container_name: postgres_es
+    image: postgres_es:latest
+    volumes:
+      - "./postgres:/data"
+    environment:
+      - DEBUG=false
+      - POSTGRES_DB=app
+      - POSTGRES_PASSWORD=123456
+    networks:
+      - postgres_es_network
 
-1. 使用ssh配置是master和slave节点服务器可以免密码登陆
+networks:
+  postgres_es_network:
+```
 
-2. pool_hba.conf，内容与postgres配置中的pg_hba.conf保持一致
+## 2. 主从的同步步骤
 
-3. 配置pcp管理工具密码（如果不需要通过pgpool登陆数据库，则该步可以省略）
+> **postgres_es镜像数据主从(master/slave)使用方法说明**
+
+### 2.1 主从节点模式启动方式(master/slave)
+
+- 当使用镜像启动 `master/slave` 模式时，启动的 `container` 容器必须先设置 `POSTGRES_ROLE` 环境变量用来表示节点的所属类型。其中，值为 `master` 表示主节点，值为 `slave` 表示丛节点。
 
 ```bash
-pg_md5 pwd
-vim /etc/pgpool-II/pcp.conf #加入上一步加密的密码(该文件可以cp pcp.conf.sample pcp.conf)
-e.g: postgres:01b114342d7fc811669eb24dbe609cc4
+# 主节点启动(master)
+$ docker run -d --name container_name -e POSTGRES_ROLE='master' <other directive>
+
+# 从节点启动(slave)
+$ docker run -d --name container_name -e POSTGRES_ROLE='slave' <other directive>
 ```
 
-4. pgpool.conf
+### 2.2 主节点的配置(master)
+
+- **以下两种情况之一，则需要配置其他环境变量**
+  - [情况一] 当 master 节点和 slave 节点不再同一台物理机
+  - [情况二] 当启动 container 设置的 ip 不是默认的 172.17.0.0/24 网段
+- **配置 SLAVE_HOST_IP 环境变量**
 
 ```bash
-# CONNECTIONS
-listen_addresses = '*'
-port = 9999
-pcp_listen_addresses = '*'
-pcp_port = 9898
-
-# - Backend Connection Settings -
-backend_hostname0 = 'master_server_ip'
-backend_port0 = 5432
-backend_weight0 = 1
-backend_data_directory0 = '/var/lib/postgresql/data'
-backend_flag0 = 'ALLOW_TO_FAILOVER'
-
-backend_hostname1 = 'slave_server_ip'
-backend_port1 = 5432
-backend_weight1 = 1
-backend_data_directory1 = '/var/lib/postgresql/data'
-backend_flag1 = 'ALLOW_TO_FAILOVER'
-
-# FILE LOCATIONS
-pid_file_name = '/var/run/pgpool/pgpool.pid'
-
-# REPLICATION MODE
-replication_mode = off
-
-# LOAD BALANCING MODE
-load_balance_mode = on
-
-# MASTER/SLAVE MODE
-master_slave_mode = on
-master_slave_sub_mode = 'stream'
-
-# Streaming
-sr_check_period = 5
-sr_check_user = 'postgres'
-sr_check_password = ''
-sr_check_database = 'postgres'
-
-# HEALTH CHECK MODE
-health_check_period = 5 # Health check period,Disabled (0) by default
-health_check_timeout = 20 # Health check timeout, 0 means no timeout
-health_check_user = 'postgres'
-health_check_password = ''
-health_check_database = 'postgres'
-#必须设置，否则primary数据库down了，pgpool不知道，不能及时切换。从库流复制还在连接数据，报连接失败。
-#只有下次使用pgpool登录时，发现连接不上，然后报错，这时候，才知道挂了，pgpool进行切换。
-
-# FAILOVER
-failover_command = '/opt/pgpool/failover_stream.sh master_server_ip'
-failback_command = ''
-
-# WATCHDOG
-# 该部分需要时具体配置
-
-# heartbeat mode
-heartbeat_destination0 = 'node_ip'
-heartbeat_device0 = 'eth0' # 根据网卡信息填写
+# master
+$ docker run -d --name container_name -e SLAVE_HOST_IP='ip' <other directive>
 ```
 
-6. 编写failover_steamer.sh脚本
+### 2.3 从节点的配置(slave)
 
-```
-#! /bin/sh
-# Failover command for streaming replication.
-# Arguments: $1: new master hostname.
-
-
-new_master=$1
-PGDATA=/var/lib/postgresql/data
-trigger_command="$PGHOME/bin/pg_ctl promote -D $PGDATA"
-
-# Prompte standby database.
-/usr/bin/ssh -T $new_master $trigger_command
-
-exit 0;
-```
-
-6. 以上配置可以都是在postgres用户下创建
+- **以下两种情况之一，则需要配置其他环境变量**
+  - [情况一] 当 master 节点和 slave 节点不再同一台物理机
+  - [情况二] 当启动 container 设置的 ip 不是默认的 172.17.0.0/24 网段
+- **配置 MASTER_HOST_IP 环境变量**
 
 ```bash
-
+# slave
+$ docker run -d --name container_name -e MASTER_HOST_IP='ip' <other directive>
 ```
 
-7. 修改相关文件目录的权限
+### 2.4 安装 pgpool2 中间件
+
+- **使用USE_PGPOOL环境变量控制是否安装pgpool2中间件**
+  - 当需要在容器中安装 pgpool2 中间件时，启动 container 时设置 USE_PGPOOL 环境变量，值为 true。
 
 ```bash
-chown -R postgres.postgres /opt/pgpool
-chmod 777  /opt/pgpool/failover_stream.sh
-mkdir /var/log/pgpool
-chown -R postgres.postgres /var/log/pgpool
-mkdir /var/run/pgpool
-chown -R postgres.postgres /var/run/pgpool
+# 当需要在容器中安装pgpool2中间件时，启动容器时设置USE_PGPOOL环境变量，值为true表示开启
+$ docker run -d --name container_name -e USE_PGPOOL='true' <other directive>
 ```
 
-8. 启动pgpool
+- **以下情况需要在安装中间件时配置参数**
+  - 当 master 节点和 slave 节点不再同一台物理机
+  - master 和 slave 镜像默认地址不是 172.17.0.2 和 172.17.0.3
+  - 数据库的映射端口不在默认的 5432 端口
 
 ```bash
-pgpool -f /opt/pgpool/etc/pgpool.conf -n -d -D > /var/log/pgpool/pgpool.log 2>&1 &
+# 配置内容: port没有变化(默认5432)的时候不用配置
+$ docker run -d --name container_name \
+    -e MASTER_HOST_IP='ip' -e MASTER_PG_PORT='port' \
+    -e SLAVE_HOST_IP='ip' -e SLAVE_PG_PORT='port' <other directive>
 ```
 
----
+### 2.5 整体使用示例(all)
 
-## 4. PGPool2存在问题
+> **以下使用主从数据库的完整配置**
 
-当 `master down` 掉以后 `pgpool` 会进行一次主备切换，等角色恢复以后，需要重启一次 `pgpool` 服务才能让以后的 `failover` 有效执行，应该是我没有找到合适的配置项导致的。
+- **主节点配置(master)**
+
+```bash
+$ docker run -d --name postgres_es_master -p 5432:5432 \
+    -e POSTGRES_ROLE='master' -e USE_PGPOOL='true' \
+    -e MASTER_HOST_IP='192.168.31.100' -e "MASTER_PG_PORT=5432" \
+    -e SLAVE_HOST_IP='192.168.31.200' -e "SLAVE_PG_PORT=5432" \
+    postgres_es:latest
+```
+
+- **从节点配置(slave)**
+
+```bash
+$ docker run -d --name postgres_es_slave -p 5432:5432 \
+    -e POSTGRES_ROLE='slave' -e USE_PGPOOL='true' \
+    -e MASTER_HOST_IP='192.168.31.100' -e "MASTER_PG_PORT=5432" \
+    -e SLAVE_HOST_IP='192.168.31.200' -e "SLAVE_PG_PORT=5432" \
+    postgres_es:latest
+```
+
+- 鉴于启动方式中可能传入环境变量较多，建议将多个环境变量定义在 `env` 文件中，在容器启动的时候传入，以便信息保存。
+
+```bash
+# use env file
+$ docker run -d -p 5432:5432 --name postgres_es_master \
+    --env-file file_path/env.conf postgres_es:latest
+```
+
+- 当使用 `pgpool` 作为应用链接数据库的中间件时，需要映射 `9999` 端口到宿主机，使用 `pgpool` 有以下好处。
+  - 提高 `select` 操作的负载均衡（高并发操作时显著)
+  - 增加连接池，提高连接的复用
+  - 后端节点的 `failover` 主备节点切换后对应用影响小
+
+## 3. 增量恢复和重建
+
+> **数据库 WAL 增量方式的数据恢复和数据重建**
+>
+> - **WAL 恢复只支持单机模式**
+> - **WAL 重建只支持单机模式**
+
+- **环境变量说明**
+
+| 参数编号 | 参数名称               | 含义说明                                                                                         |
+| ------ | ---------------------- | -------------------------------------------------------------------------------------------- |
+| 1      | `RECOVERY_TARGET_TIME` | recovery.conf文件的recovery_target_time配置，格式如`2020-02-07 17:27:08 UTC` ，注意容器内时区为UTC |
+| 2      | `SKIP_BACKUP`          | 设定时跳过自动备份，备份数据在 `/data/backup_xxxxxxxx` 目录内                                      |
+
+### 3.1 增量 WAL 恢复数据
+
+```bash
+# PG服务暂停并执行如下操作
+$ docker run -it --entrypoint=pg_wal_recovery.sh postgres_es:latest
+
+# 恢复数据
+$ docker exec -it <postgres_pd_id> pg_wal_recovery.sh
+
+# 重新启动数据库
+$ docker run or docker-compose
+```
+
+### 3.2 增量 WAL 重建数据
+
+```bash
+# PG服务暂停并执行如下操作
+$ docker run -it --entrypoint=pg_wal_rebase.sh postgres_es:latest
+
+# 重建数据
+$ docker exec -it postgres_pd pg_wal_rebase.sh
+
+# 重新启动数据库服务
+$ docker run or docker-compose
+```
+
+## 4. 现存的问题记录
+
+> **记录使用当中存在或者缺陷的问题**
+
+当 `master` 节点 `down` 掉以后 `pgpool` 会进行一次主备切换。等角色恢复以后，需要重启一次 `pgpool` 服务才能让以后的 `failover_command` 有效执行。`pgpool2` 的在进行故障转移是，会先杀死所有的子进程，然后调用 `failover_command` 命令执行完成后再启动新的子进程接收客户端请求。测试中发现，执行 `failover_command` 的时获取了 `%d`、`%H` 进行判断节点和执行服务器，但是因为脚本不能有效获取两个值导致执行失败，使得 `pgpool` 子进程没有启动，使其功能失效。临时解决办法，根据部署节点，为 `failover_command` 的脚本传递明确的参数进行判断，不过该方法并不十分有效。
