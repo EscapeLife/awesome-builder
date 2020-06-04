@@ -2,7 +2,7 @@
 
 > **完美的PG数据库，从这里开始！**
 
-![PostgreSQL DB](../images/linux-postgres-tool.png)
+![PostgreSQL DB](../../images/dockerfiles/linux-postgres-tool.png)
 
 - [1.容器的基本使用](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#1-%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8)
 - [2.主从的同步步骤](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#2-%E4%B8%BB%E4%BB%8E%E7%9A%84%E5%90%8C%E6%AD%A5%E6%AD%A5%E9%AA%A4)
