@@ -39,8 +39,9 @@ docker_create_db_directories() {
     user="$(id -u)"
 
     mkdir -p "$PGDATA"
+    chmod 700 -R "$PGDATA"
     mkdir -p "${PGDATA}"/../backup/wal
-    chmod 700 "$PGDATA"
+    chmod 700 -R "${PGDATA}"/../backup/wal
 
     # ignore failure since it will be fine when using the image provided directory; see also https://github.com/docker-library/postgres/pull/289
     mkdir -p /var/run/postgresql || :

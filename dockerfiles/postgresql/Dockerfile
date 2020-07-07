@@ -19,7 +19,6 @@ RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
         wget \
         curl \
         htop && \
-    ln -sf /usr/bin/vim.tiny /usr/bin/vim && \
     curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
     echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt update && \
@@ -27,6 +26,7 @@ RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
         postgresql-server-dev-10 \
         postgresql-10-postgis-2.5-scripts && \
     pg_config --pkglibdir && \
+    ln -sf /usr/bin/vim.tiny /usr/bin/vim && \
     mkdir -pv /opt/pgpool /var/run/pgpool /var/log/pgpool && \
     wget http://www.pgpool.net/download.php?f=pgpool-II-4.1.1.tar.gz -O /tmp/pgpool-II-4.1.1.tar.gz && \
     tar -zxf /tmp/pgpool-II-4.1.1.tar.gz -C /tmp && \
@@ -38,4 +38,6 @@ RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
         build-essential && \
     chown -R postgres:postgres /opt/pgpool /var/run/pgpool /var/log/pgpool /usr/local/bin/failover_command.sh /usr/local/bin/attach_node.sh && \
     chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    mkdir /data && \
+    chmod 777 /data && \
     rm -rf /var/lib/apt/lists/* /tmp/*
