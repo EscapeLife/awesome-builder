@@ -43,6 +43,7 @@
 | 3 | [**`wiz`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiz/README.md) | 为知笔记服务端私有化镜像部署  |
 | 4 | [**`postgrest`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/postgrest/README.md) | 灵活的Postgres数据库REST风格的API接口服务  |
 | 5 | [**`rancher`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/rancher/README.md) | 一个开源的企业级容器管理平台 |
+| 6 | [**`nextcloud`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/nextcloud/README.md) | 一款开源免费的私有云存储网盘项目 |
 
 ## 3. Projects
 
