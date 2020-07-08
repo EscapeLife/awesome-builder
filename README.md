@@ -31,6 +31,7 @@
 | 3 | [**`lsyncd`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/lsyncd/README.md) | 海量文件实时同步解决方案，支持主备切换使用 |
 | 4 | [**`postgresql`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/postgresql/README.md) | 优秀的PostgreSQL数据库备份策略(热备) |
 | 5 | [**`cloudreve`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/cloudreve/README.md) | 支持多家云存储的云盘系统 |
+| 6 | [**`subsonic`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/subsonic/README.md) | 基于Web的流媒体服务 |
 
 ## 2. Composes
 
