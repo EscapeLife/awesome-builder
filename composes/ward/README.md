@@ -15,7 +15,7 @@
 # Build for Docker
 1. git clone https://github.com/B-Software/Ward.git; cd Ward
 2. mvn clean package
-3. docker build --tag ward .
+3. docker build --squash --no-cache --tag ward:latest .
 4. docker run --rm -it --name ward -p 8000:80 ward
 5. Go to localhost:8000 in web browser
 ```

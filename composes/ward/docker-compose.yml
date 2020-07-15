@@ -1,22 +1,14 @@
 version: "3"
 
 services:
-  watchtower:
+  ward:
     restart: on-failure
-    container_name: watchtower
-    image: containrrr/watchtower
-    volumes:
-      # - /root/.docker/config.json:/config.json
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "$DOCKER_CERT_PATH:/etc/ssl/docker"
-    environment:
-      - REPO_USER=username
-      - REPO_PASS=password
-      - DOCKER_HOST="tcp://10.0.1.2:2375"
-      - DOCKER_CERT_PATH=/etc/ssl/docker
-    command: --run-once --interval 30 nginx redis
+    container_name: ward
+    ports:
+      - "8000:80"
+    image: ward:latest
     networks:
-      - watchtower_network
+      - ward_network
 
 networks:
-  watchtower_network:
+  ward_network:
