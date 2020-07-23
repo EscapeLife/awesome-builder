@@ -4,9 +4,9 @@ services:
   ward:
     restart: on-failure
     container_name: ward
+    image: ward:latest
     ports:
       - "8000:80"
-    image: ward:latest
     networks:
       - ward_network
 
