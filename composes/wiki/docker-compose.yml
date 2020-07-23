@@ -1,0 +1,16 @@
+version: "2.1"
+
+services:
+  wikijs:
+    restart: unless-stopped
+    image: linuxserver/wikijs
+    container_name: wikijs
+    ports:
+      - 3000:3000
+    volumes:
+      - path-to-config:/config
+      - path-to-data:/data
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London

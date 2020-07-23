@@ -46,6 +46,7 @@
 | 5 | [**`rancher`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/rancher/README.md) | 一个开源的企业级容器管理平台 |
 | 6 | [**`nextcloud`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/nextcloud/README.md) | 一款开源免费的私有云存储网盘项目 |
 | 7 | [**`ward`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/ward/README.md) | 一个简单而简约的服务器监视工具 |
+| 8 | [**`wikijs`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiki/README.md) | 用Wiki.js来优雅的管理文档 |
 
 ## 3. Projects
 
