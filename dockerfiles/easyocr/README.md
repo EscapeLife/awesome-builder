@@ -4,34 +4,20 @@
 
 ![EasyOCR](../../images/dockerfiles/linux-easyocr-tool.jpg)
 
-## 1. create local dir
+---
+
+## 1. build docker image
 
 ```bash
-# frontend
-$ mkdir -p /srv/goaccess/{data,html}
+# build easyocr image
+$ docker build --squash --no-cache --tag=easyocr:latest .
 ```
 
-## 2. clone goaccess project
+## 2. run docker image
 
 ```bash
-# github clone
-$ git clone https://github.com/allinurl/goaccess.git goaccess && cd $_
-```
-
-## 3. build docker image
-
-```bash
-# build goaccess image
-$ docker build --squash --no-cache --tag=goaccess:latest .
-```
-
-## 4. run docker image
-
-```bash
-# run goaccess container
-$ docker run --restart=always --name=goaccess -d -p 7890:7890 \
-    -v "/srv/goaccess/data:/srv/data" \
-    -v "/srv/goaccess/html:/srv/report" \
-    -v "/var/log/apache2:/srv/logs" \
-    goaccess:latest
+# run easyocr container
+$ docker run --restart=always --name=easyocr -d -p 8000:8000 \
+    -v "./model:~/.EasyOCR/model" \
+    easyocr:latest
 ```
