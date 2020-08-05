@@ -2,7 +2,7 @@
 
 > **Ready-to-use OCR with 40+ languages supported including Chinese, Japanese, Korean and Thai.**
 
-![EasyOCR](../../images/dockerfiles/linux-easyocr-tool.jpg)
+![EasyOCR](../../images/dockerfiles/linux-easyocr-tool.png)
 
 ---
 
