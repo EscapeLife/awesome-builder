@@ -32,6 +32,7 @@
 | 4 | [**`postgresql`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/postgresql/README.md) | 优秀的PostgreSQL数据库备份策略(热备) |
 | 5 | [**`cloudreve`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/cloudreve/README.md) | 支持多家云存储的云盘系统 |
 | 6 | [**`subsonic`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/subsonic/README.md) | 基于Web的流媒体服务，用于部署私有云音乐服务 |
+| 7 | [**`graylog`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/graylog/README.md) | 简单易用且强大的跨平台服务日志收集解决方案 |
 
 ## 2. Composes
 
