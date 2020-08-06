@@ -1,0 +1,27 @@
+filebeat.config.inputs:
+  enabled: true
+  path: ${path.config}/inputs.d/*.yml
+
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+setup.template.settings:
+  index.number_of_shards: 1
+
+output.logstash:
+  hosts: ["11.22.33.44:5044"]
+
+output.file:
+  enable: true
+
+processors:
+  - add_host_metadata: ~
+  - rename:
+      fields:
+        - from: "log"
+          to: "message"
+  - add_fields:
+      target: ""
+      fields:
+        token: "77e29e0f...557515f"
