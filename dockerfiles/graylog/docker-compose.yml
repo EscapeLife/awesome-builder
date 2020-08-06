@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+  mongo:
+    restart: on-failure
+    container_name: graylog_mongo
+    image: "mongo:3"
+    volumes:
+      - "./mongodb:/data/db"
+    networks:
+      - graylog_network
+
+  elasticsearch:
+    restart: on-failure
+    container_name: graylog_es
+    image: "elasticsearch:6.8.5"
+    volumes:
+      - "./es_data:/usr/share/elasticsearch/data"
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=localhost
+      - network.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Xms512m -Xmx5120m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    deploy:
+      resources:
+        limits:
+          memory: 8g
+    networks:
+      - graylog_network
+
+  graylog:
+    restart: on-failure
+    container_name: graylog_web
+    image: "graylog/graylog:3.3"
+    ports:
+      - 9000:9000 # Web服务提供的访问端口
+      - 5044:5044 # Filebeat工具提供端口
+      - 12201:12201 # GELF TCP
+      - 12201:12201/udp # GELF UDP
+      - 1514:1514 # Syslog TCP
+      - 1514:1514/udp # Syslog UDP
+    volumes:
+      - "./graylog_journal:/usr/share/graylog/data/journal"
+    environment:
+      - GRAYLOG_PASSWORD_SECRET=zscMb65...FxR9ag
+      - GRAYLOG_ROOT_PASSWORD_SHA2=77e29e0f...557515f
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://11.22.33.44:9000/
+      - GRAYLOG_TIMEZONE=Asia/Shanghai
+      - GRAYLOG_ROOT_TIMEZONE=Asia/Shanghai
+    networks:
+      - graylog
+    depends_on:
+      - mongo
+      - elasticsearch
+
+networks:
+  graylog_network:
+    driver: bridge
