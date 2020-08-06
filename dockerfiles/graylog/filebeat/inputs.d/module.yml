@@ -1,0 +1,21 @@
+# iptables
+- module: iptables
+  log:
+    enabled: true
+    var.paths: ["/var/log/iptables.log"]
+    var.input: "file"
+
+# postgres
+- module: postgresql
+  log:
+    enabled: true
+    var.paths: ["/path/to/log/postgres/*.log*"]
+
+# nginx
+- module: nginx
+  access:
+    enabled: true
+    var.paths: ["/path/to/log/nginx/access.log*"]
+  error:
+    enabled: true
+    var.paths: ["/path/to/log/nginx/error.log*"]
