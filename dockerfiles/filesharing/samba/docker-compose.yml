@@ -1,0 +1,22 @@
+# https://hub.docker.com/r/dperson/samba
+
+version: "3"
+
+services:
+  samba:
+    restart: on-failure
+    container_name: samba_file_sharing
+    image: dperson/samba
+    ports:
+      - "139:139"
+      - "445:445"
+    volumes:
+      - "./samba_files:/mount"
+    environment:
+      - TZ=Asia/Shanghai
+    command: '-s "Mount;/mount" -u "test;test" -p'
+    networks:
+      - samba_network
+
+networks:
+  samba_network:
