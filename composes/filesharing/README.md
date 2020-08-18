@@ -4,6 +4,8 @@
 
 本来是准备将多种服务合并到一起，做一个 `all-in-one` 的容器，但是考虑到时间和精力的问题，还是使用 `hub.docker.com` 上面比较好用的几个容器进行介绍和功能使用说明(其实这个几个容器且很少更新了)，以备后续如果需要使用的话，可以随时拿来使用。
 
+![File Sharing](../../images/composes/linux-file-sharing-service.jpg)
+
 ## 1. FTP
 
 > **详情请参考博客[《FTP文件共享服务部署和使用》](https://www.escapelife.site/)**
