@@ -1,0 +1,20 @@
+# https://hub.docker.com/r/nginx
+
+version: "3"
+
+services:
+  nginx:
+    restart: on-failure
+    container_name: nginx_file_sharing
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+      - "./http_files:/usr/local/scr/static"
+      - "./nginx_web:/var/log/nginx"
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
