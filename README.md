@@ -48,6 +48,7 @@
 | 6 | [**`nextcloud`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/nextcloud/README.md) | 一款开源免费的私有云存储网盘项目 |
 | 7 | [**`ward`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/ward/README.md) | 一个简单而简约的服务器监视工具 |
 | 8 | [**`wikijs`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiki/README.md) | 用Wiki.js来优雅的管理文档 |
+| 9 | [**`filesharing`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/filesharing/README.md) | 多种多样的文件共享服务合集 |
 
 ## 3. Projects
 
