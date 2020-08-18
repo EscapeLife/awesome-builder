@@ -43,8 +43,8 @@ class GITES:
 
     def _push_daily_record(self):
         logger.info('Start pushing work tasks to gites ...')
-        wenpan_journal = self._get_project(self.daily_record_project_id)
-        journal_issue = wenpan_journal.issues.get(self.daily_record_issue_id)
+        escape_journal = self._get_project(self.daily_record_project_id)
+        journal_issue = escape_journal.issues.get(self.daily_record_issue_id)
         journal_note = journal_issue.notes.create({'body': '\n'.join(self.daily_work_list)})
         journal_note.save()
         logger.info('Today is log task was successfully launched! ^_^')
