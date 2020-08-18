@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  nfs-server:
+    restart: on-failure
+    container_name: nfs_file_sharing
+    image: gists/nfs-server
+    ports:
+      - "2049:2049"
+    volumes:
+      - "./nfs_files:/nfs-share"
+    environment:
+      - "NFS_DOMAIN=ip"
+    cap_add:
+      - SYS_ADMIN
+      - SETPCAP
+    networks:
+      - nfs_network
+
+networks:
+  nfs_network:
