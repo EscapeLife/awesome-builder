@@ -1,0 +1,24 @@
+# https://hub.docker.com/r/stilliard/pure-ftpd/
+
+version: "3"
+
+services:
+  ftp:
+    restart: on-failure
+    container_name: ftp_file_sharing
+    image: stilliard/pure-ftpd
+    ports:
+      - "21:21"
+      - "8100-8170:8100-8170"
+    volumes:
+      - "./ftp_files:/home/vsftpd"
+    environment:
+      - FTP_USER_NAME=test
+      - FTP_USER_PASS=test
+      - FTP_USER_HOME=/home/vsftpd
+    entrypoint: "bash /run.sh -c 30 -C 10 -l puredb:/etc/pure-ftpd/pureftpd.pdb -E -j -R -P 11.22.33.44 -p 8100:8170"
+    networks:
+      - ftp_network
+
+networks:
+  ftp_network:
