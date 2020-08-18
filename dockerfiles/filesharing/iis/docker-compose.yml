@@ -1,0 +1,20 @@
+# https://hub.docker.com/_/microsoft-windows-servercore-iis
+# docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" iis_file_sharing
+
+version: "3"
+
+services:
+  iis:
+    restart: on-failure
+    container_name: iis_file_sharing
+    image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-1909
+    ports:
+      - "80:80"
+    volumes:
+      - "./iis_files:/inetpub/wwwroot"
+    entrypoint: 'powershell -NoProfile -Command Remove-Item -Recurse C:\inetpub\wwwroot\*'
+    networks:
+      - iis_network
+
+networks:
+  iis_network:
