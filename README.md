@@ -58,7 +58,7 @@
 | :-----: | :-----: | :----- |
 | 1 | [**`parallel-ssh`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/parallel-ssh/README.md) | 为小规模自动化而设计的异步并行的SSH库 |
 | 2 | [**`easy_ocr`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/easy-ocr/README.md) | 用户可以上传指定图片进行OCR识别返回结果 |
-| 3 | [**`python-cyc`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/python-cyc/README.md) | 一个完善且全面的Python源文件加密服务工具 |
+| 3 | [**`python-cyc`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/python-compile/cyc/README.md) | 一个完善且全面的Python源文件加密服务工具 |
 
 ## 4. Scripts
 
