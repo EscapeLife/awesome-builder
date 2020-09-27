@@ -1,20 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-A rapidly iterating Docker deployment applet tool
-
-Usage:
-    python3 docker_patch.py --help
-    (1) python3 docker_patch.py
-    (2) python3 docker_patch.py
-            --code_path='/data/app' \
-            --code_branch='master' \
-            --config_name='docker' \
-            --start_commit='aaaaaa' --end_commit='bbbbbb' \
-            --images_name='xxxxx/xxxxx:0.0.1'
-
-Requirements:
-    pip3 install sh click gitpython prompt_toolkit
-"""
 
 import logging
 import os
