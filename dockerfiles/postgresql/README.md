@@ -218,8 +218,7 @@ docker run -d --name=postgres_es \
     postgres_es:latest
 ```
 
-
-## 4. 现存的问题记录
+## 5. 现存的问题记录
 
 > **记录使用当中存在或者缺陷的问题**
 
