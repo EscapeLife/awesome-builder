@@ -1,12 +1,6 @@
 #!/bin/bash
 
 # -----------------------------------------------------------------------
-# The sample example
-# -----------------------------------------------------------------------
-# The default packaging path is /tmp and can be specified if space is no free
-# image2run.sh --src /data/app_postgres_0.0.1.tar --image app_postgres:0.0.1
-
-# -----------------------------------------------------------------------
 # Init Text Print Colors
 # -----------------------------------------------------------------------
 # reset color
