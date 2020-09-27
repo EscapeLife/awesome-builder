@@ -1,4 +1,4 @@
-FROM postgres:10
+ppFROM postgres:10
 
 ENV PGDATA=/data/data
 
@@ -24,7 +24,7 @@ RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
     apt update && \
     apt install -y \
         postgresql-server-dev-10 \
-        postgresql-10-postgis-2.5-scripts && \
+        postgresql-10-postgis-2.4-scripts && \
     pg_config --pkglibdir && \
     ln -sf /usr/bin/vim.tiny /usr/bin/vim && \
     mkdir -pv /opt/pgpool /var/run/pgpool /var/log/pgpool && \

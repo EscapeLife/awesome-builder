@@ -9,7 +9,8 @@
 - [1.容器的基本使用](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#1-%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8)
 - [2.主从的同步步骤](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#2-%E4%B8%BB%E4%BB%8E%E7%9A%84%E5%90%8C%E6%AD%A5%E6%AD%A5%E9%AA%A4)
 - [3.增量恢复和重建](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#3-%E5%A2%9E%E9%87%8F%E6%81%A2%E5%A4%8D%E5%92%8C%E9%87%8D%E5%BB%BA)
-- [4.现存的问题记录](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#4-%E7%8E%B0%E5%AD%98%E7%9A%84%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95)
+- [4.功能示例的说明]()
+- [5.现存的问题记录]()
 
 ## 1. 容器的基本使用
 
@@ -29,11 +30,13 @@ $ docker build --squash --no-cache --tag=postgres_es:latest .
 # docker run postgres_es
 docker run -d --name=postgres_es \
     -v ./postgres:/data \
+    -p 5432:5432 \
     -e POSTGRES_DB=app \
     -e POSTGRES_PASSWORD=123456 \
     --network=postgres_es_network \
     postgres_es:latest
 ```
+
 
 - **compose**
 
@@ -197,6 +200,24 @@ $ docker exec -it postgres_pd pg_wal_rebase.sh
 # 重新启动数据库服务
 $ docker run or docker-compose
 ```
+
+## 4. 功能示例的说明
+
+> **主要介绍新增的功能和启动、使用方式**
+
+```bash
+# 可以运行为non-root模式
+# 需要-v的目录"owner uid"和启动传的"owner uid"一致
+docker run -d --name=postgres_es \
+    -v ./postgres:/data \
+    -p 5432:5432 \
+    -e POSTGRES_DB=app \
+    -e POSTGRES_PASSWORD=123456 \
+    -u 10086:10086 \
+    --network=postgres_es_network \
+    postgres_es:latest
+```
+
 
 ## 4. 现存的问题记录
 
