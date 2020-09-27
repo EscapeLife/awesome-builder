@@ -9,8 +9,8 @@
 - [1.容器的基本使用](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#1-%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8)
 - [2.主从的同步步骤](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#2-%E4%B8%BB%E4%BB%8E%E7%9A%84%E5%90%8C%E6%AD%A5%E6%AD%A5%E9%AA%A4)
 - [3.增量恢复和重建](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#3-%E5%A2%9E%E9%87%8F%E6%81%A2%E5%A4%8D%E5%92%8C%E9%87%8D%E5%BB%BA)
-- [4.功能示例的说明]()
-- [5.现存的问题记录]()
+- [4.功能示例的说明](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#4-%E5%8A%9F%E8%83%BD%E7%A4%BA%E4%BE%8B%E7%9A%84%E8%AF%B4%E6%98%8E)
+- [5.现存的问题记录](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/postgresql/README.md#5-%E7%8E%B0%E5%AD%98%E7%9A%84%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95)
 
 ## 1. 容器的基本使用
 
