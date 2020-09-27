@@ -1,13 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-一个快速构建命令程序的GUI程序
-
-Usage:
-    pythonw main.py
-
-Requirements:
-    pip3 install gooey
-"""
 
 from gooey import Gooey, GooeyParser
 
