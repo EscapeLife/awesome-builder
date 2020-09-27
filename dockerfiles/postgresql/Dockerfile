@@ -1,4 +1,4 @@
-ppFROM postgres:10
+FROM postgres:10
 
 ENV PGDATA=/data/data
 
