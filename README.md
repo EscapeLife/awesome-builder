@@ -57,7 +57,7 @@
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
 | 1 | [**`parallel-ssh`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/parallel-ssh/README.md) | 为小规模自动化而设计的异步并行的SSH库 |
-| 2 | [**`easy_ocr`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/easy-ocr/README.md) | 用户可以上传指定图片进行OCR识别返回结果 |
+| 2 | [**`easy_ocr`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/easyocr/README.md) | 用户可以上传指定图片进行OCR识别返回结果 |
 | 3 | [**`python-cyc`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/python-compile/cyc/README.md) | 一个完善且全面的Python源文件加密服务工具 |
 | 4 | [**`python-setup`**](https://github.com/EscapeLife/awesome-builder/blob/master/projects/python-compile/setup/README.md) | 一个完善且全面的Python打包发布示例 |
 
@@ -67,14 +67,14 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/kill_process/kill_all_process.sh) | 解决Linux程序意外退出时删除进程树(防止孤儿进程的出现) |
-| 2 | [**`/etc/ufw/after.rules`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/after_rules/after.rules) | 解决UFW无法管理Docker发布出来的端口问题 |
-| 3 | [**`setup.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/setup/setup.py) | 一个Python程序打包的示例setup.py配置脚本文件 |
-| 4 | [**`pyproject.toml`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/pyproject/pyproject.toml) | 一个Python程序打包的示例pyproject.toml配置脚本文件 |
-| 5 | [**`image2run.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/image2run/image2run.sh) | 将docker镜像导出的tar包转换成为压缩小/自解压/自导入的run包 |
-| 6 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/wait_for_ready/wait_for_ready.sh) | 解决运行Compose文件，服务启动依赖关系问题 |
-| 7 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/docker_patch/docker_patch.py) | 一个快速迭代的Docker补丁包部署的小程序 |
-| 8 | [**`gooey`**](https://github.com/EscapeLife/awesome-builder/blob/master/Scripts/gooey) | 将任何Python命令行程序转换为完整的GUI应用程序 |
+| 1 | [**`kill_all_process.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/kill_process//README.md) | 解决Linux程序意外退出时删除进程树(防止孤儿进程的出现) |	
+| 2 | [**`/etc/ufw/after.rules`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/after_rules/README.md) | 解决UFW无法管理Docker发布出来的端口问题 |
+| 3 | [**`setup.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/setup/README.md) | 一个Python程序打包的示例setup.py配置脚本文件 |
+| 4 | [**`pyproject.toml`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/pyproject/README.md) | 一个Python程序打包的示例pyproject.toml配置脚本文件 |
+| 5 | [**`image2run.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/image2run/README.md) | 将docker镜像导出的tar包转换成为压缩小/自解压/自导入的run包 |
+| 6 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/wait_for_ready/README.md) | 解决运行Compose文件，服务启动依赖关系问题 |
+| 7 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/docker_patch/README.md) | 一个快速迭代的Docker补丁包部署的小程序 |
+| 8 | [**`gooey`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/gooey/README.md) | 将任何Python命令行程序转换为完整的GUI应用程序 |
 
 ## 5. Common
 
