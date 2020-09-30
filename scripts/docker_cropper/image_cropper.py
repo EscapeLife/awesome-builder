@@ -50,7 +50,7 @@ class Cropper:
         self.__run(['tar', '-C', dist_dir, '-cpf', dist_tar, '.'])
         shutil.rmtree(dist_dir)
         click.echo(click.style(f'>>> The docker image patch is {dist_tar} ...', fg='green'))
-        pprint(self.__run(['tar', 'tf', dist_tar]), indent=4)
+        pprint(str(self.__run(['tar', 'tf', dist_tar])).split('\\n'), indent=4)
 
 
 @click.command()
