@@ -49,6 +49,7 @@
 | 7 | [**`ward`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/ward/README.md) | 一个简单而简约的服务器监视工具 |
 | 8 | [**`wikijs`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiki/README.md) | 用Wiki.js来优雅的管理文档 |
 | 9 | [**`filesharing`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/filesharing/README.md) | 多种多样的文件共享服务合集 |
+| 10 | [**`pypiserver`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/pypiserver/README.md) | 使用自建pypiserver服务 |
 
 ## 3. Projects
 
