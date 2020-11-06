@@ -1,0 +1,109 @@
+version: "3"
+
+services:
+  # ##################################################################
+  # Default
+  # ##################################################################
+  pypiserver-default:
+    restart: unless-stopped
+    container_name: pypiserver-default
+    image: pypiserver/pypiserver:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - pypiserver_network
+
+  # ##################################################################
+  # Authenticated
+  # ##################################################################
+  pypiserver-authenticated:
+    restart: unless-stopped
+    container_name: pypiserver-authenticated
+    image: pypiserver/pypiserver:latest
+    ports:
+      - "8081:8080"
+    volumes:
+      - "./auth:/data/auth"
+    command: -P /data/auth/.htpasswd -a update,download,list /data/packages
+    networks:
+      - pypiserver_network
+
+  # ##################################################################
+  # Serve local packages
+  # ##################################################################
+  pypiserver-local-packages:
+    restart: unless-stopped
+    container_name: pypiserver-local-packages
+    image: pypiserver/pypiserver:latest
+    ports:
+      - "8082:8080"
+    volumes:
+      - "./packages:/data/packages"
+    networks:
+      - pypiserver_network
+
+  # ##############################################################################
+  # Authenticated and serve local packages via HTTPS using Traefik
+  # ##############################################################################
+  pypiserver-https:
+    restart: unless-stopped
+    container_name: pypiserver-https
+    image: pypiserver/pypiserver:latest
+    volumes:
+      - "./auth:/data/auth"
+      - "./packages:/data/packages"
+    command: -P /data/auth/.htpasswd -a update,download,list /data/packages
+    labels:
+      # Expose container to Traefik
+      - "traefik.enable=true"
+      # Configure the route
+      - "traefik.http.routers.flask.rule=Host(`your.domain.com`)"
+      - "traefik.http.routers.flask.entrypoints=websecure"
+      - "traefik.http.routers.flask.tls=true"
+      - "traefik.http.routers.flask.tls.certresolver=leresolver"
+    networks:
+      - pypiserver_network
+
+  traefik:
+    restart: unless-stopped
+    container_name: traefik
+    image: traefik:v2.1
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik:/etc/traefik:ro"
+      - "./traefik/acme:/etc/traefik/acme"
+    command:
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--api.dashboard=true"
+      - "--certificatesresolvers.leresolver.acme.email=your@email.com"
+      - "--certificatesresolvers.leresolver.acme.storage=/etc/traefik/acme/acme.json"
+      - "--certificatesresolvers.leresolver.acme.httpChallenge=true"
+      - "--certificatesresolvers.leresolver.acme.httpChallenge.entrypoint=web"
+    labels:
+      # Expose container to Traefik
+      - "traefik.enable=true"
+      # Dashboard
+      - "traefik.http.routers.traefik.rule=Host(`your.domain.com`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.routers.traefik.tls.certresolver=leresolver"
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.middlewares=authtraefik"
+      - "traefik.http.middlewares.authtraefik.basicauth.usersfile=/etc/traefik/usersfile"
+      # Global redirect to HTTPS
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      # Middleware redirect
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+    networks:
+      - pypiserver_network
+
+networks:
+  pypiserver_network:
