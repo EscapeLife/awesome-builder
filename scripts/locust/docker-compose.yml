@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  master:
+    container_name: locust_master
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./locust_demo.py:/home/locust/locust_demo.py
+    command: -f /home/locust/locust_demo.py --master --host 'http://test.example.com:9000' -u 400 -r 20 --run-time 2m --headless
+    networks:
+      - locust_network
+
+  worker1:
+    container_name: locust_worker1
+    image: locustio/locust
+    volumes:
+      - ./locust_demo.py:/home/locust/locust_demo.py
+    command: -f /home/locust/locust_demo.py --worker --master-host master
+    networks:
+      - locust_network
+
+  worker2:
+    container_name: locust_worker2
+    image: locustio/locust
+    volumes:
+      - ./locust_demo.py:/home/locust/locust_demo.py
+    command: -f /home/locust/locust_demo.py --worker --master-host master
+    networks:
+      - locust_network
+
+networks:
+  locust_network:
