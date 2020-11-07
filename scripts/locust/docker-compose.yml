@@ -8,7 +8,8 @@ services:
       - "8089:8089"
     volumes:
       - ./locust_demo.py:/home/locust/locust_demo.py
-    command: -f /home/locust/locust_demo.py --master --host 'http://test.example.com:9000' -u 400 -r 20 --run-time 2m --headless
+    # -u 400 -r 20 --run-time 2m --headless
+    command: -f /home/locust/locust_demo.py --master --host 'http://test.example.com:9000'
     networks:
       - locust_network
 
