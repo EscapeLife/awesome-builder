@@ -82,15 +82,29 @@
 
 > **Best universal shell and python scripts.**
 
+- **Shell**
+
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
 | 1 | [**`find_big_file.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/bash/find_big_file.sh) | 查找当前Linux操作系统中的大文件(可以指定文件大小范围) |
-| 2 | [**`walk_dir.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/walk_dir.py) | 实现Linux下tree命令遍历文件目录夹的功能 |
-| 3 | [**`random_passwd.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/random_passwd.py) | 自动生成随机密码(可以指定随即密码长度范围) |
-| 4 | [**`collect_server_info.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/collect_server_info.py) | 收集Linux操作系统服务器相关信息(包含CPU/内存/磁盘) |
-| 5 | [**`linux_tail_f.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/linux_tail_f.py) | 实现Linux下tail命令动态查看日志的功能 |
-| 6 | [**`calculator.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/calculator.py) | 使用Python语言实现一个简单的计算器工具 |
-| 7 | [**`daily_record.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/daily_record.py) | 实现每日自动发送日报的功能(针对Gitlab平台) |
+
+- **Python**
+
+| 编号 | 文件名称 | 功能说明 |
+| :-----: | :-----: | :----- |
+| 1 | [**`walk_dir.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/walk_dir.py) | 实现Linux下tree命令遍历文件目录夹的功能 |
+| 2 | [**`random_passwd.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/random_passwd.py) | 自动生成随机密码(可以指定随即密码长度范围) |
+| 3 | [**`collect_server_info.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/collect_server_info.py) | 收集Linux操作系统服务器相关信息(包含CPU/内存/磁盘) |
+| 4 | [**`linux_tail_f.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/linux_tail_f.py) | 实现Linux下tail命令动态查看日志的功能 |
+| 5 | [**`calculator.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/calculator.py) | 使用Python语言实现一个简单的计算器工具 |
+| 6 | [**`daily_record.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/python/daily_record.py) | 实现每日自动发送日报的功能(针对Gitlab平台) |
+
+- **Vagrant**
+
+| 编号 | 文件名称 | 功能说明 |
+| :-----: | :-----: | :----- |
+| 1 | [**`single`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/single/Vagrantfile) | 单机版本 |
+| 2 | [**`k8s`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/k8s/Vagrantfile) | K8S(三个机器)版本 |
 
 ## 6. Contact
 
