@@ -17,6 +17,9 @@
 - **build**
 
 ```bash
+# base image
+$ docker pull postgres:10
+
 # build postgres_es image
 $ cd dockerfiles/postgresql
 $ docker build --squash --no-cache --tag=postgres_es:latest .
@@ -68,19 +71,22 @@ networks:
 
 - **环境变量说明**
 
-| 参数编号 | 参数名称               | 含义说明                                                                                         |
-| ------ | ---------------------- | -------------------------------------------------------------------------------------------- |
-| 1      | `RECOVERY_TARGET_TIME` | 修改recovery.conf文件的recovery_target_time字段，配置格式如`2020-02-07 17:27:08 UTC`所示即可，需要注意的是容器内时区为UTC |
-| 2      | `SKIP_BACKUP`          | 当该字段被设定时，会自动跳过备份，备份数据存放在 `/data/backup_xxxxxxxx` 目录内                                      |
+| 参数编号 | 参数名称               | 含义说明        |
+| ------ | ---------------------- | ------------------------------------------------- |
+| 1      | `RECOVERY_TARGET_TIME` | 配置格式如`2020-02-07 17:27:08 UTC`所示即可，需要注意的是容器内时区为`UTC` |
+| 2      | `SKIP_BACKUP`          | 当该字段被设定时，会自动跳过备份，备份数据存放在 `/data/backup_xxxxxxxx` 目录内 |
 
 ### 2.1 增量 WAL 恢复数据
 
 ```bash
-# PG服务暂停并执行如下操作
+# PG服务暂停并执行如下操作(默认恢复到最新事件)
+$ docker run -it --entrypoint=pg_wal_recovery.sh postgres_es:latest
+
+# PG服务暂停并执行如下操作(恢复到指定时间)
 $ docker run -it --entrypoint=pg_wal_recovery.sh postgres_es:latest
 
 # 恢复数据
-$ docker exec -it <postgres_pd_id> pg_wal_recovery.sh
+$ docker exec -it -e RECOVERY_TARGET_TIME='2020-02-07 17:27:08' <postgres_pd_id> pg_wal_recovery.sh
 
 # 重新启动数据库
 $ docker run or docker-compose
@@ -89,19 +95,24 @@ $ docker run or docker-compose
 ### 2.2 增量 WAL 重建数据
 
 ```bash
-# PG服务暂停并执行如下操作
-$ docker run -it --entrypoint=pg_wal_rebase.sh postgres_es:latest
-
 # 重建数据
 $ docker exec -it postgres_pd pg_wal_rebase.sh
-
-# 重新启动数据库服务
-$ docker run or docker-compose
 ```
 
 ## 3. 功能示例的说明
 
 > **主要介绍新增的功能和启动、使用方式**
+
+- **常用参数**
+
+| 参数名称                              | 含义说明                                   |
+| ------------------------------------- | ------------------------------------------ |
+| `POSTGRES_MAX_CONNECTIONS`            | 最大连接数，默认 `1000`                    |
+| `POSTGRES_MAX_WAL_SIZE`               | 最大 `WAL` 缓存大小，默认 `16` (M)           |
+| `POSTGRES_LOG_MIN_DURATION_STATEMENT` | 记录超过该时间的查询日志，默认 `3000` (ms) |
+| `DISABLE_WAL_BACKUP`                  | 是否启用 `WAL` 备份机制                    |
+
+- **示例说明**
 
 ```bash
 # 可以运行为non-root模式
