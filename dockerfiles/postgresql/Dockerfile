@@ -15,11 +15,12 @@ RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
         ca-certificates \
         curl \
         gpg \
+        htop \
         pv \
+        rsync \
+        unzip \
         vim.tiny \
-        zstd \
-        wget \
-        htop && \
+        zstd && \
     curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
     echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt update && \
@@ -33,7 +34,7 @@ RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
         ca-certificates \
         curl \
         gpg \
-        wget && \
+        unzip && \
     chmod +x /usr/local/bin/docker-entrypoint.sh && \
     mkdir /data && \
     chmod 777 /data && \

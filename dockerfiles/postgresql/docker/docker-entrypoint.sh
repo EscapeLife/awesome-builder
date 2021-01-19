@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -Eeo pipefail
-# TODO swap to -Eeuo pipefail above (after handling all potentially-unset variables)
 
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
@@ -101,14 +100,10 @@ docker_verify_minimum_env() {
     # messes it up
     if [ "${#POSTGRES_PASSWORD}" -ge 100 ]; then
         cat >&2 <<-'EOWARN'
-
 			WARNING: The supplied POSTGRES_PASSWORD is 100+ characters.
-
 			  This will not work if used via PGPASSWORD with "psql".
-
 			  https://www.postgresql.org/message-id/flat/E1Rqxp2-0004Qt-PL%40wrigleys.postgresql.org (BUG #6412)
 			  https://github.com/docker-library/postgres/issues/507
-
 		EOWARN
     fi
     if [ -z "$POSTGRES_PASSWORD" ] && [ 'trust' != "$POSTGRES_HOST_AUTH_METHOD" ]; then
@@ -117,10 +112,8 @@ docker_verify_minimum_env() {
 			Error: Database is uninitialized and superuser password is not specified.
 			       You must specify POSTGRES_PASSWORD to a non-empty value for the
 			       superuser. For example, "-e POSTGRES_PASSWORD=password" on "docker run".
-
 			       You may also use "POSTGRES_HOST_AUTH_METHOD=trust" to allow all
 			       connections without a password. This is *not* recommended.
-
 			       See PostgreSQL documentation about "trust":
 			       https://www.postgresql.org/docs/current/auth-trust.html
 		EOE
@@ -136,7 +129,6 @@ docker_verify_minimum_env() {
 			         https://www.postgresql.org/docs/current/auth-trust.html
 			         In Docker's default configuration, this is effectively any other
 			         container on the same system.
-
 			         It is not recommended to use POSTGRES_HOST_AUTH_METHOD=trust. Replace
 			         it with "-e POSTGRES_PASSWORD=password" instead to set a password in
 			         "docker run".
@@ -149,7 +141,7 @@ docker_verify_minimum_env() {
 #    ie: docker_process_init_files /always-initdb.d/*
 # process initializer files, based on file extensions and permissions
 docker_process_init_files() {
-    # psql here for backwards compatiblilty "${psql[@]}"
+    # psql here for backwards compatibility "${psql[@]}"
     psql=(docker_process_sql)
 
     echo
@@ -312,14 +304,14 @@ _main() {
             # PGPASSWORD is required for psql when authentication is required for 'local' connections via pg_hba.conf and is otherwise harmless
             # e.g. when '--auth=md5' or '--auth-local=md5' is used in POSTGRES_INITDB_ARGS
             export PGPASSWORD="${PGPASSWORD:-$POSTGRES_PASSWORD}"
+            if [[ -z "${DISABLE_WAL_BACKUP}" ]]; then
+                tar "-I zstd -9 -T0" -C "${PGDATA}" -cvpf "${PGDATA}"/../backup/base_database.tar.zst ./
+            fi
             docker_temp_server_start "$@"
 
             docker_setup_db
             docker_process_init_files /docker-entrypoint-initdb.d/*
             docker_process_init_files /docker-entrypoint-patchdb.d/*
-            if [[ -d "${PGDATA}/../backup" ]]; then
-                bash /usr/local/bin/backup_base_database.sh
-            fi
 
             docker_temp_server_stop
             unset PGPASSWORD
@@ -333,12 +325,9 @@ _main() {
             echo 'PostgreSQL Database directory appears to contain a database; Skipping initialization'
             echo
         fi
-
     fi
 
     "$@"
-    # like `while true; do sleep 10000; done`
-    sleep infinity
 }
 
 if ! _is_sourced; then
