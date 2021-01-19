@@ -82,9 +82,6 @@ networks:
 # PG服务暂停并执行如下操作(默认恢复到最新事件)
 $ docker run -it --entrypoint=pg_wal_recovery.sh postgres_es:latest
 
-# PG服务暂停并执行如下操作(恢复到指定时间)
-$ docker run -it --entrypoint=pg_wal_recovery.sh postgres_es:latest
-
 # 恢复数据
 $ docker exec -it -e RECOVERY_TARGET_TIME='2020-02-07 17:27:08' <postgres_pd_id> pg_wal_recovery.sh
 
