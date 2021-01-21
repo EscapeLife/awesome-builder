@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
+  #
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
@@ -18,6 +19,9 @@ Vagrant.configure("2") do |config|
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = false
   config.hostmanager.manage_guest = true
+
+  # k8s dashbroad web port
+  # config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -77,6 +81,22 @@ Vagrant.configure("2") do |config|
   config.vm.define "node2" do |node2|
     node2.vm.hostname = "k8s-node2"
     node2.vm.network "private_network", ip: "192.168.30.32"
+  end
+
+  # Limit virtual machine resource usage
+  config.vm.provider "virtualbox" do |master|
+    master.cpus = 2
+    master.memory = 2048
+  end
+
+  config.vm.provider "virtualbox" do |node1|
+    node1.cpus = 2
+    node1.memory = 2048
+  end
+
+  config.vm.provider "virtualbox" do |node2|
+    node2.cpus = 2
+    node2.memory = 2048
   end
 
   # Enable provisioning with a shell script. Additional provisioners such as
