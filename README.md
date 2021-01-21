@@ -103,8 +103,8 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`single`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/single/Vagrantfile) | 单机版本 |
-| 2 | [**`k8s`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/k8s/Vagrantfile) | K8S(三个机器)版本 |
+| 1 | [**`single`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/single/Vagrantfile) | 基于Virtualbox工具的Ubuntu单机版操作系统 |
+| 2 | [**`k8s`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/k8s/Vagrantfile) | 基于Virtualbox工具的Ubuntu的K8S(三个机器)版本 |
 
 ## 6. Contact
 
