@@ -1,5 +1,7 @@
 #/bin/sh
 
+set -ex
+
 # install some tools
 sudo yum install -y epel-release git vim gcc glibc-static telnet
 
@@ -8,12 +10,6 @@ sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/
 sudo systemctl restart sshd
 
 # install ansible
-if [ "$HOSTNAME" = "ansible-controller" ]; then
+if [ "$HOSTNAME" = "ansible-master" ]; then
     sudo yum install -y ansible
 fi
-
-# edit host file
-
-sudo sh -c "echo 192.168.200.10 ansible-controller >> /etc/hosts"
-sudo sh -c "echo 192.168.200.11 ansible-node1 >> /etc/hosts"
-sudo sh -c "echo 192.168.200.12 ansible-node2 >> /etc/hosts"
