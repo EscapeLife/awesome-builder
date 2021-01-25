@@ -103,8 +103,9 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`single`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/single/Vagrantfile) | 基于Virtualbox工具的Ubuntu单机版操作系统 |
+| 1 | [**`ansible`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/ansible/Vagrantfile) | 基于Virtualbox工具的CentOS的Ansible(三个机器)版本 |
 | 2 | [**`k8s`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/k8s/Vagrantfile) | 基于Virtualbox工具的Ubuntu的K8S(三个机器)版本 |
+| 3 | [**`single`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/single/Vagrantfile) | 基于Virtualbox工具的Ubuntu单机版操作系统 |
 
 ## 6. Contact
 
