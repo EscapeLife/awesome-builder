@@ -89,6 +89,7 @@ if [[ "$HOSTNAME" == "k8s-master" ]]; then
     mkdir -p $HOME/.kube
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    source <(kubectl completion bash)
 
     # get token
     KUBEADM_TOKEN_GEN=$(kubeadm token generate)
