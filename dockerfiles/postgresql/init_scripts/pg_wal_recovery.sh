@@ -46,7 +46,7 @@ start_recovery() {
     done
 
     echo "starting remove data..."
-    rm -rf "${PGDATA}:?"/*
+    rm -rf "${PGDATA:?}"/*
 
     echo "starting uncompress data..."
     if [[ -f "${PGDATA}"/../backup/base_database.tar.zst ]]; then
