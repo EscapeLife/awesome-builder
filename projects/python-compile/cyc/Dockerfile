@@ -21,7 +21,7 @@ RUN set -o pipefail && \
     locale-gen en_US.UTF-8 && \
     mkdir ~/.pip /opt/cyc/cache && \
     echo -e '[global]\nindex-url = https://pypi.douban.com/simple' > /etc/pip.conf && \
-    pip3 install --upgrade cython sanic --no-cache && \
+    pip3 install --upgrade --pre cython sanic --no-cache && \
     rm -rf ~/.cache /tmp/* /var/log/* /var/lib/apt/lists/*
 
 ADD run_server.py /opt/cyc/
