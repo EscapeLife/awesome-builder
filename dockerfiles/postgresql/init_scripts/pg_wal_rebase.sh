@@ -34,17 +34,16 @@ start_rebase() {
     echo "execute pg_start_backup ..."
 
     for i in {1..3}; do
-        psql -U "${POSTGRES_USER:-postgres}" -c "select * from pg_switch_wal();" >/dev/null
+        psql -U "${POSTGRES_USER:-postgres}" -d "${POSTGRES_DB:-postgres}" -c "select * from pg_switch_wal();" >/dev/null
     done
 
     sleep 5
 
-    psql -U "${POSTGRES_USER:-postgres}" -c "select pg_start_backup('$(date +"%Y%m%d%H%M%S")');" >/dev/null
+    psql -U "${POSTGRES_USER:-postgres}" -d "${POSTGRES_DB:-postgres}" -c "select pg_start_backup('$(date +"%Y%m%d%H%M%S")');" >/dev/null
     echo "start archive data ..."
-    tar -C "${PGDATA}" -cpf - ./ | pv -s "$(du -sb "${PGDATA}" | awk '{print $1}')" |
-        ${GOSU_CMD} zstd -f -q -9 -T0 - -o "${PGDATA}"/../backup/base_database.tar.zst
+    tar -C "${PGDATA}" -cpf - ./ | pv -s "$(du -sb "${PGDATA}" | awk '{print $1}')" | ${GOSU_CMD} zstd -f -q -9 -T0 - -o "${PGDATA}"/../backup/base_database.tar.zst
     echo "execute pg_stop_backup ..."
-    psql -U "${POSTGRES_USER:-postgres}" -c "select pg_stop_backup();" >/dev/null
+    psql -U "${POSTGRES_USER:-postgres}" -d "${POSTGRES_DB:-postgres}" -c "select pg_stop_backup();" >/dev/null
     echo "rebase finished !!!!"
 }
 
