@@ -76,7 +76,7 @@
 | 6 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/wait_for_ready/README.md) | 解决运行 `Compose` 文件，服务启动依赖关系问题 |
 | 7 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/docker_patch/README.md) | 一个快速迭代的 `Docker` 补丁包部署的小程序 |
 | 8 | [**`gooey`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/gooey/README.md) | 将任何 `Python` 命令行程序转换为完整的 `GUI` 应用程序 |
-| 8 | [**`Locust_demo`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/locust/README.md) | 使用 `Locust` 来压测网站(测试脚本示例) |
+| 9 | [**`locust_demo`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/locust/README.md) | 使用 `Locust` 来压测网站(测试脚本示例) |
 
 ## 5. Common
 
