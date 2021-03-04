@@ -1,0 +1,7 @@
+{
+  "python.pythonPath": "",
+  "editor.rulers": [99],
+  "python.formatting.autopep8Args": ["--max-line-length=99"],
+  "editor.renderLineHighlight": "all",
+  "editor.renderWhitespace": "all"
+}
