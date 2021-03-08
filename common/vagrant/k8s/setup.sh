@@ -3,8 +3,8 @@
 set -ex
 
 # ubuntu aliyun mirrors
-sudo cp /etc/apt/sources.list{,.bak}
-sudo cat >/etc/apt/sources.list <<EOF
+sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+cat >./sources.list <<EOF
 # apt
 deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
@@ -21,30 +21,32 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 deb https://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main
 
 # docker
-deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu bionic stable
 EOF
+sudo mv ./sources.list /etc/apt/
 
 # kubeadm setting
 sudo gpg --keyserver keyserver.ubuntu.com --recv-keys BA07F4FB
 sudo gpg --export --armor BA07F4FB | sudo apt-key add -
 
 # docker setting
+sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo apt-key fingerprint 0EBFCD88
 
 # apt update
 sudo apt update
-sudo apt dist-upgrade
+sudo apt dist-upgrade -y
 
 # install base tools
 sudo apt install -y \
-    docker-ce docker-ce-cli containerd.io \
+    docker-ce \
     kubeadm ipvsadm \
     ntp ntpdate \
     nginx supervisor
 
 # add user to docker group
 sudo usermod -a -G docker $USER
+newgrp docker
 
 # enable service
 sudo systemctl enable docker.service
@@ -60,20 +62,6 @@ sudo timedatectl set-timezone Asia/Shanghai
 
 # utc time
 sudo timedatectl set-local-rtc 0
-
-# open ipvs
-sudo modprobe br_netfilter
-sudo cat >/etc/sysconfig/modules/ipvs.modules <<EOF
-#!/bin/bash
-modprobe -- ip_vs
-modprobe -- ip_vs_rr
-modprobe -- ip_vs_wrr
-modprobe -- ip_vs_sh
-modprobe -- nf_conntrack_ipv
-EOF
-sudo chmod 755 /etc/sysconfig/modules/ipvs.modules
-sudo bash /etc/sysconfig/modules/ipvs.modules
-sudo lsmod | grep -e ip_vs -e nf_conntrack_ipv
 
 # deploy k8s service
 if [[ "$HOSTNAME" == "k8s-master" ]]; then
@@ -114,10 +102,14 @@ if [[ "$HOSTNAME" == "k8s-master" ]]; then
     kubectl apply -f /vagrant_data/yaml/kube-dashboard-auth.yml
 
     # supervisor
-    cp /vagrant_data/supervisor/k8s.conf /etc/supervisor/conf.d
+    sudo cp /vagrant_data/supervisor/k8s.conf /etc/supervisor/conf.d
     sudo supervisorctl update
 
     # nginx
-    cp /vagrant_data/nginx/k8s.conf /etc/nginx/conf.d
+    sudo cp /vagrant_data/nginx/k8s.conf /etc/nginx/conf.d
     sudo systemctl restart nginx.service
+
+    # dashborad token
+    kubectl -n kubernetes-dashboard describe secret \
+        $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 fi
