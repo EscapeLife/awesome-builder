@@ -66,6 +66,7 @@ sudo timedatectl set-local-rtc 0
 # deploy k8s service
 if [[ "$HOSTNAME" == "k8s-master" ]]; then
     # kubeadm init
+    echo "###### the ${HOSTNAME} init cluster ######"
     sudo kubeadm init \
         --kubernetes-version=1.20.2 \
         --image-repository registry.aliyuncs.com/google_containers \
@@ -81,35 +82,47 @@ if [[ "$HOSTNAME" == "k8s-master" ]]; then
 
     # get token
     KUBEADM_TOKEN_GEN=$(kubeadm token generate)
-    export KUBEADM_TOKEN_GEN
+    KUBEADM_JOIN_COMMAND=$(kubeadm token create ${KUBEADM_TOKEN_GEN} --print-join-command --ttl=0)
+
+    # token to nodex
+    mkdir -pv /vagrant_data/tmp/
+    echo "sudo ${KUBEADM_JOIN_COMMAND}" >/vagrant_data/tmp/KUBEADM_JOIN_COMMAND.txt
 fi
 
 # join to master cluster
 if [[ "$HOSTNAME" == "k8s-node1" || "$HOSTNAME" == "k8s-nod2" ]]; then
     # join master
-    $(kubeadm token create ${KUBEADM_TOKEN_GEN} --print-join-command --ttl=0)
+    echo "###### the ${HOSTNAME} join master ######"
+    $(cat /vagrant_data/tmp/KUBEADM_JOIN_COMMAND.txt)
 fi
 
 # deploy flannel and dashboard service
 if [[ "$HOSTNAME" == "k8s-master" ]]; then
     # install flannel
+    echo "###### deploy flannel yaml ######"
     kubectl apply -f /vagrant_data/yaml/kube-flannel.yml
 
     # install dashboard
+    echo "###### deploy dashboard yaml ######"
     kubectl apply -f /vagrant_data/yaml/kube-dashboard.yml
 
     # dashboard auth
+    echo "###### deploy dashboard auth yaml ######"
     kubectl apply -f /vagrant_data/yaml/kube-dashboard-auth.yml
 
     # supervisor
+    echo "###### run nginx service ######"
     sudo cp /vagrant_data/supervisor/k8s.conf /etc/supervisor/conf.d
     sudo supervisorctl update
 
     # nginx
+    echo "###### run nginx service ######"
     sudo cp /vagrant_data/nginx/k8s.conf /etc/nginx/conf.d
     sudo systemctl restart nginx.service
 
     # dashborad token
+    echo "###### create dashborad token ######"
     kubectl -n kubernetes-dashboard describe secret \
-        $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+        $(kubectl -n kubernetes-dashboard get secret | \grep admin-user | awk '{print $1}') \
+        >/vagrant_data/tmp/KUBEADM_DASHBOARD_TOKEN.txt
 fi
