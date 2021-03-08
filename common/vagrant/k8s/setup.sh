@@ -90,7 +90,7 @@ if [[ "$HOSTNAME" == "k8s-master" ]]; then
 fi
 
 # join to master cluster
-if [[ "$HOSTNAME" == "k8s-node1" || "$HOSTNAME" == "k8s-nod2" ]]; then
+if [[ "$HOSTNAME" == "k8s-node1" || "$HOSTNAME" == "k8s-node2" ]]; then
     # join master
     echo "###### the ${HOSTNAME} join master ######"
     $(cat /vagrant_data/tmp/KUBEADM_JOIN_COMMAND.txt)
