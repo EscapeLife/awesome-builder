@@ -1,0 +1,5 @@
+apscheduler
+beautifulsoup4
+loguru
+prettytable
+requests

@@ -6,13 +6,13 @@
 
 ```bash
 # requirements
-$ pip3 install beautifulsoup4 click loguru prettytable
+$ pip3 install --no-cache-dir -r requirements.txt
 ```
 
 ## 2. 工具使用方式
 
 ```bash
-# run
+# command line
 $ python3 tencent_security_report.py --help
 Usage: tencent_security_report.py [OPTIONS]
 Options:
@@ -20,4 +20,25 @@ Options:
   --check    check the most real-time threat intelligence
   --display  displays the latest vulnerability list information
   --help     Show this message and exit.
+```
+
+## 3. 镜像使用方式
+
+```bash
+# build
+$ docker build -t cve_report .
+
+# run bg
+$ docker run -d --name cve_report cve_report
+
+# run once
+$ docker run -it --rm --name cve_report cve_report
+```
+
+```bash
+# save
+$ docker save cve_report:latest -o cve_report_latest.tar
+
+# load
+$ docker load -i cve_report_latest.tar
 ```
