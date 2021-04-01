@@ -36,11 +36,10 @@ def _execute_sqlite_db(sql):
         conn.commit()
     except sqlite3.OperationalError:
         logger.error('Table vulnerability already exists, please check ...')
+        logger.error(f'SQL: {sql} ...')
         sys.exit()
     except sqlite3.IntegrityError:
         logger.error('UNIQUE constraint failed: vulnerability.link ...')
-        sys.exit()
-    else:
         logger.error(f'SQL: {sql} ...')
         sys.exit()
     finally:
