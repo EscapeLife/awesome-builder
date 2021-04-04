@@ -1,7 +1,18 @@
 {
   "python.pythonPath": "",
-  "editor.rulers": [99],
-  "python.formatting.autopep8Args": ["--max-line-length=99"],
+  "editor.rulers": [120],
+  "python.formatting.autopep8Args": ["--max-line-length=120"],
   "editor.renderLineHighlight": "all",
-  "editor.renderWhitespace": "all"
+  "editor.renderWhitespace": "all",
+  "files.exclude": {
+    "**/.git": true,
+    "**/*.pyc": true,
+    "**/__pycache__": true,
+    "**/.python-version": true,
+    "**/.DS_Store": true
+  },
+  "cSpell.words": [
+    "autopep",
+    "pycache"
+  ]
 }
