@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  db:
+    restart: on-failure
+    container_name: mattermost_pg
+    image: mattermost/mattermost-prod-db
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./volumes/db/var/lib/postgresql/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=mmuser
+      - POSTGRES_PASSWORD=mmuser_password
+      - POSTGRES_DB=mattermost
+    networks:
+      - mattermost_network
+
+  app:
+    restart: on-failure
+    container_name: mattermost_app
+    image: mattermost/mattermost-prod-app
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./volumes/app/mattermost/config:/mattermost/config:rw
+      - ./volumes/app/mattermost/data:/mattermost/data:rw
+      - ./volumes/app/mattermost/logs:/mattermost/logs:rw
+      - ./volumes/app/mattermost/plugins:/mattermost/plugins:rw
+      - ./volumes/app/mattermost/client-plugins:/mattermost/client/plugins:rw
+    environment:
+      - MM_USERNAME=mmuser
+      - MM_PASSWORD=mmuser_password
+      - MM_DBNAME=mattermost
+      - MM_SQLSETTINGS_DATASOURCE=postgres://mmuser:mmuser_password@db:5432/mattermost?sslmode=disable&connect_timeout=10
+    networks:
+      - mattermost_network
+
+  web:
+    restart: on-failure
+    container_name: mattermost_web
+    image: mattermost/mattermost-prod-web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./volumes/web/cert:/cert:ro
+    networks:
+      - mattermost_network
+
+networks:
+  mattermost_network:

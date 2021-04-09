@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  postgres:
+    restart: on-failure
+    container_name: focalboard_pg
+    image: postgres:latest
+    volumes:
+      - "./data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: boards
+      POSTGRES_USER: boardsuser
+      POSTGRES_PASSWORD: boardsuser-password
+    networks:
+      - focalboard_network
+
+  focalboard:
+    restart: on-failure
+    container_name: focalboard_web
+    images: mattermost/focalboard
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./config.json:/opt/focalboard/config.json"
+    environment:
+      - VIRTUAL_HOST=focalboard.local
+      - VIRTUAL_PORT=8000
+    depends_on:
+      - postgres
+    networks:
+      - focalboard_network
+
+  proxy:
+    restart: on-failure
+    container_name: focalboard-proxy
+    image: jwilder/nginx-proxy:latest
+    ports:
+      - 443:443
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+      - "./certs:/etc/nginx/certs:ro"
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    networks:
+      - focalboard_network
+
+networks:
+  focalboard_network:
