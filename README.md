@@ -50,6 +50,7 @@
 | 8 | [**`wikijs`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiki/README.md) | 用 `Wiki.js` 来优雅的管理文档 |
 | 9 | [**`filesharing`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/filesharing/README.md) | 多种多样的文件共享服务合集 |
 | 10 | [**`pypiserver`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/pypiserver/README.md) | 使用自建 `PypiServer`服务 |
+| 11 | [**`mattermost`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/mattermost/README.md) | 关于 `Mattermost` 公司两款团队协作工具的部署 |
 
 ## 3. Projects
 
