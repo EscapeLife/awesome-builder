@@ -1,7 +1,5 @@
 # Mattermost Org
 
----
-
 ## 1. Mattermost
 
 > **团队协作工具 Slack 的开源替代品。**
@@ -76,8 +74,6 @@ docker-compose build
 # 启动服务
 docker-compose up -d
 ```
-
----
 
 ## 2. Focalboard
 
