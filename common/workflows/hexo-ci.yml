@@ -1,0 +1,35 @@
+name: Build And Publish Blog
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install Package
+        run: npm install -g hexo-cli && npm install
+
+      - name: Generate Html File
+        run: hexo g
+
+      - name: Deploy To Repo🚀
+        if: ${{ github.ref == 'refs/heads/master'}}
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.PUBLSH_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: public # The folder the action should deploy.
+      - name: Upload to Collect Repo
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.PUBLSH_TOKEN }}
+          BRANCH: build-${{ github.run_id }} # The branch the action should deploy to.
+          FOLDER: public # The folder the action should deploy.
