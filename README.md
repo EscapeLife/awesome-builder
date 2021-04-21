@@ -33,6 +33,7 @@
 | 5 | [**`cloudreve`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/cloudreve/README.md) | 支持多家云存储的云盘系统 |
 | 6 | [**`subsonic`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/subsonic/README.md) | 基于 `Web` 的流媒体服务，用于部署私有云音乐服务 |
 | 7 | [**`graylog`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/graylog/README.md) | 简单易用且强大的跨平台服务日志收集解决方案 |
+| 8 | [**`cve_report`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/cve_report/REDAME.md) | 腾讯安全威胁公告自动提醒工具(支持一键部署) |
 
 ## 2. Composes
 
@@ -78,7 +79,6 @@
 | 7 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/docker_patch/README.md) | 一个快速迭代的 `Docker` 补丁包部署的小程序 |
 | 8 | [**`gooey`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/gooey/README.md) | 将任何 `Python` 命令行程序转换为完整的 `GUI` 应用程序 |
 | 9 | [**`locust_demo`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/locust/README.md) | 使用 `Locust` 来压测网站(测试脚本示例) |
-| 10 | [**`cve_report`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/cve_report/REDAME.md) | 腾讯安全威胁公告自动提醒工具(支持一键部署) |
 
 ## 5. Common
 
