@@ -77,7 +77,7 @@ def get_tencent_security_info():
         title_name = title_new.string.strip()
         title_link = 'https://s.tencent.com/' + title_new['href']
         title_news_list.append((title_name, title_link))
-    return title_news_list
+    return title_news_list[::-1]
 
 
 def insert_security_info(infos_list):
@@ -90,7 +90,7 @@ def insert_security_info(infos_list):
 
 def check_news_to_remind(infos_list):
     logger.debug('Begin updating server vulnerability information ...')
-    link_new_tuple = _execute_sqlite_db("SELECT link FROM vulnerability limit 16;")
+    link_new_tuple = _execute_sqlite_db("SELECT link FROM vulnerability ORDER BY link DESC limit 32;")
     link_new_list = list(_convert_tuple(link_new_tuple))
     for title, link in infos_list:
         if link not in link_new_list:
