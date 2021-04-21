@@ -33,7 +33,7 @@
 | 5 | [**`cloudreve`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/cloudreve/README.md) | 支持多家云存储的云盘系统 |
 | 6 | [**`subsonic`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/subsonic/README.md) | 基于 `Web` 的流媒体服务，用于部署私有云音乐服务 |
 | 7 | [**`graylog`**](https://github.com/EscapeLife/awesome-builder/tree/master/dockerfiles/graylog/README.md) | 简单易用且强大的跨平台服务日志收集解决方案 |
-| 8 | [**`cve_report`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/cve_report/REDAME.md) | 腾讯安全威胁公告自动提醒工具(支持一键部署) |
+| 8 | [**`cve_report`**](https://github.com/EscapeLife/awesome-builder/blob/master/dockerfiles/cve_report/REDAME.md) | 腾讯安全威胁公告自动提醒工具(支持一键部署) |
 
 ## 2. Composes
 
