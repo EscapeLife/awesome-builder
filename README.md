@@ -74,11 +74,12 @@
 | 2 | [**`/etc/ufw/after.rules`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/after_rules/README.md) | 解决 `UFW` 无法管理 `Docker` 发布出来的端口问题 |
 | 3 | [**`setup.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/setup/README.md) | 一个 `Python` 程序打包的示例 `setup.py` 配置脚本文件 |
 | 4 | [**`pyproject.toml`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/pyproject/README.md) | 一个 `Python` 程序打包的示例 `pyproject.toml` 配置脚本文件 |
-| 5 | [**`image2run.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/image2run/README.md) | 将 `Docker` 镜像导出的 `tar` 包转换成为压缩小/自解压/自导入的run包 |
+| 5 | [**`image2run.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/image2run/README.md) | 将 `Docker` 镜像导出的 `tar` 包转换成为压缩小/自解压/自导入的 `run` 包 |
 | 6 | [**`wait_for_ready.sh`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/wait_for_ready/README.md) | 解决运行 `Compose` 文件，服务启动依赖关系问题 |
-| 7 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/docker_patch/README.md) | 一个快速迭代的 `Docker` 补丁包部署的小程序 |
-| 8 | [**`gooey`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/gooey/README.md) | 将任何 `Python` 命令行程序转换为完整的 `GUI` 应用程序 |
-| 9 | [**`locust_demo`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/locust/README.md) | 使用 `Locust` 来压测网站(测试脚本示例) |
+| 7 | [**`docker_patch.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/docker_patch/README.md) | 一个快速的 `Docker` 补丁包(`files`)生成工具 |
+| 8 | [**`image_cropper.py`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/image_cropper/README.md) | 一个快速的 `Docker` 补丁包(`layer`)生成工具 |
+| 9 | [**`gooey`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/gooey/README.md) | 将任何 `Python` 命令行程序转换为完整的 `GUI` 应用程序 |
+| 10 | [**`locust_demo`**](https://github.com/EscapeLife/awesome-builder/blob/master/scripts/locust/README.md) | 使用 `Locust` 来压测网站(测试脚本示例) |
 
 ## 5. Common
 
