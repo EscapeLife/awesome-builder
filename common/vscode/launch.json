@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": "Python: Current File",
+          "type": "python",
+          "request": "launch",
+          "pythonPath": "/home/escape/.pyenv/versions/AwesomeBuilder/bin/python",
+          "program": "${file}",
+          "console": "integratedTerminal",
+          "stopOnEntry": false,
+          "module": "",
+          "env": {},
+          "args": [],
+          "autoReload": {
+              "enable": true
+          }
+      }
+  ]
+}
