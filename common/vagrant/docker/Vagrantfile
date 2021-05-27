@@ -1,0 +1,9 @@
+Vagrant.configure(2) do |config|
+    config.vm.provider "docker" do |d|
+        d.name = "hello"
+        d.image = "hello-world"
+        d.has_ssh = true
+    end
+
+    config.vm.provision "shell", inline: "echo 'hello docker!'"
+end
