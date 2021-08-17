@@ -1,0 +1,6 @@
+*
+.*
+!requirements.txt
+!security_report_cmd.py
+!security_report_docker.py
+**/*.md

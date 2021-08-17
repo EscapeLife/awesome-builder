@@ -13,13 +13,14 @@ $ pip3 install --no-cache-dir -r requirements.txt
 
 ```bash
 # command line
-$ python3 tencent_security_report.py --help
-Usage: tencent_security_report.py [OPTIONS]
+$ python3 security_report_cmd.py --help
+Usage: security_report_cmd.py [OPTIONS]
 Options:
   --init     initialize the sqlite database
   --check    check the most real-time threat intelligence
+  --delete   delete the first two rows in the database table
   --display  displays the latest vulnerability list information
-  --help     Show this message and exit.
+  --help     Show this message and exit
 ```
 
 ## 3. 镜像使用方式
