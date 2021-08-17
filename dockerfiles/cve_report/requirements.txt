@@ -1,5 +1,6 @@
 apscheduler
 beautifulsoup4
+click
 loguru
 prettytable
 requests

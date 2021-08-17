@@ -4,13 +4,13 @@ import operator
 import sqlite3
 import sys
 
+import click
 import requests
-from apscheduler.schedulers.blocking import BlockingScheduler
 from bs4 import BeautifulSoup
 from loguru import logger
 from prettytable import PrettyTable
 
-TENCENT_URL = 'https://s.tencent.com/research/bsafe/'
+TENCENT_URL = 'https://s.tencent.com/research?page=1&id=18'
 USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'
 
 MATTERMOST_URL = ''
@@ -65,6 +65,11 @@ def init_sqlite_db():
     logger.debug('Database table structure initialized successfully ...')
 
 
+def delete_sqlite_rows():
+    _execute_sqlite_db("DELETE FROM vulnerability WHERE id in (1,2);")
+    logger.debug(f'Delete the first two rows in the database table...')
+
+
 def get_tencent_security_info():
     title_news_list = []
     headers = {'User-Agent': USER_AGENT, 'Accept-Encoding': 'utf-8'}
@@ -72,10 +77,10 @@ def get_tencent_security_info():
     response.encoding = 'utf-8'
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    page_news_list = soup.select('div > h3 > a')
+    page_news_list = soup.select('h3.twoline.leading-26px.mt-18px.text-xl')
     for title_new in page_news_list:
         title_name = title_new.string.strip()
-        title_link = 'https://s.tencent.com/' + title_new['href']
+        title_link = TENCENT_URL
         title_news_list.append((title_name, title_link))
     return title_news_list[::-1]
 
@@ -90,60 +95,44 @@ def insert_security_info(infos_list):
 
 def check_news_to_remind(infos_list):
     logger.debug('Begin updating server vulnerability information ...')
-    link_new_tuple = _execute_sqlite_db("SELECT link FROM vulnerability ORDER BY link DESC limit 32;")
-    link_new_list = list(_convert_tuple(link_new_tuple))
+    title_new_tuple = _execute_sqlite_db("SELECT title FROM vulnerability ORDER BY link DESC limit 32;")
+    title_new_list = list(_convert_tuple(title_new_tuple))
     for title, link in infos_list:
-        if link not in link_new_list:
+        if title not in title_new_list:
             logger.info(f"The [{title}] is lastest new, then insert to db and send msg ...")
             _execute_sqlite_db("INSERT INTO vulnerability (title, link) VALUES ('%s', '%s')" % (title, link))
             send_msg_mm("@escape", title, link)
     logger.debug('Server vulnerability information update completed ...')
 
 
-# def display_tencent_security_info():
-#     logger.debug('Displays the latest version of the server vulnerability information ...')
-#     pt = PrettyTable()
-#     pt.field_names = ["id", "title", "link"]
-#     tencent_security_info = _execute_sqlite_db("SELECT id, title, link FROM vulnerability limit 8;")
-#     for sql_line in tencent_security_info:
-#         pt.add_row(sql_line)
-#     print(pt.get_string())
+def display_tencent_security_info():
+    logger.debug('Displays the latest version of the server vulnerability information ...')
+    pt = PrettyTable()
+    pt.field_names = ["id", "title", "link"]
+    tencent_security_info = _execute_sqlite_db("SELECT id, title, link FROM vulnerability limit 8;")
+    for sql_line in tencent_security_info:
+        pt.add_row(sql_line)
+    print(pt.get_string())
 
 
-def main():
-    infos_list = get_tencent_security_info()
-    check_news_to_remind(infos_list)
+@click.command()
+@click.option('--init', is_flag=True, help='initialize the sqlite database')
+@click.option('--check', is_flag=True, help='check the most real-time threat intelligence')
+@click.option('--delete', is_flag=True, help='delete a column in a vulnerability database table')
+@click.option('--display', is_flag=True, help='displays the latest vulnerability list information')
+def main(init, check, delete, display):
+    if init:
+        init_sqlite_db()
+        infos_list = get_tencent_security_info()
+        insert_security_info(infos_list)
+    if check:
+        infos_list = get_tencent_security_info()
+        check_news_to_remind(infos_list)
+    if delete:
+        delete_sqlite_rows()
+    if display:
+        display_tencent_security_info()
 
-
-# import click
-# @click.command()
-# @click.option('--init', is_flag=True, help='initialize the sqlite database')
-# @click.option('--check', is_flag=True, help='check the most real-time threat intelligence')
-# @click.option('--display', is_flag=True, help='displays the latest vulnerability list information')
-# def main(init, check, display):
-#     if init:
-#         init_sqlite_db()
-#         infos_list = get_tencent_security_info()
-#         insert_security_info(infos_list)
-#     if check:
-#         infos_list = get_tencent_security_info()
-#         check_news_to_remind(infos_list)
-#     if display:
-#         display_tencent_security_info()
 
 if __name__ == '__main__':
-    init_sqlite_db()
-    infos_list = get_tencent_security_info()
-    insert_security_info(infos_list)
-
-    scheduler = BlockingScheduler(timezone="Asia/Shanghai")
-    # scheduler.add_job(main, 'interval', seconds=60)
-    scheduler.add_job(main, "cron", hour=8, minute=30, second=00)
-
-    try:
-        logger.warning('Press Ctrl+C to exit ...')
-        scheduler.start()
-    except (KeyboardInterrupt, SystemExit):
-        logger.warning('Bye bye ...')
-        send_msg_mm("@escape", "异常退出请处理", "")
-        scheduler.shutdown()
+    main()
