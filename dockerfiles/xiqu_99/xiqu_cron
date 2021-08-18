@@ -1,0 +1,1 @@
+0 */2 * * *    cd /opt/xiqu; python3 ./xiqu_99.py
