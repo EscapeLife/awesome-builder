@@ -1,0 +1,4 @@
+easyocr
+loguru
+requests
+pyppeteer
