@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  cloudreve:
+    restart: on-failure
+    container_name: cloudreve
+    image: escape/cloudreve:latest
+    volumes:
+      - "./cloudreve/logs:/data/logs"
+      - "./cloudreve/uploads:/data/uploads"
+      - "./cloudreve/db:/data/cloudreve.db"
+    environment:
+      - TZ="Asia/Shanghai"
+    networks:
+      - cloudreve_network
+
+networks:
+  cloudreve_network:
