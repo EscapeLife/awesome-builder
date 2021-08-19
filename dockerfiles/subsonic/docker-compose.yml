@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  subsonic:
+    restart: on-failure
+    container_name: subsonic
+    image: escape/subsonic:latest
+    ports:
+      - "4040:4040"
+    networks:
+      - subsonic_network
+
+networks:
+  subsonic_network:
