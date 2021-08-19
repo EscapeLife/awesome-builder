@@ -6,6 +6,7 @@ WORKDIR /opt/cve_report
 
 COPY . ./
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN /usr/local/bin/python -m pip install --upgrade pip && \
+	pip install --no-cache-dir -r requirements.txt
 
 CMD [ "python", "./tencent_security_report_docker.py" ]
