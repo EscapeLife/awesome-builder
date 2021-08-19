@@ -47,7 +47,7 @@ def run_once():
 
 async def main():
     if XIQU_99_USERNAME is None or XIQU_99_PASSWORD is None:
-        logger.error('>>> the XIQU_99_USERNAME or XIQU_99_PASSWORD is none, please check again ...')
+        logger.error(f'>>> the {XIQU_99_USERNAME} or {XIQU_99_PASSWORD} is none, please check again ...')
         sys.exit()
     else:
         run_once()

@@ -81,6 +81,8 @@ RUN set -o pipefail && \
     echo -e '[global]\nindex-url = https://pypi.douban.com/simple' > /etc/pip.conf && \
     pip3 install pip setuptools --upgrade &&\
     pip3 install -r /opt/xiqu/requirements.txt && \
+    sed -i s#storage.googleapis.com#npm.taobao.org/mirrors#g /usr/local/lib/python3.6/dist-packages/pyppeteer/chromium_downloader.py && \
+    mkdir -pv /root/.EasyOCR/model && mv english_g2.pth /root/.EasyOCR/model && \
     service rsyslog start && \
     mv ./xiqu_cron /etc/cron.d/ && \
     crontab /etc/cron.d/xiqu_cron && \
