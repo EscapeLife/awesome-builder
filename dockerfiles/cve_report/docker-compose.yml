@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  cve_report:
+    restart: on-failure
+    container_name: cve_report
+    image: escape/cve_report:latest
+    networks:
+      - cve_report_network
+
+networks:
+  cve_report_network:
