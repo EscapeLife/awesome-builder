@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  xiqu:
+    restart: on-failure
+    container_name: xiqu
+    image: escape/xiqu:latest
+    environment:
+      - XIQU_99_USERNAME=''
+      - XIQU_99_PASSWORD=''
+    networks:
+      - xiqu_network
+
+networks:
+  xiqu_network:
