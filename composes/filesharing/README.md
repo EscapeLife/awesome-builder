@@ -106,6 +106,8 @@ $ docker-compose -f docker-compose.yml up -d
 
 `HDFS` 是 `Hadoop` 的分布式文件系统（`Hadoop Distributed File System`），实现大规模数据可靠的分布式读写。`HDFS` 针对的使用场景是数据读写具有“一次写，多次读”的特征，而数据“写”操作是顺序写，也就是在文件创建时的写入或者在现有文件之后的添加操作。`HDFS` 保证一个文件在一个时刻只被一个调用者执行写操作，而可以被多个调用者执行读操作。
 
+- **部署操作**
+
 ```bash
 # 下载仓库
 $ git clone https://github.com/EscapeLife/awesome-builder.git
@@ -124,4 +126,32 @@ $ vim /etc/hosts
 9870  UI界面访问地址
 9866  Datanode访问地址
 9864  Datanode访问地址
+```
+
+- **命令行命令**
+
+```bash
+# 授权目录权限
+hdfs dfs -chmod -R 755 /
+hdfs dfs -fs hdfs://11.22.33.44:9000 -chmod -R 755 /
+
+# 查看目录列表
+hdfs dfs -ls /
+hdfs dfs -fs hdfs://11.22.33.44:9000 -ls /app
+
+# 创建目录
+hdfs dfs -mkdir -p /app
+hdfs dfs -fs hdfs://11.22.33.44:9000 -mkdir -p /app
+
+# 上传文件
+hdfs dfs –put ./1.png /app
+hdfs dfs -fs hdfs://11.22.33.44:9000 –put ./1.png /app
+
+# 删除文件
+hdfs dfs –rm –f /app/1.png
+hdfs dfs -fs hdfs://11.22.33.44:9000 –rm –f /app/1.png
+
+# 获取文件
+hdfs dfs
+hdfs dfs -cat hdfs://11.22.33.44:9000/app/1.png
 ```
