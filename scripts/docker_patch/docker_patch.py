@@ -232,6 +232,14 @@ class PATCH(BaseClass):
                         shutil.copy2(source_file_is_yml, target_file_dirname)
                     else:
                         logger.info(f"The file <{source_file_basename}> is not in image, pass ...")
+                elif source_file_basename.endswith('.zip'):
+                    if self._check_is_file(source_file_path):
+                        if not self._check_is_dir(target_file_dirname):
+                            os.makedirs(target_file_dirname)
+                        logger.info(f"To {source_file_basename} file to {target_file_dirname} ...")
+                        shutil.copy2(source_file_path, target_file_dirname)
+                    else:
+                        logger.info(f"The file <{source_file_basename}> is not in image, pass ...")
                 else:
                     if self._check_is_file(source_file_path):
                         if not self._check_is_dir(target_file_dirname):
