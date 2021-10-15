@@ -180,15 +180,20 @@ class PATCH(BaseClass):
         else:
             return False
 
+    def _check_file_endswith(self, source_file_basename):
+        for suffix in ['.js', '.css', '.html', '.png', '.svg', '.zip']:
+            if source_file_basename.endswith(suffix):
+                return True
+            else:
+                return False
+
     def _copy_file(self):
         """复制文件并打包
         特殊转换: yml -> ctc | py -> so/pyc
         """
         archive_dir = os.path.join(DEFAULT_CODE_PATH, 'dist')
-        images_info = sh.docker("inspect", "--format",
-                                "'{{.GraphDriver.Data.UpperDir}}'", self.images_name)
-        working_dir = sh.docker("inspect", "--format",
-                                "'{{.ContainerConfig.WorkingDir}}'", self.images_name)
+        images_info = sh.docker("inspect", "--format", "'{{.GraphDriver.Data.UpperDir}}'", self.images_name)
+        working_dir = sh.docker("inspect", "--format", "'{{.ContainerConfig.WorkingDir}}'", self.images_name)
         if images_info.exit_code == 0 and working_dir.exit_code == 0:
             images_path = images_info.stdout.decode('utf-8').strip().strip("'")
             working_path = working_dir.stdout.decode('utf-8').strip().strip("'")
@@ -208,6 +213,7 @@ class PATCH(BaseClass):
                 target_file_dirname = os.path.dirname(target_file_path)
                 target_file_basename = os.path.basename(target_file_path)
 
+                # 特殊转换文件
                 if source_file_basename.endswith('.py'):
                     source_file_is_so = source_file_path.replace('.py', '.so')
                     source_file_is_pyc = source_file_path.replace('.py', '.pyc')
@@ -232,7 +238,9 @@ class PATCH(BaseClass):
                         shutil.copy2(source_file_is_yml, target_file_dirname)
                     else:
                         logger.info(f"The file <{source_file_basename}> is not in image, pass ...")
-                elif source_file_basename.endswith('.zip'):
+
+                # 普通类型文件
+                elif self._check_file_endswith(source_file_basename):
                     if self._check_is_file(source_file_path):
                         if not self._check_is_dir(target_file_dirname):
                             os.makedirs(target_file_dirname)
@@ -240,6 +248,8 @@ class PATCH(BaseClass):
                         shutil.copy2(source_file_path, target_file_dirname)
                     else:
                         logger.info(f"The file <{source_file_basename}> is not in image, pass ...")
+
+                # 忽略其余文件
                 else:
                     if self._check_is_file(source_file_path):
                         if not self._check_is_dir(target_file_dirname):
