@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Set ENV Variables
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -12,9 +15,9 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "jpiel/ubuntu18.04"
+  config.vm.box = "jpiel/ubuntu18.04"s
 
-  # vagrant-hostmanager
+  # Set Vagrant Hostmanager
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = false
   config.hostmanager.manage_guest = true
@@ -30,7 +33,7 @@ Vagrant.configure("2") do |config|
   # NOTE: This will enable public access to the opened port
   # config.vm.network "forwarded_port", guest: 80, host: 8080
 
-  # dashbroad
+  # Set K8S Dashbroad
   config.vm.network "forwarded_port", guest: 8888, host: 8888
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -53,6 +56,15 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder "./data", "/vagrant_data"
 
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   apt-get update
+  #   apt-get install -y apache2
+  # SHELL
+  config.vm.provision "shell", privileged: false, path: "./setup.sh"
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
@@ -67,45 +79,40 @@ Vagrant.configure("2") do |config|
   #
   # View the documentation for the provider you are using for more
   # information on available options.
+
+  # K8S Master Server
   config.vm.define "master" do |master|
     master.vm.hostname = "k8s-master"
     master.vm.network "private_network", ip: "192.168.30.30"
+
+    master.vm.provider "virtualbox" do |vb|
+      vb.name = "master"
+      vb.memory = 2048
+      vb.cpus = 2
+    end
   end
 
+  # K8S Worker1 Node
   config.vm.define "node1" do |node1|
     node1.vm.hostname = "k8s-node1"
     node1.vm.network "private_network", ip: "192.168.30.31"
+
+    node1.vm.provider "virtualbox" do |vb|
+      vb.name = "node1"
+      vb.memory = 2048
+      vb.cpus = 2
+    end
   end
 
+  # K8S Worker2 Node
   config.vm.define "node2" do |node2|
     node2.vm.hostname = "k8s-node2"
     node2.vm.network "private_network", ip: "192.168.30.32"
-  end
 
-  config.vm.provider "virtualbox" do |master|
-    master.name = "master"
-    master.cpus = 2
-    master.memory = 2048
+    node2.vm.provider "virtualbox" do |vb|
+      vb.name = "node2"
+      vb.memory = 2048
+      vb.cpus = 2
+    end
   end
-
-  config.vm.provider "virtualbox" do |node1|
-    node1.name = "node1"
-    node1.cpus = 2
-    node1.memory = 2048
-  end
-
-  config.vm.provider "virtualbox" do |node2|
-    node2.name = "node2"
-    node2.cpus = 2
-    node2.memory = 2048
-  end
-
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
-  config.vm.provision "shell", privileged: false, path: "./setup.sh"
 end

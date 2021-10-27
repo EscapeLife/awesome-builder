@@ -2,7 +2,23 @@
 
 set -ex
 
-# ubuntu aliyun mirrors
+echo ">>> [TASK 1] Setting TimeZone ..."
+sudo timedatectl set-timezone Asia/Shanghai
+sudo timedatectl set-local-rtc 0
+
+echo ">>> [TASK 2] Setting DNS ..."
+cat >./resolved.conf <<EOF
+[Resolve]
+DNS=114.114.114.114
+FallbackDNS=223.5.5.5
+EOF
+sudo mv ./resolved.conf /etc/systemd/
+sudo systemctl daemon-reload
+sudo systemctl restart systemd-resolved.service
+sudo mv /etc/resolv.conf /etc/resolv.conf.bak
+sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+echo ">>> [TASK 3]  Aliyun Ubuntu Mirrors ..."
 sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
 cat >./sources.list <<EOF
 # apt
@@ -25,11 +41,11 @@ deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu bio
 EOF
 sudo mv ./sources.list /etc/apt/
 
-# kubeadm setting
+echo ">>> [TASK 4] Setting Kubeadm ..."
 sudo gpg --keyserver keyserver.ubuntu.com --recv-keys BA07F4FB
 sudo gpg --export --armor BA07F4FB | sudo apt-key add -
 
-# docker setting
+echo ">>> [TASK 5] Setting Docker ..."
 sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
@@ -44,7 +60,7 @@ sudo apt install -y \
     ntp ntpdate \
     nginx supervisor
 
-# add user to docker group
+echo ">>> [TASK 6] Add User To Docker Group ..."
 sudo usermod -a -G docker $USER
 newgrp docker
 
@@ -54,16 +70,37 @@ sudo systemctl start docker.service
 sudo systemctl enable kubelet.service
 sudo systemctl start kubelet.service
 
-# close swap
+echo ">>> [TASK 7] Disable And Close SWAP ..."
 sudo swapoff -a
 
-# set timezone
-sudo timedatectl set-timezone Asia/Shanghai
+echo ">>> [TASK 8] Enable and Load Kernel modules"
+scat >>./containerd.conf <<EOF
+overlay
+br_netfilter
+EOF
+sudo mv ./containerd.conf /etc/modules-load.d/
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
-# utc time
-sudo timedatectl set-local-rtc 0
+echo ">>> [TASK 9] Add Kernel Settings ..."
+cat >>./kubernetes.conf <<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+EOF
+sudo mv ./kubernetes.conf /etc/sysctl.d/
+sudo sysctl --system >/dev/null 2>&1
 
-# deploy k8s service
+echo ">>> [TASK 10] Enable ssh password authentication"
+sudo sed -i 's/^PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+sudo echo 'PermitRootLogin yes' >>/etc/ssh/sshd_config
+sudo systemctl reload sshd
+
+echo ">>> [TASK 11] Set root password"
+echo -e "kubeadmin\nkubeadmin" | sudo passwd root >/dev/null 2>&1
+sudo echo "export TERM=xterm" >>/etc/bash.bashrc
+
+echo ">>> [TASK 12] Deploy K8S Service ..."
 if [[ "$HOSTNAME" == "k8s-master" ]]; then
     # kubeadm init
     echo "###### the ${HOSTNAME} init cluster ######"
@@ -96,7 +133,7 @@ if [[ "$HOSTNAME" == "k8s-node1" || "$HOSTNAME" == "k8s-node2" ]]; then
     $(cat /vagrant_data/tmp/KUBEADM_JOIN_COMMAND.txt)
 fi
 
-# deploy flannel and dashboard service
+echo ">>> [TASK 12] Deploy Flannel And Dashboard Service ..."
 if [[ "$HOSTNAME" == "k8s-master" ]]; then
     # install flannel
     echo "###### deploy flannel yaml ######"
