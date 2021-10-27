@@ -106,9 +106,10 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`ansible`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 基于 `Virtualbox` 工具的 `CentOS` 的 `Ansible`(三个机器)版本 |
-| 2 | [**`k8s`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 基于 `Virtualbox` 工具的 `Ubuntu` 的 `K8S`(三个机器)版本 |
-| 3 | [**`single`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 基于 `Virtualbox` 工具的 `Ubuntu` 单机版操作系统 |
+| 1 | [**`k8s`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 学习 `K8S` 平台的实验测试环境(三台机器) |
+| 2 | [**`ansible`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 学习 `Ansible` 工具的测试环境(三台机器) |
+| 3 | [**`single`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 平时快速测试或者实验的单机操作系统(`Ubuntu`) |
+| 4 | [**`docker`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 通过 `Vagrant` 直接启动 `docker` 服务 |
 
 ## 6. Contact
 
