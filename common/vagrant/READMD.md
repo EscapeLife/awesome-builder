@@ -67,7 +67,7 @@ $ kubectl apply -f https://addons.kuboard.cn/kuboard/kuboard-v3.yaml
 
 > **介绍 Ansible 实验环境的使用方式！**
 
-- **[1] 一键安装 - Ubuntu18.04**
+- **[1] 一键安装 - CentOS7**
 
 ```bash
 # 启动
