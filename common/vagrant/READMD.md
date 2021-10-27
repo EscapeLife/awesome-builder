@@ -6,8 +6,6 @@
 
 ![欢迎来到Vagrant的乐园](../../images/common/welcome-to-vagrant.jpg)
 
----
-
 ## 1. 目录对应功能
 
 > **介绍每个目录下面的 Vagrant 到底是为了那方面的测试呢！**
@@ -18,8 +16,6 @@
 | 2    | `docker`  | 通过 Vagrant 直接启动 docker 服务     |
 | 3    | `k8s`     | 学习 K8S 平台的实验测试环境(三台机器) |
 | 4    | `single`  | 平时快速测试或者实验的单机操作系统    |
-
----
 
 ## 2. K8S
 
@@ -67,8 +63,6 @@ $ kubectl apply -f metrics.yaml
 $ kubectl apply -f https://addons.kuboard.cn/kuboard/kuboard-v3.yaml
 ```
 
----
-
 ## 3. Ansible
 
 > **介绍 Ansible 实验环境的使用方式！**
@@ -88,8 +82,6 @@ master     192.168.200.10
 node1      192.168.200.11
 node2      192.168.200.12
 ```
-
----
 
 ## 4. 优秀项目推进
 
