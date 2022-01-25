@@ -152,6 +152,10 @@ hdfs dfs –rm –f /app/1.png
 hdfs dfs -fs hdfs://11.22.33.44:9000 –rm –f /app/1.png
 
 # 获取文件
-hdfs dfs
+hdfs dfs -cat /app/1.png
 hdfs dfs -cat hdfs://11.22.33.44:9000/app/1.png
+
+# 修改文件名称
+hdfs dfs -mv /app/1.png /app/2.png
+hdfs dfs -mv hdfs://11.22.33.44:9000/app/1.png hdfs://11.22.33.44:9000/app/2.png
 ```
