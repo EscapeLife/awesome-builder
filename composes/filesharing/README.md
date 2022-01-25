@@ -120,12 +120,6 @@ $ docker-compose -f docker-compose.yml up -d
 $ vim /etc/hosts
 127.0.0.1    localhost    namenode datanode1 datanode2 datanode3
 ::1          localhost    namenode datanode1 datanode2 datanode3
-
-# 开放端口
-9000  HDFS协议地址
-9870  UI界面访问地址
-9866  Datanode访问地址
-9864  Datanode访问地址
 ```
 
 - **命令行命令**
@@ -159,3 +153,20 @@ hdfs dfs -cat hdfs://11.22.33.44:9000/app/1.png
 hdfs dfs -mv /app/1.png /app/2.png
 hdfs dfs -mv hdfs://11.22.33.44:9000/app/1.png hdfs://11.22.33.44:9000/app/2.png
 ```
+
+- **注意事项**
+
+```bash
+# 开放端口
+9000  HDFS协议地址
+9870  UI界面访问地址
+9866  Datanode访问地址
+9864  Datanode访问地址
+
+# HDFS连接工具 - 推荐使用这款工具
+# 因为是容器启动的，所以需要配置hosts的镜像映射 - 11.22.33.44 3d21262aab9b
+# Windows的hosts路径记录: C:\Windows\System32\drivers\etc
+# 下载地址https://pan.baidu.com/s/1Wk454eQI5b6yfi8n4rj2FQ(fins)
+HDFS Explorer
+```
+
