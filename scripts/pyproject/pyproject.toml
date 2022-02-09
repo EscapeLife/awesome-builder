@@ -27,7 +27,7 @@ packages = [
 python = "~2.7 || ^3.7"
 six = "*"
 scipy = "*"
-apache-airflow = { version = "2.1.2", extras = [ "crypto", "postgres", "kubernetes", "google_auth" ] }
+apache-airflow = { version = "2.2.0", extras = [ "crypto", "postgres", "kubernetes", "google_auth" ] }
 setuptools = "^40.0"
 wheel = "^0.33.4"
 pytz = "=2018.4"
