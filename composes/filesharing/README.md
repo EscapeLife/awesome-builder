@@ -165,8 +165,9 @@ hdfs dfs -mv hdfs://11.22.33.44:9000/app/1.png hdfs://11.22.33.44:9000/app/2.png
 
 # HDFS连接工具 - 推荐使用这款工具
 # 因为是容器启动的，所以需要配置hosts的镜像映射 - 11.22.33.44 3d21262aab9b
-# Windows的hosts路径记录: C:\Windows\System32\drivers\etc
-# 下载地址https://pan.baidu.com/s/1Wk454eQI5b6yfi8n4rj2FQ(fins)
+# Windows的hosts路径记录：C:\Windows\System32\drivers\etc
+# 下载地址：https://pan.baidu.com/s/1Wk454eQI5b6yfi8n4rj2FQ(fins)
+# 参考文档：https://blog.csdn.net/qq_41489540/article/details/109118010
 HDFS Explorer
 ```
 
