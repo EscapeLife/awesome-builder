@@ -109,6 +109,9 @@ $ docker-compose -f docker-compose.yml up -d
 - **部署操作**
 
 ```bash
+# 原作者仓库
+https://github.com/big-data-europe/docker-hadoop
+
 # 下载仓库
 $ git clone https://github.com/EscapeLife/awesome-builder.git
 $ cd awesome-builder/composes/filesharing/hdfs/
