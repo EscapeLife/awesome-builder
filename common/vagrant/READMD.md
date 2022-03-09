@@ -88,3 +88,4 @@ node2      192.168.200.12
 > **推荐使用 Vagrant 相关比较好的项目和仓库！**
 
 - [Vagrant 一键安装 Kubernetes 集群](https://github.com/ameizi/vagrant-kubernetes-cluster)
+- [使用Vagrant和VirtualBox在本地搭建分布式Kubernetes集群和Istio Service Mesh](https://github.com/rootsongjc/kubernetes-vagrant-centos-cluster)
