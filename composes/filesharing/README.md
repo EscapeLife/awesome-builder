@@ -161,6 +161,7 @@ hdfs dfs -mv hdfs://11.22.33.44:9000/app/1.png hdfs://11.22.33.44:9000/app/2.png
 
 ```bash
 # 开放端口
+# docker ps -a | egrep "namenode|datanode"
 9000  HDFS协议地址
 9870  UI界面访问地址
 9866  Datanode访问地址
@@ -172,6 +173,9 @@ hdfs dfs -mv hdfs://11.22.33.44:9000/app/1.png hdfs://11.22.33.44:9000/app/2.png
 # 下载地址：https://pan.baidu.com/s/1Wk454eQI5b6yfi8n4rj2FQ(fins)
 # 参考文档：https://blog.csdn.net/qq_32224047/article/details/108300563
 # 参考文档：https://blog.csdn.net/Cypher_Studio/article/details/108605917
+
+# 端口:9870 用户:hadoop
+# 同时需要修改配置文件将9864端口开放
 HDFS Explorer
 ```
 
