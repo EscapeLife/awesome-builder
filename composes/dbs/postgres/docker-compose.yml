@@ -1,0 +1,28 @@
+# https://hub.docker.com/_/postgres
+# host: localhost
+# port: 5432
+# db:   example
+# user: postgres
+# pass: example
+
+version: "3"
+
+services:
+  mariadb_db:
+    restart: on-failure
+    container_name: mariadb_db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - "/my/custom:/usr/share/postgresql/"
+      - "./mariadb_db/:/var/lib/postgresql/data/"
+    environment:
+      - TZ=Asia/Shanghai
+      - POSTGRES_DB=example
+      - POSTGRES_PASSWORD=example
+    networks:
+      - mariadb_db_network
+
+networks:
+  mariadb_db_network:
