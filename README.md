@@ -41,17 +41,18 @@
 
 | 编号 | 文件名称 | 功能说明 |
 | :-----: | :-----: | :----- |
-| 1 | [**`watchtower`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/watchtower/README.md) | 容器的自动更新解决方案  |
-| 2 | [**`portainer`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/portainer/README.md) | 简化的自有化 `Docker` 容器管理工具(单机或多机)  |
-| 3 | [**`wiz`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiz/README.md) | 为知笔记服务端私有化镜像部署  |
-| 4 | [**`postgrest`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/postgrest/README.md) | 灵活的 `Postgres` 数据库 `REST` 风格的 `API` 接口服务  |
-| 5 | [**`rancher`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/rancher/README.md) | 一个开源的企业级容器管理平台 |
-| 6 | [**`nextcloud`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/nextcloud/README.md) | 一款开源免费的私有云存储网盘项目 |
-| 7 | [**`ward`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/ward/README.md) | 一个简单而简约的服务器监视工具 |
-| 8 | [**`wikijs`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiki/README.md) | 用 `Wiki.js` 来优雅的管理文档 |
-| 9 | [**`filesharing`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/filesharing/README.md) | 多种多样的文件共享服务合集 |
-| 10 | [**`pypiserver`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/pypiserver/README.md) | 使用自建 `PypiServer`服务 |
-| 11 | [**`mattermost`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/mattermost/README.md) | 关于 `Mattermost` 公司两款团队协作工具的部署 |
+| 1 | [**`filesharing`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/filesharing/README.md) | 多种多样的文件共享服务合集 |
+| 2 | [**`dbs`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/dbs/README.md) | 多种多样的数据库服务合集 |
+| 3 | [**`watchtower`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/watchtower/README.md) | 容器的自动更新解决方案  |
+| 4 | [**`portainer`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/portainer/README.md) | 简化的自有化 `Docker` 容器管理工具(单机或多机)  |
+| 5 | [**`wiz`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiz/README.md) | 为知笔记服务端私有化镜像部署  |
+| 6 | [**`postgrest`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/postgrest/README.md) | 灵活的 `Postgres` 数据库 `REST` 风格的 `API` 接口服务  |
+| 7 | [**`rancher`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/rancher/README.md) | 一个开源的企业级容器管理平台 |
+| 8 | [**`nextcloud`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/nextcloud/README.md) | 一款开源免费的私有云存储网盘项目 |
+| 9 | [**`ward`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/ward/README.md) | 一个简单而简约的服务器监视工具 |
+| 10 | [**`wikijs`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/wiki/README.md) | 用 `Wiki.js` 来优雅的管理文档 |
+| 11 | [**`pypiserver`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/pypiserver/README.md) | 使用自建 `PypiServer`服务 |
+| 12 | [**`mattermost`**](https://github.com/EscapeLife/awesome-builder/blob/master/composes/mattermost/README.md) | 关于 `Mattermost` 公司两款团队协作工具的部署 |
 
 ## 3. Projects
 
