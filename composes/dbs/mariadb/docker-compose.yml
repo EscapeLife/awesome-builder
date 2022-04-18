@@ -1,0 +1,30 @@
+# https://hub.docker.com/_/mariadb
+# host: localhost
+# port: 8080
+# db:   example
+# user: example
+# pass: example
+
+version: "3"
+
+services:
+  mariadb_db:
+    restart: on-failure
+    container_name: mariadb_db
+    image: mariadb:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./conf/:/etc/mysql/conf.d/"
+      - "./mariadb_db/:/var/lib/mysql/"
+    environment:
+      - TZ=Asia/Shanghai
+      - MARIADB_ROOT_PASSWORD=example
+      - MARIADB_USER=example
+      - MARIADB_PASSWORD=example
+      - MARIADB_DATABASE=example
+    networks:
+      - mariadb_db_network
+
+networks:
+  mariadb_db_network:
