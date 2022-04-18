@@ -1,0 +1,22 @@
+# https://hub.docker.com/_/redis
+# host: localhost
+# port: 6379
+# pass: example
+
+version: "3"
+
+services:
+  redis_db:
+    restart: on-failure
+    container_name: redis_db
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--requirepass", "example"]
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      - redis_db_network
+
+networks:
+  redis_db_network:
