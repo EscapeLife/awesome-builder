@@ -10,9 +10,9 @@ services:
     volumes:
       - "postgrest_data:/var/lib/postgresql/data"
     environment:
-      - POSTGRES_DB: app_db
-      - POSTGRES_USER: app_user
-      - POSTGRES_PASSWORD: postgrest
+      - POSTGRES_DB=app_db
+      - POSTGRES_USER=app_user
+      - POSTGRES_PASSWORD=postgrest
     networks:
       - scriber_network
 
@@ -23,9 +23,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - PGRST_DB_URI: postgres://app_user:postgrest@postgres:5432/app_db
-      - PGRST_DB_SCHEMA: app_db
-      - PGRST_DB_ANON_ROLE: app_user
+      - PGRST_DB_URI=postgres://app_user:postgrest@postgres:5432/app_db
+      - PGRST_DB_SCHEMA=app_db
+      - PGRST_DB_ANON_ROLE=app_user
     networks:
       - scriber_network
     depends_on:
