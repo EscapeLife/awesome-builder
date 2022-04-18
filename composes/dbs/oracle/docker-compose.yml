@@ -1,0 +1,27 @@
+# https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g
+# host: localhost
+# port: 1521
+# sid: xe
+# user: system
+# pass: oracle
+
+version: "3"
+
+services:
+  oracle_db:
+    restart: on-failure
+    container_name: oracle_db
+    image: oracleinanutshell/oracle-xe-11g
+    privileged: true
+    ports:
+      - "1521:1521"
+    volumes:
+      - "./oracle_db/:/u01/app/oracle/"
+    environment:
+      - TZ=Asia/Shanghai
+      - ORACLE_ALLOW_REMOTE=true
+    networks:
+      - oracle_db_network
+
+networks:
+  oracle_db_network:
