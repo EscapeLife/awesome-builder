@@ -109,7 +109,8 @@
 | :-----: | :-----: | :----- |
 | 1 | [**`k8s`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 学习 `K8S` 平台的实验测试环境(三台机器) |
 | 2 | [**`ansible`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 学习 `Ansible` 工具的测试环境(三台机器) |
-| 3 | [**`single`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 平时快速测试或者实验的单机操作系统(`Ubuntu`) |
+| 3 | [**`single18`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant18/READMD.md) | 平时快速测试或者实验的单机操作系统(`Ubuntu18.04`) |
+| 3 | [**`single22`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant22/READMD.md) | 平时快速测试或者实验的单机操作系统(`Ubuntu22.04`) |
 | 4 | [**`docker`**](https://github.com/EscapeLife/awesome-builder/blob/master/common/vagrant/READMD.md) | 通过 `Vagrant` 直接启动 `docker` 服务 |
 
 ## 6. Contact
