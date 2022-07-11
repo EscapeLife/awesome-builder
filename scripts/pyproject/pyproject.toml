@@ -35,7 +35,7 @@ pyOpenSSL = "^19.0"
 ndg-httpsclient = "^0.5.1"
 pyasn1 = "^0.4.5"
 funcy = "^1.12"
-arrow = "^0.14.3"
+arrow = "^0.15.1"
 singer-python = "=5.5.1"
 numpy = { version = "*", optional = true }
 pandas = { version = "*", optional = true }
