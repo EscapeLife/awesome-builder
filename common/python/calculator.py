@@ -100,21 +100,21 @@ def tokenize(string):
 def parse(tokens):
     if tokens[0][0] != 'int':
         raise ValueError("Must start with an int")
-    #取出tokens[0]，该Token类型为整数
+    # 取出tokens[0]，该Token类型为整数
     node = NodeInt(tokens[0][1])
     nbo = None
     last = tokens[0][0]
-    #从第二个Token开始循环取出
+    # 从第二个Token开始循环取出
     for token in tokens[1:]:
-        #相邻两个Token的类型一样则为错误
+        # 相邻两个Token的类型一样则为错误
         if token[0] == last:
             raise ValueError("Error in syntax")
         last = token[0]
-        #如果Token为操作符，则保存为操作符节点，把前一个整数Token作为左子节点
+        # 如果Token为操作符，则保存为操作符节点，把前一个整数Token作为左子节点
         if token[0] == 'ope':
             nbo = NodeBinaryOp(token[1])
             nbo.left = node
-        #如果Token为整数，则将该Token保存为右节点
+        # 如果Token为整数，则将该Token保存为右节点
         if token[0] == 'int':
             nbo.right = NodeInt(token[1])
             node = nbo
@@ -125,14 +125,14 @@ def parse(tokens):
 def calculate(nbo):
     # 如果左节点是二叉树，则先计算左节点二叉树的值
     if isinstance(nbo.left, NodeBinaryOp):
-        leftval = calculate(nbo.left)
+        left_val = calculate(nbo.left)
     else:
-        leftval = nbo.left.value
+        left_val = nbo.left.value
     # 根据操作符节点是加还是减计算
     if nbo.kind == '-':
-        return leftval - nbo.right.value
+        return left_val - nbo.right.value
     elif nbo.kind == '+':
-        return leftval + nbo.right.value
+        return left_val + nbo.right.value
     else:
         raise ValueError("Wrong operator")
 
@@ -148,16 +148,17 @@ def evaluate(node):
 
 # 主程序，输入输出处理
 def main():
-    input = raw_input('Input:')
-    print(operate(input)
+    import operator
+    input = input('Input:')
+    print(operator(input))
 
 
 if __name__ == '__main__':
     # 获取输入字符串
-    input = raw_input('Input:')
+    input = input('Input:')
     # 从输入字符串获得Token列表
     tokens = tokenize(input)
     # 从Token列表生成表达式树
     node = parse(tokens)
     # 遍历计算表达式树并输出结果
-    print("Result:"+str(evaluate(node)))
+    print("Result:" + str(evaluate(node)))

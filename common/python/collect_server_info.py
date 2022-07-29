@@ -23,20 +23,20 @@ from collections import namedtuple
 
 
 def cup_info():
-    nprocs = 0
+    n_procs = 0
     cpuinfo = OrderedDict()
-    procinfo = OrderedDict()
+    proc_info = OrderedDict()
     with open('/proc/cpuinfo', 'r') as f:
         for line in f:
             if not line.strip():
-                cpuinfo['proc%s' % nprocs] = procinfo
-                nprocs += 1
-                procinfo = OrderedDict()
+                cpuinfo['proc%s' % n_procs] = proc_info
+                n_procs += 1
+                proc_info = OrderedDict()
             else:
                 if len(line.split(':')) == 2:
-                    procinfo[line.split(':')[0].strip()] = line.split(':')[1].strip()
+                    proc_info[line.split(':')[0].strip()] = line.split(':')[1].strip()
                 else:
-                    procinfo[line.split(':')[0].strip()] = ''
+                    proc_info[line.split(':')[0].strip()] = ''
     return cpuinfo
 
 
@@ -48,7 +48,7 @@ def mem_info():
     return meminfo
 
 
-def netdevs():
+def net_devs():
     with open('/proc/net/dev', 'r') as f:
         net_dump = f.readlines()
 
@@ -57,7 +57,8 @@ def netdevs():
     for line in net_dump[2:]:
         line = line.split(':')
         if line[0].strip() != 'lo':
-            device_data[line[0].strip()] = data(float(line[1].split()[0])/(1024.0*1024.0), float(line[1].split()[8])/(1024.0*1024.0))
+            device_data[line[0].strip()] = data(float(line[1].split()[0])/(1024.0*1024.0),
+                                                float(line[1].split()[8])/(1024.0*1024.0))
     return device_data
 
 
@@ -91,9 +92,9 @@ if __name__ == '__main__':
     print('Total memory: {0}'.format(mem_info['MemTotal']))
     print('Free memory: {0}'.format(mem_info['MemFree']))
 
-    netdevs = netdevs()
-    for dev in netdevs.keys():
-        print('{0}: {1}MiB {2}MiB'.format(dev, netdevs[dev].rx, netdevs[dev].tx))
+    net_devs = net_devs()
+    for dev in net_devs.keys():
+        print('{0}: {1}MiB {2}MiB'.format(dev, net_devs[dev].rx, net_devs[dev].tx))
 
     pids = process_list()
     print("Total number of running processes:: {0}".format(len(pids)))
