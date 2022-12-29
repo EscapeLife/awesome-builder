@@ -12,13 +12,15 @@
 
 > **详情请参考博客[《Oracle 部署和使用》](https://www.escapelife.site/)**
 
+- **oracle-xe-11g**
+
 ```bash
 # 下载仓库
 $ git clone https://github.com/EscapeLife/awesome-builder.git
 $ cd awesome-builder/composes/dbs/oracle/
 
 # 先不要带挂载启动服务
-$ docker-compose up -d
+$ docker-compose -f docker-compose-11g.yml up -d
 
 # 复制容器文件到宿主机
 $ docker cp oracle_db:/u01/app/oracle/ .
@@ -26,7 +28,26 @@ $ mv oracle oracle_db
 
 # 关闭容器挂载之后在启动
 $ docker-compose down
-$ docker-compose up -d && docker logs -f oracle_db
+$ docker-compose -f docker-compose-11g.yml up -d && docker logs -f oracle_db
+```
+
+- **oracle-xe-18c**
+
+```bash
+# 下载仓库
+$ git clone https://github.com/EscapeLife/awesome-builder.git
+$ cd awesome-builder/composes/dbs/oracle/
+
+# 先不要带挂载启动服务
+$ docker-compose -f docker-compose-18c.yml up -d
+
+# 复制容器文件到宿主机(注意赋值证券权限)
+$ docker cp oracle_db:/opt/oracle/oradata/ .
+$ mv oradata oracle_db
+
+# 关闭容器挂载之后在启动
+$ docker-compose down
+$ docker-compose -f docker-compose-18c.yml up -d && docker logs -f oracle_db
 ```
 
 ## 2. PostgreSQL

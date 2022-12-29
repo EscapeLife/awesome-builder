@@ -1,0 +1,34 @@
+# https://hub.docker.com/r/gvenzl/oracle-xe
+# https://github.com/gvenzl/oci-oracle-xe
+
+# host: localhost
+# port: 1521
+# sid: xe
+# user: sys/system
+# pass: oracle
+
+# reset password
+# docker exec <container name|id> resetPassword <your-password>
+
+version: "3"
+
+services:
+  oracle_db:
+    restart: on-failure
+    container_name: oracle_db
+    image: gvenzl/oracle-xe:18
+    privileged: true
+    ports:
+      - "1521:1521"
+    volumes:
+      - "./oracle_db/:/opt/oracle/oradata/"
+    environment:
+      - TZ=Asia/Shanghai
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_PASSWORD=oracle
+    networks:
+      - oracle_db_network
+
+networks:
+  oracle_db_network:
+
